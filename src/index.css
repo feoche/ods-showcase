@@ -1,0 +1,14 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "@ovhcloud/ods-themes/default";
+
+html {
+  font-family: var(--ods-font-family-default);
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
