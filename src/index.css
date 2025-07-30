@@ -10,3 +10,16 @@ body {
   padding: 0;
   margin: 0;
 }
+main {
+  display: flex;
+  flex-flow: column;
+  gap: .5rem;
+  place-items: flex-start;
+  padding: 1rem;
+}
+.component {
+  display: flex;
+  flex-flow: column;
+  gap: .5rem;
+  place-items: flex-start;
+}

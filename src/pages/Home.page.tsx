@@ -85,35 +85,37 @@ import {
 
 export const Home = () => {
   return (
-    <>
-      <Accordion>
-        <AccordionItem value="1">
-          <AccordionTrigger>
-            <Text preset="heading-4">
-              Multiple
-            </Text>
-          </AccordionTrigger>
-          <AccordionContent>
-            <Text preset="paragraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Text>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="2">
-          <AccordionTrigger>
-            <Text preset="heading-4">
-              Multiple
-            </Text>
-          </AccordionTrigger>
-          <AccordionContent>
-            <Text preset="paragraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Text>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+    <main>
+      <div className="component">
+        <Accordion>
+          <AccordionItem value="1">
+            <AccordionTrigger>
+              <Text preset="heading-4">
+                Multiple
+              </Text>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Text preset="paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </Text>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="2">
+            <AccordionTrigger>
+              <Text preset="heading-4">
+                Multiple
+              </Text>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Text preset="paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </Text>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
       <br/>
-      <div>
+      <div className="component">
         <Badge color="alpha">
           Alpha
         </Badge>
@@ -146,66 +148,68 @@ export const Home = () => {
         </Badge>
       </div>
       <br/>
-      <Breadcrumb>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">
-            Home
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">
-            Products
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">
-            Hosting
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">
-            Servers
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">
-            Dedicated
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">
-            Rise
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">
-            RISE-2
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
-      <br/>
-      <div>
-          <Button color="critical">
-            Critical
-          </Button>
-          <Button color="information">
-            Information
-          </Button>
-          <Button color="neutral">
-            Neutral
-          </Button>
-          <Button color="primary">
-            Primary
-          </Button>
-          <Button color="success">
-            Success
-          </Button>
-          <Button color="warning">
-            Warning
-          </Button>
+      <div className="component">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              Home
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              Products
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              Hosting
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              Servers
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              Dedicated
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              Rise
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">
+              RISE-2
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
       </div>
       <br/>
-      <div>
+      <div className="component">
+        <Button color="critical">
+          Critical
+        </Button>
+        <Button color="information">
+          Information
+        </Button>
+        <Button color="neutral">
+          Neutral
+        </Button>
+        <Button color="primary">
+          Primary
+        </Button>
+        <Button color="success">
+          Success
+        </Button>
+        <Button color="warning">
+          Warning
+        </Button>
+      </div>
+      <br/>
+      <div className="component">
         <Card color="critical">
           <p>
             Critical
@@ -238,13 +242,13 @@ export const Home = () => {
         </Card>
       </div>
       <br/>
-      <div>
+      <div className="component">
         <Text preset="label">
           Legal considerations:
         </Text>
         <FormField>
           <Checkbox>
-            <CheckboxControl />
+            <CheckboxControl/>
             <CheckboxLabel>
               I agree to the terms and conditions.
             </CheckboxLabel>
@@ -252,7 +256,7 @@ export const Home = () => {
         </FormField>
         <FormField>
           <Checkbox>
-            <CheckboxControl />
+            <CheckboxControl/>
             <CheckboxLabel>
               I agree to receive marketing communications.
             </CheckboxLabel>
@@ -260,132 +264,154 @@ export const Home = () => {
         </FormField>
       </div>
       <br/>
-      <Clipboard value="Clipboard">
-        <ClipboardControl/>
-        <ClipboardTrigger/>
-      </Clipboard>
+      <div className="component">
+        <Clipboard value="Clipboard">
+          <ClipboardControl/>
+          <ClipboardTrigger/>
+        </Clipboard>
+      </div>
       <br/>
-      <Code canCopy>
-        {`import { Text } from '@ovhcloud/ods-react';`}
-      </Code>
+      <div className="component">
+        <Code canCopy>
+          {`import { Text } from '@ovhcloud/ods-react';`}
+        </Code>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Combobox
-        </FormFieldLabel>
-        <Combobox
-          items={[
-            {
-              label: 'Dog',
-              value: 'dog'
-            },
-            {
-              label: 'Cat',
-              value: 'cat'
-            }
-          ]}
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Combobox
+          </FormFieldLabel>
+          <Combobox
+            items={[
+              {
+                label: 'Dog',
+                value: 'dog'
+              },
+              {
+                label: 'Cat',
+                value: 'cat'
+              }
+            ]}
+          >
+            <ComboboxControl/>
+            <ComboboxContent/>
+          </Combobox>
+        </FormField>
+      </div>
+      <br/>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Label:
+          </FormFieldLabel>
+          <Datepicker>
+            <DatepickerControl/>
+            <DatepickerContent/>
+          </Datepicker>
+        </FormField>
+      </div>
+      <br/>
+      <div className="component">
+        <Divider/>
+      </div>
+      <br/>
+      <div className="component">
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button>
+              Trigger Drawer
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerBody>
+              My drawer content
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      </div>
+      <br/>
+      <div className="component">
+        <FileUpload disabled>
+          <FileUploadList/>
+        </FileUpload>
+      </div>
+      <br/>
+      <div className="component">
+        <Icon
+          aria-label="Help"
+          name="circle-question"
+        />
+      </div>
+      <br/>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Name:
+          </FormFieldLabel>
+          <Input clearable/>
+        </FormField>
+      </div>
+      <br/>
+      <div className="component">
+        <Link
+          href="https://www.ovhcloud.com"
+          style={{
+            justifySelf: 'right'
+          }}
         >
-          <ComboboxControl />
-          <ComboboxContent />
-        </Combobox>
-      </FormField>
+          Icon Link
+          <Icon name="arrow-right"/>
+        </Link>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Label:
-        </FormFieldLabel>
-        <Datepicker>
-          <DatepickerControl />
-          <DatepickerContent />
-        </Datepicker>
-      </FormField>
+      <div className="component">
+        <Medium
+          alt="OVHcloud logo"
+          src="https://images.crunchbase.com/image/upload/c_pad,w_256,f_auto,q_auto:eco,dpr_1/ayzwkdawmlyzvuummuf4"
+        />
+      </div>
       <br/>
-      <Divider/>
-      <br/>
-      <Drawer>
-        <DrawerTrigger asChild>
-          <Button>
-            Trigger Drawer
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent>
-          <DrawerBody>
-            My drawer content
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-      <br/>
-      <FileUpload disabled>
-        <FileUploadList />
-      </FileUpload>
-      <br/>
-      <Icon
-        aria-label="Help"
-        name="circle-question"
-      />
-      <br/>
-      <FormField>
-        <FormFieldLabel>
-          Name:
-        </FormFieldLabel>
-        <Input clearable />
-      </FormField>
-      <br/>
-      <Link
-        href="https://www.ovhcloud.com"
-        style={{
-          justifySelf: 'right'
-        }}
-      >
-        Icon Link
-        <Icon name="arrow-right"/>
-      </Link>
-      <br/>
-      <Medium
-        alt="OVHcloud logo"
-        src="https://images.crunchbase.com/image/upload/c_pad,w_256,f_auto,q_auto:eco,dpr_1/ayzwkdawmlyzvuummuf4"
-      />
-      <br/>
-      <div>
+      <div className="component">
         <Message color="critical">
-          <MessageIcon name="hexagon-exclamation" />
+          <MessageIcon name="hexagon-exclamation"/>
           <MessageBody>
             Critical message
           </MessageBody>
         </Message>
         <Message color="information">
-          <MessageIcon name="circle-info" />
+          <MessageIcon name="circle-info"/>
           <MessageBody>
             Information message
           </MessageBody>
         </Message>
         <Message color="neutral">
-          <MessageIcon name="email" />
+          <MessageIcon name="email"/>
           <MessageBody>
             Neutral message
           </MessageBody>
         </Message>
         <Message color="primary">
-          <MessageIcon name="lightbulb" />
+          <MessageIcon name="lightbulb"/>
           <MessageBody>
             Primary message
           </MessageBody>
         </Message>
         <Message color="success">
-          <MessageIcon name="circle-check" />
+          <MessageIcon name="circle-check"/>
           <MessageBody>
             Success message
           </MessageBody>
         </Message>
         <Message color="warning">
-          <MessageIcon name="triangle-exclamation" />
+          <MessageIcon name="triangle-exclamation"/>
           <MessageBody>
             Warning message
           </MessageBody>
         </Message>
       </div>
       <br/>
-      <div>
+      <div className="component">
         <Modal>
           <ModalTrigger asChild>
             <Button color="critical">
@@ -460,258 +486,286 @@ export const Home = () => {
         </Modal>
       </div>
       <br/>
-      <Pagination totalItems={500}
-                  renderTotalItemsLabel={({totalItems}) => `of ${totalItems} results`} withPageSizeSelector/>
+      <div className="component">
+        <Pagination totalItems={500}
+                    renderTotalItemsLabel={({totalItems}) => `of ${totalItems} results`} withPageSizeSelector/>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Password:
-        </FormFieldLabel>
-        <Password clearable/>
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Password:
+          </FormFieldLabel>
+          <Password clearable/>
+        </FormField>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Phone number:
-        </FormFieldLabel>
-        <PhoneNumber>
-          <PhoneNumberCountryList />
-          <PhoneNumberControl />
-        </PhoneNumber>
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Phone number:
+          </FormFieldLabel>
+          <PhoneNumber>
+            <PhoneNumberCountryList/>
+            <PhoneNumberControl/>
+          </PhoneNumber>
+        </FormField>
+      </div>
       <br/>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button>
-            Custom Trigger
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          This is the popover content
-        </PopoverContent>
-      </Popover>
+      <div className="component">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button>
+              Custom Trigger
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            This is the popover content
+          </PopoverContent>
+        </Popover>
+      </div>
       <br/>
-      <ProgressBar value="50"/>
+      <div className="component">
+        <ProgressBar value="50"/>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Set a quantity:
-        </FormFieldLabel>
-        <Quantity>
-          <QuantityControl>
-            <QuantityInput />
-          </QuantityControl>
-        </Quantity>
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Set a quantity:
+          </FormFieldLabel>
+          <Quantity>
+            <QuantityControl>
+              <QuantityInput/>
+            </QuantityControl>
+          </Quantity>
+        </FormField>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Pick a language:
-        </FormFieldLabel>
-        <RadioGroup>
-          <Radio value="html">
-            <RadioControl />
-            <RadioLabel>
-              HTML
-            </RadioLabel>
-          </Radio>
-          <Radio value="css">
-            <RadioControl />
-            <RadioLabel>
-              CSS
-            </RadioLabel>
-          </Radio>
-          <Radio value="js">
-            <RadioControl />
-            <RadioLabel>
-              JavaScript
-            </RadioLabel>
-          </Radio>
-        </RadioGroup>
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Pick a language:
+          </FormFieldLabel>
+          <RadioGroup>
+            <Radio value="html">
+              <RadioControl/>
+              <RadioLabel>
+                HTML
+              </RadioLabel>
+            </Radio>
+            <Radio value="css">
+              <RadioControl/>
+              <RadioLabel>
+                CSS
+              </RadioLabel>
+            </Radio>
+            <Radio value="js">
+              <RadioControl/>
+              <RadioLabel>
+                JavaScript
+              </RadioLabel>
+            </Radio>
+          </RadioGroup>
+        </FormField>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Range:
-        </FormFieldLabel>
-        <Range
-          defaultValue={[
-            50,
-            75
-          ]}
-          step={5}
-        />
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Range:
+          </FormFieldLabel>
+          <Range
+            defaultValue={[
+              50,
+              75
+            ]}
+            step={5}
+          />
+        </FormField>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Select a Web hosting
-        </FormFieldLabel>
-        <Select
-          items={[
-            {
-              label: 'Europe',
-              options: [
-                {
-                  label: 'France',
-                  value: 'fr'
-                },
-                {
-                  label: 'Germany',
-                  value: 'de'
-                },
-                {
-                  label: 'Italy',
-                  value: 'it'
-                }
-              ]
-            },
-            {
-              label: 'Asia',
-              options: [
-                {
-                  label: 'China',
-                  value: 'cn'
-                },
-                {
-                  label: 'Japan',
-                  value: 'jp'
-                },
-                {
-                  label: 'Russia',
-                  value: 'ru'
-                }
-              ]
-            },
-            {
-              label: 'North America',
-              options: [
-                {
-                  label: 'Canada',
-                  value: 'ca'
-                },
-                {
-                  label: 'Mexico',
-                  value: 'mx'
-                },
-                {
-                  label: 'United States of America',
-                  value: 'us'
-                }
-              ]
-            }
-          ]}
-        >
-          <SelectControl />
-          <SelectContent />
-        </Select>
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Select a Web hosting
+          </FormFieldLabel>
+          <Select
+            items={[
+              {
+                label: 'Europe',
+                options: [
+                  {
+                    label: 'France',
+                    value: 'fr'
+                  },
+                  {
+                    label: 'Germany',
+                    value: 'de'
+                  },
+                  {
+                    label: 'Italy',
+                    value: 'it'
+                  }
+                ]
+              },
+              {
+                label: 'Asia',
+                options: [
+                  {
+                    label: 'China',
+                    value: 'cn'
+                  },
+                  {
+                    label: 'Japan',
+                    value: 'jp'
+                  },
+                  {
+                    label: 'Russia',
+                    value: 'ru'
+                  }
+                ]
+              },
+              {
+                label: 'North America',
+                options: [
+                  {
+                    label: 'Canada',
+                    value: 'ca'
+                  },
+                  {
+                    label: 'Mexico',
+                    value: 'mx'
+                  },
+                  {
+                    label: 'United States of America',
+                    value: 'us'
+                  }
+                ]
+              }
+            ]}
+          >
+            <SelectControl/>
+            <SelectContent/>
+          </Select>
+        </FormField>
+      </div>
       <br/>
-      <Skeleton/>
+      <div className="component">
+        <Skeleton/>
+      </div>
       <br/>
-      <Spinner/>
+      <div className="component">
+        <Spinner/>
+      </div>
       <br/>
-      <Switch defaultValue="item-1">
-        <SwitchItem value="item-1">
-          Item 1
-        </SwitchItem>
-        <SwitchItem value="item-2">
-          Item 2
-        </SwitchItem>
-        <SwitchItem value="item-3">
-          Item 3
-        </SwitchItem>
-      </Switch>
+      <div className="component">
+        <Switch defaultValue="item-1">
+          <SwitchItem value="item-1">
+            Item 1
+          </SwitchItem>
+          <SwitchItem value="item-2">
+            Item 2
+          </SwitchItem>
+          <SwitchItem value="item-3">
+            Item 3
+          </SwitchItem>
+        </Switch>
+      </div>
       <br/>
-      <Table size="sm">
-        <caption>
-          Front-end web developer course 2021
-        </caption>
-        <thead>
-        <tr>
-          <th scope="col">
-            Person
-          </th>
-          <th scope="col">
-            Most interest in
-          </th>
-          <th scope="col">
-            Age
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <th scope="row">
-            Chris
-          </th>
-          <td>
-            HTML tables
-          </td>
-          <td>
-            22
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            Dennis
-          </th>
-          <td>
-            Web accessibility
-          </td>
-          <td>
-            45
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            Sarah
-          </th>
-          <td>
-            JavaScript frameworks
-          </td>
-          <td>
-            29
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            Karen
-          </th>
-          <td>
-            Web performance
-          </td>
-          <td>
-            36
-          </td>
-        </tr>
-        </tbody>
-      </Table>
+      <div className="component">
+        <Table size="sm">
+          <caption>
+            Front-end web developer course 2021
+          </caption>
+          <thead>
+          <tr>
+            <th scope="col">
+              Person
+            </th>
+            <th scope="col">
+              Most interest in
+            </th>
+            <th scope="col">
+              Age
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">
+              Chris
+            </th>
+            <td>
+              HTML tables
+            </td>
+            <td>
+              22
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              Dennis
+            </th>
+            <td>
+              Web accessibility
+            </td>
+            <td>
+              45
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              Sarah
+            </th>
+            <td>
+              JavaScript frameworks
+            </td>
+            <td>
+              29
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              Karen
+            </th>
+            <td>
+              Web performance
+            </td>
+            <td>
+              36
+            </td>
+          </tr>
+          </tbody>
+        </Table>
+      </div>
       <br/>
-      <Tabs defaultValue="tab1">
-        <TabList>
-          <Tab value="tab1">
-            Tab 1
-          </Tab>
-          <Tab value="tab2">
-            Tab 2
-          </Tab>
-          <Tab value="tab3">
-            Tab 3
-          </Tab>
-          <Tab value="tab4">
-            Tab 4
-          </Tab>
-          <Tab value="tab5">
-            Tab 5
-          </Tab>
-          <Tab value="tab6">
-            Tab 6
-          </Tab>
-        </TabList>
-      </Tabs>
+      <div className="component">
+        <Tabs defaultValue="tab1">
+          <TabList>
+            <Tab value="tab1">
+              Tab 1
+            </Tab>
+            <Tab value="tab2">
+              Tab 2
+            </Tab>
+            <Tab value="tab3">
+              Tab 3
+            </Tab>
+            <Tab value="tab4">
+              Tab 4
+            </Tab>
+            <Tab value="tab5">
+              Tab 5
+            </Tab>
+            <Tab value="tab6">
+              Tab 6
+            </Tab>
+          </TabList>
+        </Tabs>
+      </div>
       <br/>
-      <div>
+      <div className="component">
         <Tag color="critical">
           Critical
         </Tag>
@@ -732,15 +786,15 @@ export const Home = () => {
         </Tag>
       </div>
       <br/>
-      <div>
+      <div className="component">
         <Text preset="caption">
           Caption
         </Text>
-        <br />
+        <br/>
         <Text preset="code">
           Code
         </Text>
-        <br />
+        <br/>
         <Text preset="label">
           Label
         </Text>
@@ -750,7 +804,7 @@ export const Home = () => {
         <Text preset="span">
           Span
         </Text>
-        <br />
+        <br/>
         <Text preset="heading-1">
           Heading-1
         </Text>
@@ -771,56 +825,62 @@ export const Home = () => {
         </Text>
       </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Description:
-        </FormFieldLabel>
-        <Textarea
-          name="description"
-          onInput={function Xs() {
-          }}
-        />
-        <FormFieldHelper
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between'
-          }}
-        >
-          <Text preset="caption">
-            Helper text
-          </Text>
-          <Text preset="caption">
-            0/200
-          </Text>
-        </FormFieldHelper>
-        <FormFieldError>
-          Error message
-        </FormFieldError>
-      </FormField>
-      <FormField>
-        <FormFieldLabel>
-          Timepicker:
-        </FormFieldLabel>
-        <Timepicker>
-          <TimepickerControl/>
-        </Timepicker>
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Description:
+          </FormFieldLabel>
+          <Textarea
+            name="description"
+            onInput={function Xs() {
+            }}
+          />
+          <FormFieldHelper
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between'
+            }}
+          >
+            <Text preset="caption">
+              Helper text
+            </Text>
+            <Text preset="caption">
+              0/200
+            </Text>
+          </FormFieldHelper>
+          <FormFieldError>
+            Error message
+          </FormFieldError>
+        </FormField>
+        <FormField>
+          <FormFieldLabel>
+            Timepicker:
+          </FormFieldLabel>
+          <Timepicker>
+            <TimepickerControl/>
+          </Timepicker>
+        </FormField>
+      </div>
       <br/>
-      <FormField>
-        <FormFieldLabel>
-          Dark mode
-        </FormFieldLabel>
-        <Toggle withLabels/>
-      </FormField>
+      <div className="component">
+        <FormField>
+          <FormFieldLabel>
+            Dark mode
+          </FormFieldLabel>
+          <Toggle withLabels/>
+        </FormField>
+      </div>
       <br/>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Icon name="circle-question"/>
-        </TooltipTrigger>
-        <TooltipContent>
-          This is the tooltip content
-        </TooltipContent>
-      </Tooltip>
-    </>
+      <div className="component">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Icon name="circle-question"/>
+          </TooltipTrigger>
+          <TooltipContent>
+            This is the tooltip content
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </main>
   )
 };
