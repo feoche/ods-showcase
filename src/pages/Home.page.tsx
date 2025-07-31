@@ -105,7 +105,7 @@ export const Home = () => {
         <Accordion>
           <AccordionItem value="1">
             <AccordionTrigger>
-              <Text preset="heading-4">
+              <Text preset="heading-3">
                 Multiple
               </Text>
             </AccordionTrigger>
@@ -117,7 +117,7 @@ export const Home = () => {
           </AccordionItem>
           <AccordionItem value="2">
             <AccordionTrigger>
-              <Text preset="heading-4">
+              <Text preset="heading-3">
                 Multiple
               </Text>
             </AccordionTrigger>
@@ -156,6 +156,7 @@ export const Home = () => {
         <Badge>
           <Icon
             aria-label="Promotion"
+            role="img"
             name="tag"
           />
         </Badge>
@@ -210,34 +211,44 @@ export const Home = () => {
             My badge
           </Badge>
         </div>
-        <Badge color="alpha" size="sm">
+        <Badge color="alpha"
+               size="sm">
           Alpha
         </Badge>
-        <Badge color="beta" size="sm">
+        <Badge color="beta"
+               size="sm">
           Beta
         </Badge>
-        <Badge color="critical" size="sm">
+        <Badge color="critical"
+               size="sm">
           Critical
         </Badge>
-        <Badge color="information" size="sm">
+        <Badge color="information"
+               size="sm">
           Information
         </Badge>
-        <Badge color="neutral" size="sm">
+        <Badge color="neutral"
+               size="sm">
           Neutral
         </Badge>
-        <Badge color="new" size="sm">
+        <Badge color="new"
+               size="sm">
           New
         </Badge>
-        <Badge color="primary" size="sm">
+        <Badge color="primary"
+               size="sm">
           Primary
         </Badge>
-        <Badge color="promotion" size="sm">
+        <Badge color="promotion"
+               size="sm">
           Promotion
         </Badge>
-        <Badge color="success" size="sm">
+        <Badge color="success"
+               size="sm">
           Success
         </Badge>
-        <Badge color="warning" size="sm">
+        <Badge color="warning"
+               size="sm">
           Warning
         </Badge>
         <Badge color="alpha">
@@ -270,34 +281,44 @@ export const Home = () => {
         <Badge color="warning">
           Warning
         </Badge>
-        <Badge color="alpha" size="lg">
+        <Badge color="alpha"
+               size="lg">
           Alpha
         </Badge>
-        <Badge color="beta" size="lg">
+        <Badge color="beta"
+               size="lg">
           Beta
         </Badge>
-        <Badge color="critical" size="lg">
+        <Badge color="critical"
+               size="lg">
           Critical
         </Badge>
-        <Badge color="information" size="lg">
+        <Badge color="information"
+               size="lg">
           Information
         </Badge>
-        <Badge color="neutral" size="lg">
+        <Badge color="neutral"
+               size="lg">
           Neutral
         </Badge>
-        <Badge color="new" size="lg">
+        <Badge color="new"
+               size="lg">
           New
         </Badge>
-        <Badge color="primary" size="lg">
+        <Badge color="primary"
+               size="lg">
           Primary
         </Badge>
-        <Badge color="promotion" size="lg">
+        <Badge color="promotion"
+               size="lg">
           Promotion
         </Badge>
-        <Badge color="success" size="lg">
+        <Badge color="success"
+               size="lg">
           Success
         </Badge>
-        <Badge color="warning" size="lg">
+        <Badge color="warning"
+               size="lg">
           Warning
         </Badge>
       </div>
@@ -522,130 +543,201 @@ export const Home = () => {
         <Button>
           My button
         </Button>
-        <Button size="xs" loading>
+        <Button size="xs"
+                loading>
           Critical
         </Button>
-        <Button color="critical" size="xs">
+        <Button color="critical"
+                size="xs">
           Critical
         </Button>
-        <Button color="information" size="xs">
+        <Button color="information"
+                size="xs">
           Information
         </Button>
-        <Button color="neutral" size="xs">
+        <Button color="neutral"
+                size="xs">
           Neutral
         </Button>
-        <Button color="primary" size="xs">
+        <Button color="primary"
+                size="xs">
           Primary
         </Button>
-        <Button color="success" size="xs">
+        <Button color="success"
+                size="xs">
           Success
         </Button>
-        <Button color="warning" size="xs">
+        <Button color="warning"
+                size="xs">
           Warning
         </Button>
-        <Button size="xs" variant="outline" loading>
+        <Button size="xs"
+                variant="outline"
+                loading>
           Critical
         </Button>
-        <Button color="critical" size="xs" variant="outline">
+        <Button color="critical"
+                size="xs"
+                variant="outline">
           Critical
         </Button>
-        <Button color="information" size="xs" variant="outline">
+        <Button color="information"
+                size="xs"
+                variant="outline">
           Information
         </Button>
-        <Button color="neutral" size="xs" variant="outline">
+        <Button color="neutral"
+                size="xs"
+                variant="outline">
           Neutral
         </Button>
-        <Button color="primary" size="xs" variant="outline">
+        <Button color="primary"
+                size="xs"
+                variant="outline">
           Primary
         </Button>
-        <Button color="success" size="xs" variant="outline">
+        <Button color="success"
+                size="xs"
+                variant="outline">
           Success
         </Button>
-        <Button color="warning" size="xs" variant="outline">
+        <Button color="warning"
+                size="xs"
+                variant="outline">
           Warning
         </Button>
-        <Button size="xs" variant="ghost" loading>
+        <Button size="xs"
+                variant="ghost"
+                loading>
           Critical
         </Button>
-        <Button color="critical" size="xs" variant="ghost">
+        <Button color="critical"
+                size="xs"
+                variant="ghost">
           Critical
         </Button>
-        <Button color="information" size="xs" variant="ghost">
+        <Button color="information"
+                size="xs"
+                variant="ghost">
           Information
         </Button>
-        <Button color="neutral" size="xs" variant="ghost">
+        <Button color="neutral"
+                size="xs"
+                variant="ghost">
           Neutral
         </Button>
-        <Button color="primary" size="xs" variant="ghost">
+        <Button color="primary"
+                size="xs"
+                variant="ghost">
           Primary
         </Button>
-        <Button color="success" size="xs" variant="ghost">
+        <Button color="success"
+                size="xs"
+                variant="ghost">
           Success
         </Button>
-        <Button color="warning" size="xs" variant="ghost">
+        <Button color="warning"
+                size="xs"
+                variant="ghost">
           Warning
         </Button>
-        <Button color="critical" size="sm" loading>
+        <Button color="critical"
+                size="sm"
+                loading>
           Critical
         </Button>
-        <Button color="critical" size="sm">
+        <Button color="critical"
+                size="sm">
           Critical
         </Button>
-        <Button color="information" size="sm">
+        <Button color="information"
+                size="sm">
           Information
         </Button>
-        <Button color="neutral" size="sm">
+        <Button color="neutral"
+                size="sm">
           Neutral
         </Button>
-        <Button color="primary" size="sm">
+        <Button color="primary"
+                size="sm">
           Primary
         </Button>
-        <Button color="success" size="sm">
+        <Button color="success"
+                size="sm">
           Success
         </Button>
-        <Button color="warning" size="sm">
+        <Button color="warning"
+                size="sm">
           Warning
         </Button>
-        <Button size="sm" variant="outline" loading>
+        <Button size="sm"
+                variant="outline"
+                loading>
           Critical
         </Button>
-        <Button color="critical" size="sm" variant="outline">
+        <Button color="critical"
+                size="sm"
+                variant="outline">
           Critical
         </Button>
-        <Button color="information" size="sm" variant="outline">
+        <Button color="information"
+                size="sm"
+                variant="outline">
           Information
         </Button>
-        <Button color="neutral" size="sm" variant="outline">
+        <Button color="neutral"
+                size="sm"
+                variant="outline">
           Neutral
         </Button>
-        <Button color="primary" size="sm" variant="outline">
+        <Button color="primary"
+                size="sm"
+                variant="outline">
           Primary
         </Button>
-        <Button color="success" size="sm" variant="outline">
+        <Button color="success"
+                size="sm"
+                variant="outline">
           Success
         </Button>
-        <Button color="warning" size="sm" variant="outline">
+        <Button color="warning"
+                size="sm"
+                variant="outline">
           Warning
         </Button>
-        <Button size="sm" variant="ghost" loading>
+        <Button size="sm"
+                variant="ghost"
+                loading>
           Critical
         </Button>
-        <Button color="critical" size="sm" variant="ghost">
+        <Button color="critical"
+                size="sm"
+                variant="ghost">
           Critical
         </Button>
-        <Button color="information" size="sm" variant="ghost">
+        <Button color="information"
+                size="sm"
+                variant="ghost">
           Information
         </Button>
-        <Button color="neutral" size="sm" variant="ghost">
+        <Button color="neutral"
+                size="sm"
+                variant="ghost">
           Neutral
         </Button>
-        <Button color="primary" size="sm" variant="ghost">
+        <Button color="primary"
+                size="sm"
+                variant="ghost">
           Primary
         </Button>
-        <Button color="success" size="sm" variant="ghost">
+        <Button color="success"
+                size="sm"
+                variant="ghost">
           Success
         </Button>
-        <Button color="warning" size="sm" variant="ghost">
+        <Button color="warning"
+                size="sm"
+                variant="ghost">
           Warning
         </Button>
         <Button loading>
@@ -669,235 +761,388 @@ export const Home = () => {
         <Button color="warning">
           Warning
         </Button>
-        <Button variant="outline" loading>
+        <Button variant="outline"
+                loading>
           Critical
         </Button>
-        <Button color="critical" variant="outline">
+        <Button color="critical"
+                variant="outline">
           Critical
         </Button>
-        <Button color="information" variant="outline">
+        <Button color="information"
+                variant="outline">
           Information
         </Button>
-        <Button color="neutral" variant="outline">
+        <Button color="neutral"
+                variant="outline">
           Neutral
         </Button>
-        <Button color="primary" variant="outline">
+        <Button color="primary"
+                variant="outline">
           Primary
         </Button>
-        <Button color="success" variant="outline">
+        <Button color="success"
+                variant="outline">
           Success
         </Button>
-        <Button color="warning" variant="outline">
+        <Button color="warning"
+                variant="outline">
           Warning
         </Button>
-        <Button variant="ghost" loading>
+        <Button variant="ghost"
+                loading>
           Critical
         </Button>
-        <Button color="critical" variant="ghost">
+        <Button color="critical"
+                variant="ghost">
           Critical
         </Button>
-        <Button color="information" variant="ghost">
+        <Button color="information"
+                variant="ghost">
           Information
         </Button>
-        <Button color="neutral" variant="ghost">
+        <Button color="neutral"
+                variant="ghost">
           Neutral
         </Button>
-        <Button color="primary" variant="ghost">
+        <Button color="primary"
+                variant="ghost">
           Primary
         </Button>
-        <Button color="success" variant="ghost">
+        <Button color="success"
+                variant="ghost">
           Success
         </Button>
-        <Button color="warning" variant="ghost">
+        <Button color="warning"
+                variant="ghost">
           Warning
         </Button>
-        <Button size="xs" loading disabled>
+        <Button size="xs"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" size="xs" disabled>
+        <Button color="critical"
+                size="xs"
+                disabled>
           Critical
         </Button>
-        <Button color="information" size="xs" disabled>
+        <Button color="information"
+                size="xs"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" size="xs" disabled>
+        <Button color="neutral"
+                size="xs"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" size="xs" disabled>
+        <Button color="primary"
+                size="xs"
+                disabled>
           Primary
         </Button>
-        <Button color="success" size="xs" disabled>
+        <Button color="success"
+                size="xs"
+                disabled>
           Success
         </Button>
-        <Button color="warning" size="xs" disabled>
+        <Button color="warning"
+                size="xs"
+                disabled>
           Warning
         </Button>
-        <Button size="xs" variant="outline" loading disabled>
+        <Button size="xs"
+                variant="outline"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" size="xs" variant="outline" disabled>
+        <Button color="critical"
+                size="xs"
+                variant="outline"
+                disabled>
           Critical
         </Button>
-        <Button color="information" size="xs" variant="outline" disabled>
+        <Button color="information"
+                size="xs"
+                variant="outline"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" size="xs" variant="outline" disabled>
+        <Button color="neutral"
+                size="xs"
+                variant="outline"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" size="xs" variant="outline" disabled>
+        <Button color="primary"
+                size="xs"
+                variant="outline"
+                disabled>
           Primary
         </Button>
-        <Button color="success" size="xs" variant="outline" disabled>
+        <Button color="success"
+                size="xs"
+                variant="outline"
+                disabled>
           Success
         </Button>
-        <Button color="warning" size="xs" variant="outline" disabled>
+        <Button color="warning"
+                size="xs"
+                variant="outline"
+                disabled>
           Warning
         </Button>
-        <Button size="xs" variant="ghost" loading disabled>
+        <Button size="xs"
+                variant="ghost"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" size="xs" variant="ghost" disabled>
+        <Button color="critical"
+                size="xs"
+                variant="ghost"
+                disabled>
           Critical
         </Button>
-        <Button color="information" size="xs" variant="ghost" disabled>
+        <Button color="information"
+                size="xs"
+                variant="ghost"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" size="xs" variant="ghost" disabled>
+        <Button color="neutral"
+                size="xs"
+                variant="ghost"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" size="xs" variant="ghost" disabled>
+        <Button color="primary"
+                size="xs"
+                variant="ghost"
+                disabled>
           Primary
         </Button>
-        <Button color="success" size="xs" variant="ghost" disabled>
+        <Button color="success"
+                size="xs"
+                variant="ghost"
+                disabled>
           Success
         </Button>
-        <Button color="warning" size="xs" variant="ghost" disabled>
+        <Button color="warning"
+                size="xs"
+                variant="ghost"
+                disabled>
           Warning
         </Button>
-        <Button color="critical" size="sm" loading disabled>
+        <Button color="critical"
+                size="sm"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" size="sm" disabled>
+        <Button color="critical"
+                size="sm"
+                disabled>
           Critical
         </Button>
-        <Button color="information" size="sm" disabled>
+        <Button color="information"
+                size="sm"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" size="sm" disabled>
+        <Button color="neutral"
+                size="sm"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" size="sm" disabled>
+        <Button color="primary"
+                size="sm"
+                disabled>
           Primary
         </Button>
-        <Button color="success" size="sm" disabled>
+        <Button color="success"
+                size="sm"
+                disabled>
           Success
         </Button>
-        <Button color="warning" size="sm" disabled>
+        <Button color="warning"
+                size="sm"
+                disabled>
           Warning
         </Button>
-        <Button size="sm" variant="outline" loading disabled>
+        <Button size="sm"
+                variant="outline"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" size="sm" variant="outline" disabled>
+        <Button color="critical"
+                size="sm"
+                variant="outline"
+                disabled>
           Critical
         </Button>
-        <Button color="information" size="sm" variant="outline" disabled>
+        <Button color="information"
+                size="sm"
+                variant="outline"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" size="sm" variant="outline" disabled>
+        <Button color="neutral"
+                size="sm"
+                variant="outline"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" size="sm" variant="outline" disabled>
+        <Button color="primary"
+                size="sm"
+                variant="outline"
+                disabled>
           Primary
         </Button>
-        <Button color="success" size="sm" variant="outline" disabled>
+        <Button color="success"
+                size="sm"
+                variant="outline"
+                disabled>
           Success
         </Button>
-        <Button color="warning" size="sm" variant="outline" disabled>
+        <Button color="warning"
+                size="sm"
+                variant="outline"
+                disabled>
           Warning
         </Button>
-        <Button size="sm" variant="ghost" loading disabled>
+        <Button size="sm"
+                variant="ghost"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" size="sm" variant="ghost" disabled>
+        <Button color="critical"
+                size="sm"
+                variant="ghost"
+                disabled>
           Critical
         </Button>
-        <Button color="information" size="sm" variant="ghost" disabled>
+        <Button color="information"
+                size="sm"
+                variant="ghost"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" size="sm" variant="ghost" disabled>
+        <Button color="neutral"
+                size="sm"
+                variant="ghost"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" size="sm" variant="ghost" disabled>
+        <Button color="primary"
+                size="sm"
+                variant="ghost"
+                disabled>
           Primary
         </Button>
-        <Button color="success" size="sm" variant="ghost" disabled>
+        <Button color="success"
+                size="sm"
+                variant="ghost"
+                disabled>
           Success
         </Button>
-        <Button color="warning" size="sm" variant="ghost" disabled>
+        <Button color="warning"
+                size="sm"
+                variant="ghost"
+                disabled>
           Warning
         </Button>
         <Button loading disabled>
           Loading button
         </Button>
-        <Button color="critical" disabled>
+        <Button color="critical"
+                disabled>
           Critical
         </Button>
-        <Button color="information" disabled>
+        <Button color="information"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" disabled>
+        <Button color="neutral"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" disabled>
+        <Button color="primary"
+                disabled>
           Primary
         </Button>
-        <Button color="success" disabled>
+        <Button color="success"
+                disabled>
           Success
         </Button>
-        <Button color="warning" disabled>
+        <Button color="warning"
+                disabled>
           Warning
         </Button>
-        <Button variant="outline" loading disabled>
+        <Button variant="outline"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" variant="outline" disabled>
+        <Button color="critical"
+                variant="outline"
+                disabled>
           Critical
         </Button>
-        <Button color="information" variant="outline" disabled>
+        <Button color="information"
+                variant="outline"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" variant="outline" disabled>
+        <Button color="neutral"
+                variant="outline"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" variant="outline" disabled>
+        <Button color="primary"
+                variant="outline"
+                disabled>
           Primary
         </Button>
-        <Button color="success" variant="outline" disabled>
+        <Button color="success"
+                variant="outline"
+                disabled>
           Success
         </Button>
-        <Button color="warning" variant="outline" disabled>
+        <Button color="warning"
+                variant="outline"
+                disabled>
           Warning
         </Button>
-        <Button variant="ghost" loading disabled>
+        <Button variant="ghost"
+                loading disabled>
           Critical
         </Button>
-        <Button color="critical" variant="ghost" disabled>
+        <Button color="critical"
+                variant="ghost"
+                disabled>
           Critical
         </Button>
-        <Button color="information" variant="ghost" disabled>
+        <Button color="information"
+                variant="ghost"
+                disabled>
           Information
         </Button>
-        <Button color="neutral" variant="ghost" disabled>
+        <Button color="neutral"
+                variant="ghost"
+                disabled>
           Neutral
         </Button>
-        <Button color="primary" variant="ghost" disabled>
+        <Button color="primary"
+                variant="ghost"
+                disabled>
           Primary
         </Button>
-        <Button color="success" variant="ghost" disabled>
+        <Button color="success"
+                variant="ghost"
+                disabled>
           Success
         </Button>
-        <Button color="warning" variant="ghost" disabled>
+        <Button color="warning"
+                variant="ghost"
+                disabled>
           Warning
         </Button>
       </div>
@@ -1078,30 +1323,31 @@ export const Home = () => {
       <div className="component">
         <Text preset="heading-2">Clipboard</Text>
         <Clipboard value="Clipboard">
-          <ClipboardControl/>
+          <ClipboardControl aria-label="Clipboard"/>
           <ClipboardTrigger/>
         </Clipboard>
         <Clipboard
           disabled
           value="Disabled"
         >
-          <ClipboardControl/>
+          <ClipboardControl aria-label="Clipboard"/>
           <ClipboardTrigger/>
         </Clipboard>
         <Clipboard value="Loading">
-          <ClipboardControl loading/>
+          <ClipboardControl aria-label="Clipboard"
+                            loading/>
           <ClipboardTrigger/>
         </Clipboard>
         <Clipboard value="Masked">
-          <ClipboardControl
-            maskOption={{
-              enable: true
-            }}
+          <ClipboardControl aria-label="Clipboard"
+                            maskOption={{
+                              enable: true
+                            }}
           />
           <ClipboardTrigger/>
         </Clipboard>
         <Clipboard value="Custom labels">
-          <ClipboardControl/>
+          <ClipboardControl aria-label="Clipboard"/>
           <ClipboardTrigger
             labelCopy="Click to copy"
             labelCopySuccess="Successfully copied"
@@ -1519,14 +1765,22 @@ export const Home = () => {
       <br/>
       <div className="component">
         <Text preset="heading-2">Divider</Text>
-        <Divider spacing="0" color="neutral"/>
-        <Divider spacing="2" color="neutral"/>
-        <Divider spacing="4" color="neutral"/>
-        <Divider spacing="6" color="neutral"/>
-        <Divider spacing="0" color="primary"/>
-        <Divider spacing="2" color="primary"/>
-        <Divider spacing="4" color="primary"/>
-        <Divider spacing="6" color="primary"/>
+        <Divider spacing="0"
+                 color="neutral"/>
+        <Divider spacing="2"
+                 color="neutral"/>
+        <Divider spacing="4"
+                 color="neutral"/>
+        <Divider spacing="6"
+                 color="neutral"/>
+        <Divider spacing="0"
+                 color="primary"/>
+        <Divider spacing="2"
+                 color="primary"/>
+        <Divider spacing="4"
+                 color="primary"/>
+        <Divider spacing="6"
+                 color="primary"/>
       </div>
       <br/>
       <div className="component">
@@ -1537,7 +1791,7 @@ export const Home = () => {
               Trigger Drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent>
+          <DrawerContent aria-label="Drawer">
             <DrawerBody>
               My drawer content
             </DrawerBody>
@@ -1549,7 +1803,8 @@ export const Home = () => {
               Top drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position={DRAWER_POSITION.top}>
+          <DrawerContent aria-label="Drawer"
+                         position={DRAWER_POSITION.top}>
             <DrawerBody>
               Top drawer content
             </DrawerBody>
@@ -1561,7 +1816,8 @@ export const Home = () => {
               Left drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position={DRAWER_POSITION.left}>
+          <DrawerContent aria-label="Drawer"
+                         position={DRAWER_POSITION.left}>
             <DrawerBody>
               Left drawer content
             </DrawerBody>
@@ -1573,7 +1829,8 @@ export const Home = () => {
               Right Drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position={DRAWER_POSITION.right}>
+          <DrawerContent aria-label="Drawer"
+                         position={DRAWER_POSITION.right}>
             <DrawerBody>
               Right drawer content
             </DrawerBody>
@@ -1585,7 +1842,8 @@ export const Home = () => {
               Bottom Drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position={DRAWER_POSITION.bottom}>
+          <DrawerContent aria-label="Drawer"
+                         position={DRAWER_POSITION.bottom}>
             <DrawerBody>
               Bottom drawer content
             </DrawerBody>
@@ -1595,25 +1853,33 @@ export const Home = () => {
       <br/>
       <div className="component">
         <Text preset="heading-2">FileUpload</Text>
-        <FileUpload>
+        <FileUpload aria-label="File Upload">
           <FileUploadList/>
         </FileUpload>
-        <FileUpload disabled>
+        <FileUpload aria-label="File Upload"
+                    disabled>
           <FileUploadList/>
         </FileUpload>
-        <FileUpload acceptedFileLabel="Formats acceptés : images" dropzoneLabel="Glisser-déposer des fichiers"
-                    maxFile={3} maxFileLabel="Nombre maximal de fichiers :" maxSize={524288000}
+        <FileUpload aria-label="File Upload"
+                    acceptedFileLabel="Formats acceptés : images"
+                    dropzoneLabel="Glisser-déposer des fichiers"
+                    maxFile={3} maxFileLabel="Nombre maximal de fichiers :"
+                    maxSize={524288000}
                     maxSizeLabel="Taille de fichier max :"
                     triggerLabel="Parcourir les fichiers">
           <FileUploadList/>
         </FileUpload>
-        <FileUpload accept="image/png" acceptedFileLabel="Png files only">
+        <FileUpload aria-label="File Upload"
+                    accept="image/png"
+                    acceptedFileLabel="Png files only">
           <FileUploadList/>
         </FileUpload>
-        <FileUpload maxFile={3} maxFileLabel="Maximum file allowed:">
+        <FileUpload aria-label="File Upload"
+                    maxFile={3} maxFileLabel="Maximum file allowed:">
           <FileUploadList/>
         </FileUpload>
-        <FileUpload maxSize={1000000} maxSizeLabel="No file larger than:">
+        <FileUpload aria-label="File Upload"
+                    maxSize={1000000} maxSizeLabel="No file larger than:">
           <FileUploadList/>
         </FileUpload>
         <FormField>
@@ -1637,9 +1903,6 @@ export const Home = () => {
             Description:
           </FormFieldLabel>
           <Textarea name="textarea"/>
-        </FormField>
-        <FormField>
-          <Textarea name="textarea"/>
           <FormFieldHelper>
             <Text preset="caption">
               Helper text
@@ -1647,6 +1910,9 @@ export const Home = () => {
           </FormFieldHelper>
         </FormField>
         <FormField invalid>
+          <FormFieldLabel>
+            Description:
+          </FormFieldLabel>
           <Textarea name="textarea"/>
           <FormFieldError>
             Error message
@@ -1661,10 +1927,12 @@ export const Home = () => {
           name="cloud"
         />
         <Icon
+          role="img"
           aria-label="home"
           name="home"
         />
         <Icon
+          role="img"
           aria-label="Help"
           name="circle-question"
         />
@@ -1674,19 +1942,45 @@ export const Home = () => {
           name="home"
         />
         <Icon
+          role="img"
           aria-label="Help"
           name="circle-question"
         />
-        <Icon name="star" tabIndex={0} aria-label="one star"/>
-        <Icon name="star" tabIndex={0} aria-label="two star"/>
-        <Icon name="star" tabIndex={0} aria-label="three star"/>
-        <Icon name="star" tabIndex={0} aria-label="four star"/>
-        <Icon name="star" tabIndex={0} aria-label="five star"/>
-        <Icon name="star" role="radio" tabIndex={-1} aria-label="one star" aria-checked="false"/>
-        <Icon name="star" role="radio" tabIndex={0} aria-label="two star" aria-checked="true"/>
-        <Icon name="star" role="radio" tabIndex={-1} aria-label="three star" aria-checked="false"/>
-        <Icon name="star" role="radio" tabIndex={-1} aria-label="four star" aria-checked="false"/>
-        <Icon name="star" role="radio" tabIndex={-1} aria-label="five star" aria-checked="false"/>
+        <Icon name="star"
+              tabIndex={0} role="img"
+              aria-label="one star"/>
+        <Icon name="star"
+              tabIndex={0} role="img"
+              aria-label="two star"/>
+        <Icon name="star"
+              tabIndex={0} role="img"
+              aria-label="three star"/>
+        <Icon name="star"
+              tabIndex={0} role="img"
+              aria-label="four star"/>
+        <Icon name="star"
+              tabIndex={0} role="img"
+              aria-label="five star"/>
+        <Icon name="star"
+              tabIndex={-1} role="radio"
+              aria-label="one star"
+              aria-checked="false"/>
+        <Icon name="star"
+              tabIndex={0} role="radio"
+              aria-label="two star"
+              aria-checked="true"/>
+        <Icon name="star"
+              tabIndex={-1} role="radio"
+              aria-label="three star"
+              aria-checked="false"/>
+        <Icon name="star"
+              tabIndex={-1} role="radio"
+              aria-label="four star"
+              aria-checked="false"/>
+        <Icon name="star"
+              tabIndex={-1} role="radio"
+              aria-label="five star"
+              aria-checked="false"/>
       </div>
       <br/>
       <div className="component">
@@ -1909,37 +2203,43 @@ export const Home = () => {
             Warning message
           </MessageBody>
         </Message>
-        <Message color="critical" variant="light">
+        <Message color="critical"
+                 variant="light">
           <MessageIcon name="hexagon-exclamation"/>
           <MessageBody>
             Critical message
           </MessageBody>
         </Message>
-        <Message color="information" variant="light">
+        <Message color="information"
+                 variant="light">
           <MessageIcon name="circle-info"/>
           <MessageBody>
             Information message
           </MessageBody>
         </Message>
-        <Message color="neutral" variant="light">
+        <Message color="neutral"
+                 variant="light">
           <MessageIcon name="email"/>
           <MessageBody>
             Neutral message
           </MessageBody>
         </Message>
-        <Message color="primary" variant="light">
+        <Message color="primary"
+                 variant="light">
           <MessageIcon name="lightbulb"/>
           <MessageBody>
             Primary message
           </MessageBody>
         </Message>
-        <Message color="success" variant="light">
+        <Message color="success"
+                 variant="light">
           <MessageIcon name="circle-check"/>
           <MessageBody>
             Success message
           </MessageBody>
         </Message>
-        <Message color="warning" variant="light">
+        <Message color="warning"
+                 variant="light">
           <MessageIcon name="triangle-exclamation"/>
           <MessageBody>
             Warning message
@@ -2369,7 +2669,7 @@ export const Home = () => {
         <Text preset="heading-2">Popover</Text>
         <Popover>
           <PopoverTrigger asChild>
-            <Button>
+            <Button aria-label="Show popover">
               <Icon
                 aria-hidden="true"
                 name="ellipsis-vertical"
@@ -2430,7 +2730,9 @@ export const Home = () => {
         </Popover>
         <Popover>
           <PopoverTrigger asChild>
-            <Icon name="cog"/>
+            <Icon name="cog"
+                  role="img"
+                  aria-label="Settings"/>
           </PopoverTrigger>
           <PopoverContent withArrow>
             This is the popover content
@@ -2719,22 +3021,26 @@ export const Home = () => {
           <FormFieldLabel id="range-label">
             Price range
           </FormFieldLabel>
-          <Text preset="caption" id="range-sublabel" aria-live="polite">
+          <Text preset="caption"
+                id="range-sublabel"
+                aria-live="polite">
             Selected values:
           </Text>
           <Range aria-labelledby={['range-label', 'range-sublabel']}/>
         </FormField>
-        <Range/>
+        <Range aria-label="Range"/>
         <Range
           defaultValue={[
             50,
             75
           ]}
+          aria-label="Range"
         />
         <Range
           defaultValue={[
             20
           ]}
+          aria-label="Range"
           disabled
         />
         <Range
@@ -2742,6 +3048,7 @@ export const Home = () => {
             50,
             75
           ]}
+          aria-label="Range"
           disabled
         />
         <p>
@@ -2751,6 +3058,7 @@ export const Home = () => {
           defaultValue={[
             50
           ]}
+          aria-label="Range"
           max={500}
         />
         <Range
@@ -2758,6 +3066,7 @@ export const Home = () => {
             50,
             75
           ]}
+          aria-label="Range"
           max={500}
         />
         <p>
@@ -2767,6 +3076,7 @@ export const Home = () => {
           defaultValue={[
             50
           ]}
+          aria-label="Range"
           min={25}
         />
         <Range
@@ -2774,6 +3084,7 @@ export const Home = () => {
             50,
             75
           ]}
+          aria-label="Range"
           min={25}
         />
         <p>
@@ -2783,6 +3094,7 @@ export const Home = () => {
           defaultValue={[
             50
           ]}
+          aria-label="Range"
           max={75}
           min={25}
         />
@@ -2791,6 +3103,7 @@ export const Home = () => {
             50,
             75
           ]}
+          aria-label="Range"
           max={75}
           min={25}
         />
@@ -2798,6 +3111,7 @@ export const Home = () => {
           defaultValue={[
             20
           ]}
+          aria-label="Range"
           step={5}
         />
         <Range
@@ -2805,6 +3119,7 @@ export const Home = () => {
             50,
             75
           ]}
+          aria-label="Range"
           step={5}
         />
         <Range
@@ -2822,12 +3137,14 @@ export const Home = () => {
             80,
             90
           ]}
+          aria-label="Range"
         />
         <Range
           defaultValue={[
             50,
             75
           ]}
+          aria-label="Range"
           ticks={[
             10,
             20,
@@ -2908,7 +3225,8 @@ export const Home = () => {
             }
           ]}
         >
-          <SelectControl/>
+          <SelectControl
+            aria-label="Select"/>
           <SelectContent/>
         </Select>
         <Select
@@ -2966,7 +3284,8 @@ export const Home = () => {
             }
           ]}
         >
-          <SelectControl/>
+          <SelectControl
+            aria-label="Select"/>
           <SelectContent/>
         </Select>
         <Select
@@ -3006,6 +3325,7 @@ export const Home = () => {
           </Text>
           <SelectControl
             id="multiple"
+            aria-label="Select"
             placeholder="Select one or more pets"
           />
           <SelectContent/>
@@ -3047,6 +3367,7 @@ export const Home = () => {
           </Text>
           <SelectControl
             id="multiple-merged"
+            aria-label="Select"
             placeholder="Select one or more pets"
           />
           <SelectContent/>
@@ -3088,6 +3409,7 @@ export const Home = () => {
           </Text>
           <SelectControl
             id="disabled"
+            aria-label="Select"
             placeholder="Select one or more pets"
           />
           <SelectContent/>
@@ -3130,6 +3452,7 @@ export const Home = () => {
           </Text>
           <SelectControl
             id="disabled-options"
+            aria-label="Select"
             placeholder="Select one or more pets"
           />
           <SelectContent/>
@@ -3200,7 +3523,8 @@ export const Home = () => {
           >
             Disabled group or group option
           </Text>
-          <SelectControl id="disabled-group"/>
+          <SelectControl id="disabled-group"
+                         aria-label="Select"/>
           <SelectContent/>
         </Select>
         <Select
@@ -3232,7 +3556,8 @@ export const Home = () => {
           ]}
           readOnly
         >
-          <SelectControl placeholder="Select one or more pets"/>
+          <SelectControl placeholder="Select one or more pets"
+                         aria-label="Select"/>
           <SelectContent/>
         </Select>
         <FormField>
@@ -3314,7 +3639,7 @@ export const Home = () => {
           aria-busy="true"
           aria-live="polite"
         >
-          <Spinner/>
+          <Spinner aria-labelledby="loading-text"/>
         </div>
         <Spinner aria-label="Loading user profile"/>
         <div>
@@ -3323,14 +3648,28 @@ export const Home = () => {
   </span>
           <Spinner aria-labelledby="loading-text"/>
         </div>
-        <Spinner color="neutral" size="xs"/>
-        <Spinner color="primary" size="xs"/>
-        <Spinner color="neutral" size="sm"/>
-        <Spinner color="primary" size="sm"/>
-        <Spinner color="neutral"/>
-        <Spinner color="primary"/>
-        <Spinner color="neutral" size="lg"/>
-        <Spinner color="primary" size="lg"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="neutral"
+                 size="xs"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="primary"
+                 size="xs"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="neutral"
+                 size="sm"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="primary"
+                 size="sm"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="neutral"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="primary"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="neutral"
+                 size="lg"/>
+        <Spinner aria-labelledby="loading-text"
+                 color="primary"
+                 size="lg"/>
       </div>
       <br/>
       <div className="component">
@@ -3904,6 +4243,11 @@ export const Home = () => {
               Tab 3
             </Tab>
           </TabList>
+          <TabContent value="tab1">
+            <p>
+              Content 1
+            </p>
+          </TabContent>
         </Tabs>
         <Tabs defaultValue="tab1">
           <TabList>
@@ -3926,6 +4270,11 @@ export const Home = () => {
               Tab 6
             </Tab>
           </TabList>
+          <TabContent value="tab1">
+            <p>
+              Content 1
+            </p>
+          </TabContent>
         </Tabs>
         <Tabs defaultValue="tab1">
           <TabList>
@@ -4020,22 +4369,28 @@ export const Home = () => {
         <Tag color="warning">
           Warning
         </Tag>
-        <Tag color="critical" size="lg">
+        <Tag color="critical"
+             size="lg">
           Critical
         </Tag>
-        <Tag color="information" size="lg">
+        <Tag color="information"
+             size="lg">
           Information
         </Tag>
-        <Tag color="neutral" size="lg">
+        <Tag color="neutral"
+             size="lg">
           Neutral
         </Tag>
-        <Tag color="primary" size="lg">
+        <Tag color="primary"
+             size="lg">
           Primary
         </Tag>
-        <Tag color="success" size="lg">
+        <Tag color="success"
+             size="lg">
           Success
         </Tag>
-        <Tag color="warning" size="lg">
+        <Tag color="warning"
+             size="lg">
           Warning
         </Tag>
       </div>
@@ -4257,13 +4612,13 @@ export const Home = () => {
           <FormFieldLabel>
             Dark mode
           </FormFieldLabel>
-          <Toggle />
+          <Toggle/>
         </FormField>
-        <Toggle aria-label="Enable dark mode" />
-        <Toggle />
-        <Toggle disabled />
-        <Toggle invalid />
-        <Toggle withLabels />
+        <Toggle aria-label="Enable dark mode"/>
+        <Toggle/>
+        <Toggle disabled/>
+        <Toggle invalid/>
+        <Toggle withLabels/>
         <FormField>
           <FormFieldLabel>
             Dark mode
@@ -4277,11 +4632,12 @@ export const Home = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Icon
-              aria-hidden
               name="circle-info"
               style={{
                 fontSize: '24px'
               }}
+              aria-label="Show tooltip"
+              role="img"
             />
           </TooltipTrigger>
           <TooltipContent>
@@ -4298,7 +4654,9 @@ export const Home = () => {
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Icon name="circle-question"/>
+            <Icon name="circle-question"
+                  aria-label="Show tooltip"
+                  role="img"/>
           </TooltipTrigger>
           <TooltipContent>
             This is the tooltip content
