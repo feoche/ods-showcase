@@ -25,6 +25,7 @@ import {
   DatepickerControl,
   Divider,
   Drawer,
+  DRAWER_POSITION,
   DrawerBody,
   DrawerContent,
   DrawerTrigger,
@@ -1548,7 +1549,7 @@ export const Home = () => {
               Top drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position="top">
+          <DrawerContent position={DRAWER_POSITION.top}>
             <DrawerBody>
               Top drawer content
             </DrawerBody>
@@ -1560,7 +1561,7 @@ export const Home = () => {
               Left drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position="left">
+          <DrawerContent position={DRAWER_POSITION.left}>
             <DrawerBody>
               Left drawer content
             </DrawerBody>
@@ -1572,7 +1573,7 @@ export const Home = () => {
               Right Drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position="right">
+          <DrawerContent position={DRAWER_POSITION.right}>
             <DrawerBody>
               Right drawer content
             </DrawerBody>
@@ -1584,7 +1585,7 @@ export const Home = () => {
               Bottom Drawer
             </Button>
           </DrawerTrigger>
-          <DrawerContent position="bottom">
+          <DrawerContent position={DRAWER_POSITION.bottom}>
             <DrawerBody>
               Bottom drawer content
             </DrawerBody>
