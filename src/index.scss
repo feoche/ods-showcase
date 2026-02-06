@@ -1,0 +1,231 @@
+// ============================================
+// ODS Showcase Styles
+// ============================================
+
+// Import the theme generator with customizable Sass variables
+// To customize, override these variables BEFORE the import:
+// $color-primary: #6200ee;
+// $color-critical: #b00020;
+@use "@ovhcloud/ods-themes/default" as *;
+@use "theme";
+
+@layer theme, base, components, utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wght@100..900&display=swap');
+
+:root {
+  --ods-theme-font-family-default: "Noto Sans Display", sans-serif;
+  --ods-theme-font-family-code: "Noto Sans Mono", monospace;
+}
+
+html {
+  font-family: var(--ods-theme-font-family-default), sans-serif;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+body.theme-light {
+  background: var(--ods-color-primary-000);
+  color: var(--ods-color-primary-500);
+}
+
+body.theme-dark {
+  background: var(--ods-color-primary-900);
+  color: var(--ods-color-primary-000);
+}
+
+
+/* Layout */
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.page-header [data-ods="text"] {
+  margin-bottom: 0.25rem;
+}
+
+/* Component Section */
+.component-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.component-section > [data-ods="text"]:first-child {
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--ods-color-primary-500, #0050d7);
+  margin-bottom: 0.25rem;
+}
+
+/* Component Grid */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0.75rem;
+}
+
+/* Component Card */
+.component-card {
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.component-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.component-card-label {
+  font-weight: 600;
+  color: var(--ods-theme-text-color);
+  margin-bottom: 0.2rem;
+}
+
+.component-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Flex Utilities */
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.align-center {
+  align-items: center;
+}
+
+/* Table of Contents - Drawer Styles */
+.toc-title {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--ods-theme-heading-text-color);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--ods-color-neutral-200);
+}
+
+.toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.toc-link {
+  padding: 0.5rem 0.75rem;
+  color: var(--ods-theme-text-color);
+  text-decoration: none;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toc-link:hover {
+  background-color: color-mix(in srgb, var(--ods-theme-primary-color) 10%, transparent);
+  color: var(--ods-theme-primary-color);
+}
+
+.toc-link-active {
+  background-color: color-mix(in srgb, var(--ods-theme-primary-color) 15%, transparent);
+  color: var(--ods-theme-primary-color);
+  font-weight: 500;
+  border-right: 3px solid var(--ods-theme-primary-color);
+  padding-right: calc(0.75rem - 3px);
+}
+
+/* Style the drawer content without conflicting with ODS Drawer positioning */
+.toc-container {
+  min-width: 250px;
+}
+
+.toc-toggle {
+  position: fixed;
+  inset: 1rem auto auto 1rem;
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  padding: 0.5rem;
+  background: var(--ods-theme-background-color);
+  border: 1px solid var(--ods-color-neutral-200);
+  border-radius: 4px;
+  color: var(--ods-theme-text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.toc-toggle:hover {
+  background-color: color-mix(in srgb, var(--ods-theme-primary-color) 10%, transparent);
+  color: var(--ods-theme-primary-color);
+  border-color: var(--ods-theme-primary-color);
+}
+
+.toc-toggle::before {
+  content: '☰';
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .page-header {
+    padding-top: 2rem;
+  }
+
+  main {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .toc-title {
+    font-size: 0.875rem;
+  }
+
+  .toc-link {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .toc-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .toc-toggle::before {
+    font-size: 1rem;
+  }
+}

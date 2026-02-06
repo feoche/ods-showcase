@@ -1,0 +1,534 @@
+// ============================================
+// ODS Theme Generator
+// ============================================
+// This SCSS file generates light and dark themes
+// using Sass variables and functions for color shades
+// that bind to ODS CSS custom properties.
+
+@use "sass:color";
+@use "sass:map";
+@use "sass:math";
+
+// ============================================
+// CONFIGURATION VARIABLES
+// ============================================
+
+// Primary brand colors - customize these to change the entire theme
+/*$color-primary: #00a1ff !default;
+$color-critical: #e32f02 !default;
+$color-information: #00a1ff !default;
+$color-success: #04ba51 !default;
+$color-warning: #ff9000 !default;
+$color-neutral: #9192a1 !default;*/
+
+$color-primary: #0042c1 !default;
+$color-critical: #dc3838 !default;
+$color-information: #3b82f6 !default;
+$color-success: #1fa651 !default;
+$color-warning: #f59e0b !default;
+$color-neutral: #64748b !default;
+
+// Special accent colors
+$color-text: #4d5592 !default;
+$color-alpha: #fbfe47 !default;
+$color-beta: #47fe78 !default;
+$color-new: #47fffa !default;
+$color-promotion: #ccff66 !default;
+
+// ============================================
+// SHADE GENERATION FUNCTIONS
+// ============================================
+
+/// Generate a lighter shade of a color
+/// @param {Color} $color - Base color
+/// @param {Number} $amount - Lightness adjustment (0-100)
+/// @return {Color} - Lightened color
+@function shade-light($color, $amount) {
+  @return color.mix(white, $color, $amount * 1%);
+}
+
+/// Generate a darker shade of a color
+/// @param {Color} $color - Base color
+/// @param {Number} $amount - Darkness adjustment (0-100)
+/// @return {Color} - Darkened color
+@function shade-dark($color, $amount) {
+  @return color.mix(black, $color, $amount * 1%);
+}
+
+/// Generate a complete color scale (000-900)
+/// @param {Color} $base-color - The 500 level color
+/// @return {Map} - Map of shade levels to colors
+@function generate-color-scale($base-color) {
+  @return (
+    "000": white,
+    "025": shade-light($base-color, 97),
+    "050": shade-light($base-color, 92),
+    "075": shade-light($base-color, 85),
+    "100": shade-light($base-color, 78),
+    "200": shade-light($base-color, 60),
+    "300": shade-light($base-color, 40),
+    "400": shade-light($base-color, 20),
+    "500": $base-color,
+    "600": shade-dark($base-color, 15),
+    "700": shade-dark($base-color, 35),
+    "800": shade-dark($base-color, 55),
+    "900": shade-dark($base-color, 75),
+  );
+}
+
+/// Get a specific shade from a color scale
+/// @param {Map} $scale - Color scale map
+/// @param {String} $level - Shade level (000-900)
+/// @return {String} - Color at that level
+@function get-shade($scale, $level) {
+  @return map.get($scale, $level);
+}
+
+/// Get a specific shade variable from a color scale
+/// @param {Map} $scale - Color scale map
+/// @param {String} $level - Shade level (000-900)
+/// @return {String} - CSS variable for that shade
+@function get-shade-variable($scale, $level) {
+  @return var(--ods-color-#{$scale}-#{$level});
+}
+
+// ============================================
+// GENERATE COLOR SCALES
+// ============================================
+
+$primary-scale: generate-color-scale($color-primary);
+$critical-scale: generate-color-scale($color-critical);
+$information-scale: generate-color-scale($color-information);
+$success-scale: generate-color-scale($color-success);
+$warning-scale: generate-color-scale($color-warning);
+$neutral-scale: generate-color-scale($color-neutral);
+
+// ============================================
+// MIXIN: Output color scale as CSS variables
+// ============================================
+
+@mixin output-color-scale($name, $scale) {
+  @each $level, $color in $scale {
+    --ods-color-#{$name}-#{$level}: #{$color};
+  }
+}
+
+// ============================================
+// MIXIN: Base ODS Colors (shared across themes)
+// ============================================
+
+@mixin ods-base-colors {
+  // Accent colors
+  --ods-color-text: #{$color-text};
+  --ods-color-alpha: #{$color-alpha};
+  --ods-color-beta: #{$color-beta};
+  --ods-color-new: #{$color-new};
+  --ods-color-promotion: #{$color-promotion};
+
+  // Color scales
+  @include output-color-scale("primary", $primary-scale);
+  @include output-color-scale("critical", $critical-scale);
+  @include output-color-scale("information", $information-scale);
+  @include output-color-scale("success", $success-scale);
+  @include output-color-scale("warning", $warning-scale);
+  @include output-color-scale("neutral", $neutral-scale);
+}
+
+// ============================================
+// LIGHT THEME
+// ============================================
+
+@mixin ods-theme-light {
+  // Base color scales
+  @include ods-base-colors;
+
+  // Theme semantic colors
+  --ods-theme-anchor-text-color: #{get-shade-variable("primary", "500")};
+  --ods-theme-anchor-text-color-hover: #{get-shade-variable("primary", "600")};
+  --ods-theme-anchor-text-color-visited: #{get-shade-variable("primary", "700")};
+
+  --ods-theme-background-color: #{get-shade-variable("primary", "000")};
+  --ods-theme-background-color-disabled: #{get-shade-variable("neutral", "100")};
+  --ods-theme-background-color-drag-over: #{get-shade-variable("primary", "100")};
+  --ods-theme-background-color-readonly: #{get-shade-variable("neutral", "050")};
+  --ods-theme-background-color-selected: #{get-shade-variable("primary", "800")};
+
+  --ods-theme-border-color-disabled: #{get-shade-variable("neutral", "200")};
+  --ods-theme-border-color-drag-over: #{get-shade-variable("primary", "100")};
+  --ods-theme-border-color-readonly: #{get-shade-variable("neutral", "050")};
+  --ods-theme-border-color-selected: #{get-shade-variable("primary", "800")};
+
+  --ods-theme-brand-color: #{get-shade-variable("primary", "700")};
+  --ods-theme-heading-text-color: #{get-shade-variable("primary", "800")};
+  --ods-theme-progress-background-color: #{get-shade-variable("primary", "500")};
+  --ods-theme-split-background-color: #{get-shade-variable("neutral", "100")};
+  --ods-theme-split-border-color: #{get-shade-variable("neutral", "100")};
+  --ods-theme-text-color: #{shade-dark(get-shade($primary-scale, "700"), 10)};
+  --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "500")};
+  --ods-theme-text-color-selected: #{get-shade-variable("primary", "000")};
+
+  --ods-theme-track-background-color: #{get-shade-variable("neutral", "100")};
+  --ods-theme-track-background-color-disabled: #{get-shade-variable("neutral", "500")};
+
+  // Status colors
+  --ods-theme-critical-color: #{get-shade-variable("critical", "500")};
+  --ods-theme-information-color: #{get-shade-variable("information", "500")};
+  --ods-theme-neutral-color: #{get-shade-variable("neutral", "500")};
+  --ods-theme-primary-color: #{get-shade-variable("primary", "500")};
+  --ods-theme-success-color: #{get-shade-variable("success", "500")};
+  --ods-theme-warning-color: #{get-shade-variable("warning", "500")};
+
+  // UI elements
+  --ods-theme-outline-color: #{get-shade-variable("primary", "700")};
+  --ods-theme-backdrop-background-color: #{get-shade-variable("primary", "500")};
+  --ods-theme-backdrop-opacity: 0.75;
+
+  // Input styles
+  --ods-theme-input-background-color-checked: #{get-shade-variable("primary", "500")};
+  --ods-theme-input-background-color-checked-hover: #{get-shade-variable("primary", "700")};
+  --ods-theme-input-background-color-invalid: #{get-shade-variable("critical", "500")};
+  --ods-theme-input-border-color: #{get-shade-variable("primary", "100")};
+  --ods-theme-input-border-color-checked: #{get-shade-variable("primary", "500")};
+  --ods-theme-input-border-color-checked-hover: #{get-shade-variable("primary", "700")};
+  --ods-theme-input-border-color-hover: #{get-shade-variable("primary", "500")};
+  --ods-theme-input-border-color-invalid: #{get-shade-variable("critical", "500")};
+  --ods-theme-input-option-background-color-hover: #{get-shade-variable("primary", "100")};
+  --ods-theme-input-option-background-color-selected: #{get-shade-variable("primary", "050")};
+  --ods-theme-input-option-background-color-selected-hover: #{get-shade-variable("primary", "100")};
+  --ods-theme-input-placeholder-text-color: #{get-shade-variable("primary", "600")};
+  --ods-theme-input-text-color: var(--ods-color-text);
+  --ods-theme-input-text-color-checked: var(--ods-theme-background-color);
+  --ods-theme-input-text-color-invalid: #{get-shade-variable("critical", "500")};
+
+  // Form element tokens
+  --ods-color-background-disabled-default: #{get-shade-variable("neutral", "100")};
+  --ods-color-background-readonly-default: #{get-shade-variable("neutral", "050")};
+  --ods-color-border-disabled-default: #{get-shade-variable("neutral", "200")};
+  --ods-color-border-readonly-default: #{get-shade-variable("neutral", "050")};
+  --ods-color-element-background-selected: #{get-shade-variable("primary", "800")};
+  --ods-color-element-text-selected: #{get-shade-variable("primary", "000")};
+
+  --ods-color-form-element-background-critical: #{get-shade-variable("primary", "000")};
+  --ods-color-form-element-background-default: #{get-shade-variable("primary", "000")};
+  --ods-color-form-element-background-focus-default: #{get-shade-variable("primary", "000")};
+  --ods-color-form-element-background-hover-default: #{get-shade-variable("primary", "000")};
+  --ods-color-form-element-background-selected-critical: #{get-shade-variable("critical", "500")};
+  --ods-color-form-element-border-critical: #{get-shade-variable("critical", "500")};
+  --ods-color-form-element-border-default: #{get-shade-variable("neutral", "000")};
+  --ods-color-form-element-border-focus-default: #{get-shade-variable("neutral", "500")};
+  --ods-color-form-element-border-hover-default: #{get-shade-variable("neutral", "500")};
+  --ods-color-form-element-text-default: var(--ods-color-text);
+  --ods-color-form-element-text-placeholder-default: #{get-shade-variable("neutral", "600")};
+
+  --ods-color-heading: #{get-shade-variable("primary", "800")};
+  --ods-color-text: var(--ods-theme-text-color);
+  --ods-color-text-disabled-default: #{get-shade-variable("neutral", "500")};
+  --ods-outline-color-default: #{get-shade-variable("primary", "700")};
+}
+
+// ============================================
+// DARK THEME
+// ============================================
+
+@mixin ods-theme-dark {
+  // Base color scales
+  @include ods-base-colors;
+
+  // Theme semantic colors
+  --ods-theme-anchor-text-color: #{get-shade-variable("primary", "000")};
+  --ods-theme-anchor-text-color-hover: #{get-shade-variable("primary", "100")};
+  --ods-theme-anchor-text-color-visited: #{get-shade-variable("primary", "000")};
+
+  --ods-theme-background-color: #{get-shade-variable("primary", "900")};
+  --ods-theme-background-color-disabled: #{get-shade-variable("neutral", "400")};
+  --ods-theme-background-color-drag-over: #{get-shade-variable("primary", "700")};
+  --ods-theme-background-color-readonly: #{get-shade-variable("primary", "800")};
+  --ods-theme-background-color-selected: #{get-shade-variable("primary", "700")};
+
+  --ods-theme-border-color-disabled: #{get-shade-variable("neutral", "300")};
+  --ods-theme-border-color-drag-over: #{get-shade-variable("primary", "700")};
+  --ods-theme-border-color-readonly: #{get-shade-variable("primary", "800")};
+  --ods-theme-border-color-selected: #{get-shade-variable("primary", "700")};
+
+  --ods-theme-brand-color: #{get-shade-variable("primary", "000")};
+  --ods-theme-heading-text-color: #{get-shade-variable("neutral", "000")};
+  --ods-theme-progress-background-color: #{get-shade-variable("primary", "300")};
+  --ods-theme-split-background-color: #{get-shade-variable("neutral", "100")};
+  --ods-theme-split-border-color: #{get-shade-variable("neutral", "600")};
+  --ods-theme-text-color: #{get-shade-variable("neutral", "000")};
+  --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "900")};
+  --ods-theme-text-color-selected: #{get-shade-variable("neutral", "000")};
+
+  --ods-theme-track-background-color: #{get-shade-variable("neutral", "800")};
+  --ods-theme-track-background-color-disabled: #{get-shade-variable("neutral", "600")};
+
+  // Status colors (lighter for dark mode)
+  --ods-theme-critical-color: #{get-shade-variable("critical", "300")};
+  --ods-theme-information-color: #{get-shade-variable("information", "300")};
+  --ods-theme-neutral-color: #{get-shade-variable("neutral", "900")};
+  --ods-theme-primary-color: #{get-shade-variable("primary", "000")};
+  --ods-theme-success-color: #{get-shade-variable("success", "300")};
+  --ods-theme-warning-color: #{get-shade-variable("warning", "300")};
+
+  // UI elements
+  --ods-theme-outline-color: #{get-shade-variable("primary", "050")};
+  --ods-theme-backdrop-background-color: #{get-shade-variable("primary", "900")};
+  --ods-theme-backdrop-opacity: 0.85;
+  --ods-theme-overlay-box-shadow: 0 2px 8px rgba(200, 200, 200, 0.6);
+  --ods-theme-font-family: var(--ods-font-family-default);
+
+  // Input styles
+  --ods-theme-input-background-color-checked: #{get-shade-variable("primary", "500")};
+  --ods-theme-input-background-color-checked-hover: #{get-shade-variable("primary", "600")};
+  --ods-theme-input-background-color-invalid: #{get-shade-variable("critical", "600")};
+  --ods-theme-input-border-color: #{get-shade-variable("primary", "000")};
+  --ods-theme-input-border-color-checked: #{get-shade-variable("primary", "500")};
+  --ods-theme-input-border-color-checked-hover: #{get-shade-variable("primary", "600")};
+  --ods-theme-input-border-color-hover: #{get-shade-variable("primary", "100")};
+  --ods-theme-input-border-color-invalid: #{get-shade-variable("critical", "600")};
+  --ods-theme-input-option-background-color-hover: #{get-shade-variable("primary", "700")};
+  --ods-theme-input-option-background-color-selected: #{get-shade-variable("primary", "800")};
+  --ods-theme-input-option-background-color-selected-hover: #{get-shade-variable("primary", "700")};
+  --ods-theme-input-placeholder-text-color: #{get-shade-variable("neutral", "300")};
+  --ods-theme-input-text-color: #{get-shade-variable("neutral", "000")};
+  --ods-theme-input-text-color-checked: #{get-shade-variable("primary", "000")};
+  --ods-theme-input-text-color-invalid: #{get-shade-variable("critical", "600")};
+
+  // Form element tokens
+  --ods-color-background-disabled-default: #{get-shade-variable("neutral", "900")};
+  --ods-color-background-readonly-default: #{get-shade-variable("primary", "800")};
+  --ods-color-border-disabled-default: #{get-shade-variable("neutral", "600")};
+  --ods-color-border-readonly-default: #{get-shade-variable("primary", "800")};
+  --ods-color-element-background-selected: #{get-shade-variable("primary", "700")};
+  --ods-color-element-text-selected: #{get-shade-variable("neutral", "000")};
+
+  --ods-color-form-element-background-critical: #{get-shade-variable("critical", "900")};
+  --ods-color-form-element-background-default: #{get-shade-variable("primary", "000")};
+  --ods-color-form-element-background-focus-default: #{get-shade-variable("neutral", "900")};
+  --ods-color-form-element-background-hover-default: #{get-shade-variable("neutral", "900")};
+  --ods-color-form-element-background-selected-critical: #{get-shade-variable("critical", "300")};
+  --ods-color-form-element-border-critical: #{get-shade-variable("critical", "300")};
+  --ods-color-form-element-border-default: #{get-shade-variable("neutral", "600")};
+  --ods-color-form-element-border-focus-default: #{get-shade-variable("primary", "300")};
+  --ods-color-form-element-border-hover-default: #{get-shade-variable("primary", "200")};
+  --ods-color-form-element-text-default: #{get-shade-variable("neutral", "200")};
+  --ods-color-form-element-text-placeholder-default: #{get-shade-variable("neutral", "200")};
+
+  --ods-color-heading: #{get-shade-variable("neutral", "000")};
+  --ods-color-text: #{get-shade-variable("neutral", "200")};
+  --ods-color-text-disabled-default: #{get-shade-variable("neutral", "500")};
+  --ods-outline-color-default: #{get-shade-variable("neutral", "000")};
+
+  & [data-ods="accordion"] {
+    --ods-accordion-border-color: #{get-shade-variable("primary", "000")};
+    --ods-accordion-border-color-hover: #{get-shade-variable("primary", "100")};
+    --ods-accordion-heading-text-color: #{get-shade-variable("neutral", "000")};
+    --ods-accordion-content-text-color: #{get-shade-variable("neutral", "000")};
+  }
+
+  & [data-ods="badge"] {
+    --ods-badge-background-color-critical: #{get-shade-variable("critical", "300")};
+    --ods-badge-background-color-information: #{get-shade-variable("information", "300")};
+    --ods-badge-background-color-neutral: #{get-shade-variable("neutral", "300")};
+    --ods-badge-background-color-primary: #{get-shade-variable("primary", "500")};
+    --ods-badge-background-color-success: #{get-shade-variable("success", "600")};
+    --ods-badge-background-color-warning: #{get-shade-variable("warning", "300")};
+
+    --ods-badge-text-color-critical: #{get-shade-variable("critical", "900")};
+    --ods-badge-text-color-information: #{get-shade-variable("information", "900")};
+    --ods-badge-text-color-neutral: #{get-shade-variable("neutral", "900")};
+    --ods-badge-text-color-primary: #{get-shade-variable("primary", "000")};
+    --ods-badge-text-color-success: #{get-shade-variable("success", "000")};
+    --ods-badge-text-color-warning: #{get-shade-variable("warning", "900")};
+  }
+
+  & [data-ods="button"] {
+    --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "900")};
+
+    --ods-button-background-color-primary-outline: #{get-shade-variable("primary", "900")};
+    --ods-button-border-color-primary-outline: #{get-shade-variable("primary", "300")};
+    --ods-button-text-color-primary-outline: #{get-shade-variable("primary", "100")};
+
+    --ods-button-background-color-critical-outline: #{get-shade-variable("critical", "900")};
+    --ods-button-border-color-critical-outline: #{get-shade-variable("critical", "300")};
+    --ods-button-text-color-critical-outline: #{get-shade-variable("critical", "100")};
+
+    --ods-button-background-color-information-outline: #{get-shade-variable("information", "900")};
+    --ods-button-border-color-information-outline: #{get-shade-variable("information", "300")};
+    --ods-button-text-color-information-outline: #{get-shade-variable("information", "100")};
+
+    --ods-button-background-color-neutral-outline: #{get-shade-variable("neutral", "900")};
+    --ods-button-border-color-neutral-outline: #{get-shade-variable("neutral", "300")};
+    --ods-button-text-color-neutral-outline: #{get-shade-variable("neutral", "100")};
+
+    --ods-button-background-color-success-outline: #{get-shade-variable("success", "900")};
+    --ods-button-border-color-success-outline: #{get-shade-variable("success", "300")};
+    --ods-button-text-color-success-outline: #{get-shade-variable("success", "100")};
+
+    --ods-button-background-color-warning-outline: #{get-shade-variable("warning", "900")};
+    --ods-button-border-color-warning-outline: #{get-shade-variable("warning", "300")};
+    --ods-button-text-color-warning-outline: #{get-shade-variable("warning", "100")};
+
+    --ods-button-text-color-primary-ghost: #{get-shade-variable("primary", "000")};
+    --ods-button-text-color-critical-ghost: #{get-shade-variable("critical", "200")};
+    --ods-button-text-color-information-ghost: #{get-shade-variable("information", "200")};
+    --ods-button-text-color-neutral-ghost: #{get-shade-variable("neutral", "200")};
+    --ods-button-text-color-success-ghost: #{get-shade-variable("success", "200")};
+    --ods-button-text-color-warning-ghost: #{get-shade-variable("warning", "200")};
+  }
+
+  & [data-ods="card"] {
+    --ods-card-border-color-primary: #{get-shade-variable("primary", "000")};
+  }
+
+  & [data-ods="code"] {
+    --ods-code-secondary-color: #{get-shade-variable("primary", "800")};
+  }
+
+  & [data-ods="combobox-content"] {
+    background-color: var(--ods-theme-background-color);
+  }
+
+  & [data-ods="breadcrumb-link"],
+  & [data-ods="link"] {
+    --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "300")};
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  & [data-ods="message"] {
+    --ods-message-background-color-success: #{get-shade-variable("success", "900")};
+    --ods-message-background-color-information: #{get-shade-variable("information", "900")};
+    --ods-message-background-color-warning: #{get-shade-variable("warning", "900")};
+    --ods-message-background-color-critical: #{get-shade-variable("critical", "900")};
+    --ods-message-background-color-neutral: #{get-shade-variable("neutral", "900")};
+
+    --ods-message-text-color-success: #{get-shade-variable("success", "100")};
+    --ods-message-text-color-information: #{get-shade-variable("information", "100")};
+    --ods-message-text-color-warning: #{get-shade-variable("warning", "100")};
+    --ods-message-text-color-critical: #{get-shade-variable("critical", "100")};
+    --ods-message-text-color-neutral: #{get-shade-variable("neutral", "100")};
+  }
+
+  & [data-ods="meter"] {
+    --ods-meter-background-color-normal: #{get-shade-variable("primary", "400")};
+  }
+
+  & [data-ods="pagination"] [data-ods="button"] {
+    --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "600")};
+    --ods-theme-background-color-selected: #{get-shade-variable("primary", "000")};
+    --ods-button-text-color-primary: #{get-shade-variable("primary", "900")};
+  }
+
+  & [data-ods="quantity-input"]:not([readonly]):not([disabled]) {
+    background: transparent;
+  }
+
+  & [data-ods="radio-control"]::before {
+    background-color: #{get-shade-variable("primary", "000")};
+  }
+
+  & [data-ods="skeleton"] {
+    --ods-skeleton-background-color: #{get-shade-variable("primary", "800")};
+    --ods-skeleton-transition-background-color: #{get-shade-variable("primary", "700")};
+  }
+
+  & [data-ods="spinner"] {
+    fill: #{get-shade-variable("primary", "000")};
+  }
+
+  & [data-ods="table"] {
+    --ods-table-head-background-color: #{get-shade-variable("primary", "900")};
+    --ods-table-head-text-color: #{get-shade-variable("neutral", "000")};
+    --ods-table-row-background-color: transparent;
+    --ods-table-striped-background-color: transparent;
+  }
+
+  & [data-ods="tab"] {
+    --ods-tab-border-color: #{get-shade-variable("primary", "000")};
+    --ods-tab-border-color-selected: #{get-shade-variable("primary", "300")};
+    --ods-tab-text-color-selected: #{get-shade-variable("primary", "300")};
+    --ods-tab-heading-text-color: #{get-shade-variable("neutral", "000")};
+
+    &[disabled] {
+      color: get-shade-variable("neutral", "500");
+    }
+  }
+
+  & [data-ods="tag"] {
+    --ods-tag-background-color-critical: #{get-shade-variable("critical", "200")};
+    --ods-tag-background-color-information: #{get-shade-variable("information", "200")};
+    --ods-tag-background-color-neutral: #{get-shade-variable("neutral", "200")};
+    --ods-tag-background-color-primary: #{get-shade-variable("primary", "200")};
+    --ods-tag-background-color-success: #{get-shade-variable("success", "200")};
+    --ods-tag-background-color-warning: #{get-shade-variable("warning", "200")};
+
+    --ods-tag-text-color-critical: #{get-shade-variable("critical", "900")};
+    --ods-tag-text-color-information: #{get-shade-variable("information", "900")};
+    --ods-tag-text-color-neutral: #{get-shade-variable("neutral", "900")};
+    --ods-tag-text-color-primary: #{get-shade-variable("primary", "900")};
+    --ods-tag-text-color-success: #{get-shade-variable("success", "900")};
+    --ods-tag-text-color-warning: #{get-shade-variable("warning", "900")};
+  }
+
+  & [data-ods="textarea"]:not([readonly]):not([disabled]) {
+    background: transparent;
+  }
+
+  & [data-ods="toggle-control"] {
+    --ods-toggle-control-background-color: #{get-shade-variable("primary", "900")};
+    --ods-toggle-control-background-color-hover: #{get-shade-variable("primary", "800")};
+    --ods-toggle-control-label-off-text-color: #{get-shade-variable("primary", "000")};
+    --ods-toggle-control-thumb-background-color: #{get-shade-variable("primary", "000")};
+
+    &[data-state="checked"] {
+      --ods-toggle-control-thumb-background-color: #{get-shade-variable("primary", "000")};
+    }
+  }
+}
+
+// ============================================
+// THEME APPLICATION
+// ============================================
+
+// Apply light theme to body.theme-light
+body.theme-light {
+  @include ods-theme-light;
+}
+
+// Apply dark theme to body.theme-dark
+body.theme-dark {
+  @include ods-theme-dark;
+}
+
+// Optional: Auto theme based on system preference
+@media (prefers-color-scheme: light) {
+  body.theme-auto {
+    @include ods-theme-light;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body.theme-auto {
+    @include ods-theme-dark;
+  }
+}
+
+// ============================================
+// UTILITY: Generate custom theme
+// ============================================
+// To create a custom theme, you can override the color variables
+// before importing this file, or use the mixins directly:
+//
+// Example:
+// $color-primary: #6200ee;
+// $color-critical: #b00020;
+// @import "themes/theme";
+//
+// Or create a custom selector:
+// body.theme-purple {
+//   $color-primary: #6200ee !global;
+//   @include ods-theme-light;
+// }

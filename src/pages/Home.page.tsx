@@ -50,7 +50,7 @@ import {
   Meter,
   Modal,
   ModalBody,
-  ModalContent,
+  ModalContent, ModalHeader,
   ModalTrigger,
   Pagination,
   Password,
@@ -188,6 +188,22 @@ export const Home = () => {
               </Accordion>
             </div>
             <div className="component-card">
+              <Text preset="caption" className="component-card-label">Disabled State</Text>
+              <Accordion>
+                <AccordionItem
+                  disabled
+                  value="0"
+                >
+                  <AccordionTrigger>
+                    Hello World!
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Lorem ipsum dolor sit amet.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+            <div className="component-card">
               <Text preset="caption" className="component-card-label">Multiple Items</Text>
               <Accordion>
                 <AccordionItem value="1">
@@ -212,30 +228,6 @@ export const Home = () => {
                     <Text preset="paragraph">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </Text>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-            <div className="component-card">
-              <Text preset="caption" className="component-card-label">Disabled State</Text>
-              <Accordion>
-                <AccordionItem
-                  disabled
-                  value="0"
-                >
-                  <AccordionTrigger>
-                    Hello World!
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Lorem ipsum dolor sit amet.
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="1">
-                  <AccordionTrigger>
-                    Hello World!
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Lorem ipsum dolor sit amet.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -682,10 +674,10 @@ export const Home = () => {
             <div className="component-card full-width">
               <Text preset="caption" className="component-card-label">Spacing Variants</Text>
               <div className="flex-column" style={{gap: '16px'}}>
-                <Divider spacing="0"/>
-                <Divider spacing="2"/>
-                <Divider spacing="4"/>
-                <Divider spacing="6"/>
+                <Divider spacing="0" style={{width:'100%'}} />
+                <Divider spacing="2" style={{width:'100%'}} />
+                <Divider spacing="4" style={{width:'100%'}} />
+                <Divider spacing="6" style={{width:'100%'}} />
               </div>
             </div>
           </div>
@@ -702,7 +694,7 @@ export const Home = () => {
                   <DrawerTrigger asChild>
                     <Button>Right Drawer</Button>
                   </DrawerTrigger>
-                  <DrawerContent aria-label="Right Drawer">
+                  <DrawerContent aria-label="Right Drawer" position={DRAWER_POSITION.right}>
                     <DrawerBody>
                       <Text preset="heading-4">Drawer Content</Text>
                       <Text preset="paragraph">This is the drawer body content.</Text>
@@ -1004,14 +996,12 @@ export const Home = () => {
                   <ModalTrigger asChild>
                     <Button>Default Modal</Button>
                   </ModalTrigger>
-                  <ModalContent aria-labelledby="modal-title">
+                  <ModalContent>
+                    <ModalHeader>
+                      My modal header
+                    </ModalHeader>
                     <ModalBody>
-                      <Text preset="heading-4" id="modal-title">Modal Title</Text>
-                      <Text preset="paragraph">This is the modal content.</Text>
-                      <div className="flex-row" style={{marginTop: '16px'}}>
-                        <Button>Confirm</Button>
-                        <Button variant="outline">Cancel</Button>
-                      </div>
+                      My modal content
                     </ModalBody>
                   </ModalContent>
                 </Modal>
@@ -1020,8 +1010,10 @@ export const Home = () => {
                     <Button color="critical">Critical Modal</Button>
                   </ModalTrigger>
                   <ModalContent>
+                    <ModalHeader>
+                      Delete Item?
+                    </ModalHeader>
                     <ModalBody>
-                      <Text preset="heading-4">Delete Item?</Text>
                       <Text preset="paragraph">This action cannot be undone.</Text>
                     </ModalBody>
                   </ModalContent>
@@ -1429,8 +1421,8 @@ export const Home = () => {
             <div className="component-card">
               <Text preset="caption" className="component-card-label">Sizes</Text>
               <div className="flex-row align-center">
-                <Tag size="md">Medium</Tag>
-                <Tag size="lg">Large</Tag>
+                <Tag color="primary" size="md">Medium</Tag>
+                <Tag color="primary" size="lg">Large</Tag>
               </div>
             </div>
           </div>
