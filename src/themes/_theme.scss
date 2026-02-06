@@ -1,0 +1,386 @@
+// ============================================
+// ODS Theme Generator
+// ============================================
+// This SCSS file generates light and dark themes
+// using Sass variables and functions for color shades
+// that bind to ODS CSS custom properties.
+
+@use "sass:color";
+@use "sass:map";
+@use "sass:math";
+
+// ============================================
+// CONFIGURATION VARIABLES
+// ============================================
+
+// Primary brand colors - customize these to change the entire theme
+$color-primary: #0050d7 !default;
+$color-critical: #bf0020 !default;
+$color-information: #0050d7 !default;
+$color-success: #2b8000 !default;
+$color-warning: #ff8b00 !default;
+$color-neutral: #808080 !default;
+
+// Special accent colors
+$color-text: #4d5592 !default;
+$color-alpha: #fbfe47 !default;
+$color-beta: #47fe78 !default;
+$color-new: #47fffa !default;
+$color-promotion: #ccff66 !default;
+
+// ============================================
+// SHADE GENERATION FUNCTIONS
+// ============================================
+
+/// Generate a lighter shade of a color
+/// @param {Color} $color - Base color
+/// @param {Number} $amount - Lightness adjustment (0-100)
+/// @return {Color} - Lightened color
+@function shade-light($color, $amount) {
+  @return color.mix(white, $color, $amount * 1%);
+}
+
+/// Generate a darker shade of a color
+/// @param {Color} $color - Base color
+/// @param {Number} $amount - Darkness adjustment (0-100)
+/// @return {Color} - Darkened color
+@function shade-dark($color, $amount) {
+  @return color.mix(black, $color, $amount * 1%);
+}
+
+/// Generate a complete color scale (000-900)
+/// @param {Color} $base-color - The 500 level color
+/// @return {Map} - Map of shade levels to colors
+@function generate-color-scale($base-color) {
+  @return (
+    "000": white,
+    "025": shade-light($base-color, 97),
+    "050": shade-light($base-color, 92),
+    "075": shade-light($base-color, 85),
+    "100": shade-light($base-color, 78),
+    "200": shade-light($base-color, 60),
+    "300": shade-light($base-color, 40),
+    "400": shade-light($base-color, 20),
+    "500": $base-color,
+    "600": shade-dark($base-color, 15),
+    "700": shade-dark($base-color, 35),
+    "800": shade-dark($base-color, 55),
+    "900": shade-dark($base-color, 75),
+  );
+}
+
+/// Get a specific shade from a color scale
+/// @param {Map} $scale - Color scale map
+/// @param {String} $level - Shade level (000-900)
+/// @return {Color} - Color at that level
+@function get-shade($scale, $level) {
+  @return map.get($scale, $level);
+}
+
+// ============================================
+// GENERATE COLOR SCALES
+// ============================================
+
+$primary-scale: generate-color-scale($color-primary);
+$critical-scale: generate-color-scale($color-critical);
+$information-scale: generate-color-scale($color-information);
+$success-scale: generate-color-scale($color-success);
+$warning-scale: generate-color-scale($color-warning);
+$neutral-scale: generate-color-scale($color-neutral);
+
+// ============================================
+// MIXIN: Output color scale as CSS variables
+// ============================================
+
+@mixin output-color-scale($name, $scale) {
+  @each $level, $color in $scale {
+    --ods-color-#{$name}-#{$level}: #{$color};
+  }
+}
+
+// ============================================
+// MIXIN: Base ODS Colors (shared across themes)
+// ============================================
+
+@mixin ods-base-colors {
+  // Accent colors
+  --ods-color-alpha: #{$color-alpha};
+  --ods-color-beta: #{$color-beta};
+  --ods-color-new: #{$color-new};
+  --ods-color-promotion: #{$color-promotion};
+
+  // Color scales
+  @include output-color-scale("primary", $primary-scale);
+  @include output-color-scale("critical", $critical-scale);
+  @include output-color-scale("information", $information-scale);
+  @include output-color-scale("success", $success-scale);
+  @include output-color-scale("warning", $warning-scale);
+  @include output-color-scale("neutral", $neutral-scale);
+
+  --ods-font-family-default: "Reddit Sans", sans-serif;
+}
+
+// ============================================
+// LIGHT THEME
+// ============================================
+
+@mixin ods-theme-light {
+  // Base color scales
+  @include ods-base-colors;
+
+  // Theme semantic colors
+  --ods-theme-anchor-text-color: #{get-shade($primary-scale, "500")};
+  --ods-theme-anchor-text-color-hover: #{get-shade($primary-scale, "600")};
+  --ods-theme-anchor-text-color-visited: #{get-shade($primary-scale, "700")};
+
+  --ods-theme-background-color: #{get-shade($primary-scale, "000")};
+  --ods-theme-background-color-disabled: #{get-shade($neutral-scale, "100")};
+  --ods-theme-background-color-drag-over: #{get-shade($primary-scale, "100")};
+  --ods-theme-background-color-readonly: #{get-shade($neutral-scale, "050")};
+  --ods-theme-background-color-selected: #{get-shade($primary-scale, "800")};
+
+  --ods-theme-border-color-disabled: #{get-shade($neutral-scale, "200")};
+  --ods-theme-border-color-drag-over: #{get-shade($primary-scale, "100")};
+  --ods-theme-border-color-readonly: #{get-shade($neutral-scale, "050")};
+  --ods-theme-border-color-selected: #{get-shade($primary-scale, "800")};
+
+  --ods-theme-brand-color: #{get-shade($primary-scale, "700")};
+  --ods-theme-heading-text-color: #{get-shade($primary-scale, "800")};
+  --ods-theme-progress-background-color: #{get-shade($primary-scale, "500")};
+  --ods-theme-split-background-color: #{get-shade($neutral-scale, "100")};
+  --ods-theme-split-border-color: #{get-shade($neutral-scale, "100")};
+  --ods-theme-text-color: #{shade-dark(get-shade($primary-scale, "700"), 10)};
+  --ods-theme-text-color-disabled: #{get-shade($neutral-scale, "500")};
+  --ods-theme-text-color-selected: #{get-shade($primary-scale, "000")};
+
+  --ods-theme-track-background-color: #{get-shade($neutral-scale, "100")};
+  --ods-theme-track-background-color-disabled: #{get-shade($neutral-scale, "500")};
+
+  // Status colors
+  --ods-theme-critical-color: #{get-shade($critical-scale, "500")};
+  --ods-theme-information-color: #{get-shade($information-scale, "500")};
+  --ods-theme-neutral-color: #{get-shade($neutral-scale, "500")};
+  --ods-theme-primary-color: #{get-shade($primary-scale, "500")};
+  --ods-theme-success-color: #{get-shade($success-scale, "500")};
+  --ods-theme-warning-color: #{get-shade($warning-scale, "500")};
+
+  // UI elements
+  --ods-theme-outline-color: #{get-shade($primary-scale, "700")};
+  --ods-theme-backdrop-background-color: #{get-shade($primary-scale, "500")};
+  --ods-theme-backdrop-opacity: 0.75;
+
+  // Input styles
+  --ods-theme-input-background-color-checked: #{get-shade($primary-scale, "500")};
+  --ods-theme-input-background-color-checked-hover: #{get-shade($primary-scale, "700")};
+  --ods-theme-input-background-color-invalid: #{get-shade($critical-scale, "500")};
+  --ods-theme-input-border-color: #{get-shade($primary-scale, "100")};
+  --ods-theme-input-border-color-checked: #{get-shade($primary-scale, "500")};
+  --ods-theme-input-border-color-checked-hover: #{get-shade($primary-scale, "700")};
+  --ods-theme-input-border-color-hover: #{get-shade($primary-scale, "500")};
+  --ods-theme-input-border-color-invalid: #{get-shade($critical-scale, "500")};
+  --ods-theme-input-option-background-color-hover: #{get-shade($primary-scale, "100")};
+  --ods-theme-input-option-background-color-selected: #{get-shade($primary-scale, "050")};
+  --ods-theme-input-option-background-color-selected-hover: #{get-shade($primary-scale, "100")};
+  --ods-theme-input-placeholder-text-color: #{get-shade($primary-scale, "600")};
+  --ods-theme-input-text-color: var(--ods-theme-text-color);
+  --ods-theme-input-text-color-checked: var(--ods-theme-background-color);
+  --ods-theme-input-text-color-invalid: #{get-shade($critical-scale, "500")};
+
+  // Form element tokens
+  --ods-color-background-disabled-default: #{get-shade($neutral-scale, "100")};
+  --ods-color-background-readonly-default: #{get-shade($neutral-scale, "050")};
+  --ods-color-border-disabled-default: #{get-shade($neutral-scale, "200")};
+  --ods-color-border-readonly-default: #{get-shade($neutral-scale, "050")};
+  --ods-color-element-background-selected: #{get-shade($primary-scale, "800")};
+  --ods-color-element-text-selected: #{get-shade($primary-scale, "000")};
+
+  --ods-color-form-element-background-critical: #{get-shade($primary-scale, "000")};
+  --ods-color-form-element-background-default: #{get-shade($primary-scale, "000")};
+  --ods-color-form-element-background-focus-default: #{get-shade($primary-scale, "000")};
+  --ods-color-form-element-background-hover-default: #{get-shade($primary-scale, "000")};
+  --ods-color-form-element-background-selected-critical: #{get-shade($critical-scale, "500")};
+  --ods-color-form-element-border-critical: #{get-shade($critical-scale, "500")};
+  --ods-color-form-element-border-default: #{get-shade($neutral-scale, "000")};
+  --ods-color-form-element-border-focus-default: #{get-shade($neutral-scale, "500")};
+  --ods-color-form-element-border-hover-default: #{get-shade($neutral-scale, "500")};
+  --ods-color-form-element-text-default: var(--ods-theme-text-color);
+  --ods-color-form-element-text-placeholder-default: #{get-shade($neutral-scale, "600")};
+
+  --ods-color-heading: #{get-shade($primary-scale, "800")};
+  --ods-color-text: var(--ods-theme-text-color);
+  --ods-color-text-disabled-default: #{get-shade($neutral-scale, "500")};
+  --ods-outline-color-default: #{get-shade($primary-scale, "700")};
+}
+
+// ============================================
+// DARK THEME
+// ============================================
+
+@mixin ods-theme-dark {
+  // Base color scales
+  @include ods-base-colors;
+
+  // Theme semantic colors
+  --ods-theme-anchor-text-color: #{get-shade($primary-scale, "100")};
+  --ods-theme-anchor-text-color-hover: #{get-shade($primary-scale, "200")};
+  --ods-theme-anchor-text-color-visited: var(--ods-color-text);
+
+  --ods-theme-background-color: #{get-shade($primary-scale, "900")};
+  --ods-theme-background-color-disabled: #{get-shade($neutral-scale, "400")};
+  --ods-theme-background-color-drag-over: #{get-shade($primary-scale, "700")};
+  --ods-theme-background-color-readonly: #{get-shade($primary-scale, "800")};
+  --ods-theme-background-color-selected: #{get-shade($primary-scale, "700")};
+
+  --ods-theme-border-color-disabled: #{get-shade($neutral-scale, "300")};
+  --ods-theme-border-color-drag-over: #{get-shade($primary-scale, "700")};
+  --ods-theme-border-color-readonly: #{get-shade($primary-scale, "800")};
+  --ods-theme-border-color-selected: #{get-shade($primary-scale, "700")};
+
+  --ods-theme-brand-color: #{get-shade($primary-scale, "300")};
+  --ods-theme-heading-text-color: #{get-shade($neutral-scale, "000")};
+  --ods-theme-progress-background-color: #{get-shade($primary-scale, "300")};
+  --ods-theme-split-background-color: #{get-shade($neutral-scale, "900")};
+  --ods-theme-split-border-color: #{get-shade($neutral-scale, "600")};
+  --ods-theme-text-color: #{get-shade($neutral-scale, "000")};
+  --ods-theme-text-color-disabled: #{get-shade($neutral-scale, "900")};
+  --ods-theme-text-color-selected: #{get-shade($neutral-scale, "000")};
+
+  --ods-theme-track-background-color: #{get-shade($neutral-scale, "900")};
+  --ods-theme-track-background-color-disabled: #{get-shade($neutral-scale, "600")};
+
+  // Status colors (lighter for dark mode)
+  --ods-theme-critical-color: #{get-shade($critical-scale, "300")};
+  --ods-theme-information-color: #{get-shade($information-scale, "300")};
+  --ods-theme-neutral-color: #{get-shade($neutral-scale, "900")};
+  --ods-theme-primary-color: #{get-shade($primary-scale, "000")};
+  --ods-theme-success-color: #{get-shade($success-scale, "300")};
+  --ods-theme-warning-color: #{get-shade($warning-scale, "300")};
+
+  // UI elements
+  --ods-theme-outline-color: #{get-shade($primary-scale, "050")};
+  --ods-theme-backdrop-background-color: #{get-shade($primary-scale, "900")};
+  --ods-theme-backdrop-opacity: 0.85;
+  --ods-theme-overlay-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --ods-theme-overlay-z-index: 99;
+  --ods-theme-font-family: var(--ods-font-family-default);
+
+  // Input styles
+  --ods-theme-input-background-color-checked: #{get-shade($primary-scale, "300")};
+  --ods-theme-input-background-color-checked-hover: #{get-shade($primary-scale, "200")};
+  --ods-theme-input-background-color-invalid: #{get-shade($critical-scale, "300")};
+  --ods-theme-input-border-color: #{get-shade($primary-scale, "200")};
+  --ods-theme-input-border-color-checked: #{get-shade($primary-scale, "300")};
+  --ods-theme-input-border-color-checked-hover: #{get-shade($primary-scale, "200")};
+  --ods-theme-input-border-color-hover: #{get-shade($primary-scale, "200")};
+  --ods-theme-input-border-color-invalid: #{get-shade($critical-scale, "300")};
+  --ods-theme-input-option-background-color-hover: #{get-shade($primary-scale, "700")};
+  --ods-theme-input-option-background-color-selected: #{get-shade($primary-scale, "800")};
+  --ods-theme-input-option-background-color-selected-hover: #{get-shade($primary-scale, "700")};
+  --ods-theme-input-placeholder-text-color: #{get-shade($neutral-scale, "400")};
+  --ods-theme-input-text-color: #{get-shade($neutral-scale, "100")};
+  --ods-theme-input-text-color-checked: #{get-shade($primary-scale, "900")};
+  --ods-theme-input-text-color-invalid: #{get-shade($critical-scale, "300")};
+
+  // Form element tokens
+  --ods-color-background-disabled-default: #{get-shade($neutral-scale, "900")};
+  --ods-color-background-readonly-default: #{get-shade($primary-scale, "800")};
+  --ods-color-border-disabled-default: #{get-shade($neutral-scale, "600")};
+  --ods-color-border-readonly-default: #{get-shade($primary-scale, "800")};
+  --ods-color-element-background-selected: #{get-shade($primary-scale, "700")};
+  --ods-color-element-text-selected: #{get-shade($neutral-scale, "000")};
+
+  --ods-color-form-element-background-critical: #{get-shade($critical-scale, "900")};
+  --ods-color-form-element-background-default: #{get-shade($primary-scale, "000")};
+  --ods-color-form-element-background-focus-default: #{get-shade($neutral-scale, "900")};
+  --ods-color-form-element-background-hover-default: #{get-shade($neutral-scale, "900")};
+  --ods-color-form-element-background-selected-critical: #{get-shade($critical-scale, "300")};
+  --ods-color-form-element-border-critical: #{get-shade($critical-scale, "300")};
+  --ods-color-form-element-border-default: #{get-shade($neutral-scale, "600")};
+  --ods-color-form-element-border-focus-default: #{get-shade($primary-scale, "300")};
+  --ods-color-form-element-border-hover-default: #{get-shade($primary-scale, "200")};
+  --ods-color-form-element-text-default: #{get-shade($neutral-scale, "200")};
+  --ods-color-form-element-text-placeholder-default: #{get-shade($neutral-scale, "200")};
+
+  --ods-color-heading: #{get-shade($neutral-scale, "000")};
+  --ods-color-text: #{get-shade($neutral-scale, "200")};
+  --ods-color-text-disabled-default: #{get-shade($neutral-scale, "500")};
+  --ods-outline-color-default: #{get-shade($neutral-scale, "000")};
+
+  // Button overrides for dark theme
+  & [data-ods="button"] {
+    --ods-button-background-color-primary-outline: transparent;
+    --ods-button-border-color-primary-outline: #{get-shade($primary-scale, "200")};
+    --ods-button-text-color-primary-outline: #{get-shade($primary-scale, "200")};
+
+    --ods-button-background-color-critical-outline: transparent;
+    --ods-button-border-color-critical-outline: #{get-shade($critical-scale, "200")};
+    --ods-button-text-color-critical-outline: #{get-shade($critical-scale, "200")};
+
+    --ods-button-background-color-information-outline: transparent;
+    --ods-button-border-color-information-outline: #{get-shade($information-scale, "200")};
+    --ods-button-text-color-information-outline: #{get-shade($information-scale, "200")};
+
+    --ods-button-background-color-neutral-outline: transparent;
+    --ods-button-border-color-neutral-outline: #{get-shade($neutral-scale, "200")};
+    --ods-button-text-color-neutral-outline: #{get-shade($neutral-scale, "200")};
+
+    --ods-button-background-color-success-outline: transparent;
+    --ods-button-border-color-success-outline: #{get-shade($success-scale, "200")};
+    --ods-button-text-color-success-outline: #{get-shade($success-scale, "200")};
+
+    --ods-button-background-color-warning-outline: transparent;
+    --ods-button-border-color-warning-outline: #{get-shade($warning-scale, "200")};
+    --ods-button-text-color-warning-outline: #{get-shade($warning-scale, "200")};
+
+    --ods-button-text-color-primary-ghost: #{get-shade($primary-scale, "200")};
+    --ods-button-text-color-critical-ghost: #{get-shade($critical-scale, "200")};
+    --ods-button-text-color-information-ghost: #{get-shade($information-scale, "200")};
+    --ods-button-text-color-neutral-ghost: #{get-shade($neutral-scale, "200")};
+    --ods-button-text-color-success-ghost: #{get-shade($success-scale, "200")};
+    --ods-button-text-color-warning-ghost: #{get-shade($warning-scale, "200")};
+  }
+}
+
+// ============================================
+// THEME APPLICATION
+// ============================================
+
+// Apply light theme to body.theme-light
+body.theme-light {
+  @include ods-theme-light;
+}
+
+// Apply dark theme to body.theme-dark
+body.theme-dark {
+  @include ods-theme-dark;
+}
+
+// Optional: Auto theme based on system preference
+@media (prefers-color-scheme: light) {
+  body.theme-auto {
+    @include ods-theme-light;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body.theme-auto {
+    @include ods-theme-dark;
+  }
+}
+
+// ============================================
+// UTILITY: Generate custom theme
+// ============================================
+// To create a custom theme, you can override the color variables
+// before importing this file, or use the mixins directly:
+//
+// Example:
+// $color-primary: #6200ee;
+// $color-critical: #b00020;
+// @import "themes/theme";
+//
+// Or create a custom selector:
+// body.theme-purple {
+//   $color-primary: #6200ee !global;
+//   @include ods-theme-light;
+// }

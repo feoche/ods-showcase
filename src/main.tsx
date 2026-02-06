@@ -7,7 +7,7 @@ import {
   createRoutesFromElements,
   RouterProvider
 } from 'react-router';
-import './index.css';
+import './index.scss';
 import { Routing } from './routes';
 
 const queryClient = new QueryClient();

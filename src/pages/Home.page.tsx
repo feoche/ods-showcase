@@ -8,7 +8,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Button,
-  ButtonGroup,
+  ButtonGroup, ButtonGroupItem,
   Card,
   Checkbox,
   CheckboxControl,
@@ -74,8 +74,6 @@ import {
   SelectControl,
   Skeleton,
   Spinner,
-  Switch,
-  SwitchItem,
   Tab,
   TabContent,
   Table,
@@ -90,7 +88,7 @@ import {
   TimepickerTimezoneList,
   Toaster,
   Toggle,
-  ToggleControl,
+  ToggleControl, ToggleLabel,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -100,13 +98,13 @@ import * as React from 'react';
 
 export const Home = () => {
   const [activeSection, setActiveSection] = React.useState<string>('accordion');
-  const [tocVisible, setTocVisible] = React.useState<boolean>(false);
+  const [isTocOpen, setIsTocOpen] = React.useState(false);
 
   const sections = [
     'Accordion', 'Badge', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Checkbox', 'Clipboard', 'Code',
     'Combobox', 'Datepicker', 'Divider', 'Drawer', 'Editable', 'FileUpload', 'FormField', 'Icon', 'Input',
     'Kbd', 'Link', 'Logo', 'Medium', 'Message', 'Meter', 'Modal', 'Pagination', 'Password', 'PhoneNumber', 'Popover',
-    'ProgressBar', 'Quantity', 'Radio', 'Range', 'Select', 'Skeleton', 'Spinner', 'Switch',
+    'ProgressBar', 'Quantity', 'Radio', 'Range', 'Select', 'Skeleton', 'Spinner',
     'Table', 'Tabs', 'Tag', 'Text', 'Textarea', 'Tile', 'Timepicker', 'Toaster', 'Toggle', 'Tooltip', 'TreeView'
   ];
 
@@ -115,48 +113,50 @@ export const Home = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(sectionId);
+      setIsTocOpen(false);
     }
-  };
-
-  const toggleToc = () => {
-    setTocVisible(!tocVisible);
   };
 
   return (
     <>
       {/* Table of Contents */}
-      <nav className={`toc-container ${tocVisible ? 'toc-visible' : ''}`}>
-        <Text preset="label" className="toc-title">Components</Text>
-        <div className="toc-list">
-          {sections.map((section) => (
-            <a
-              key={section.toLowerCase()}
-              href={`#${section.toLowerCase()}`}
-              className={`toc-link ${activeSection === section.toLowerCase() ? 'toc-link-active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleTocClick(section.toLowerCase());
-              }}
-            >
-              {section}
-            </a>
-          ))}
-        </div>
-      </nav>
-
-      {/* TOC Toggle Button */}
-      <button
-        className="toc-toggle"
-        onClick={toggleToc}
-        aria-label="Toggle navigation menu"
-        aria-expanded={tocVisible}
-      />
+      <Drawer open={isTocOpen} onOpenChange={(details) => setIsTocOpen(details.open)}>
+        <DrawerTrigger asChild>
+          <button
+            className="toc-toggle"
+            aria-label="Toggle navigation menu"
+          />
+        </DrawerTrigger>
+        <DrawerContent
+          aria-label="Components navigation"
+          className="toc-container"
+          position={DRAWER_POSITION.left}
+        >
+          <DrawerBody>
+            <Text preset="label" className="toc-title">Components</Text>
+            <div className="toc-list">
+              {sections.map((section) => (
+                <a
+                  key={section.toLowerCase()}
+                  href={`#${section.toLowerCase()}`}
+                  className={`toc-link ${activeSection === section.toLowerCase() ? 'toc-link-active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleTocClick(section.toLowerCase());
+                  }}
+                >
+                  {section}
+                </a>
+              ))}
+            </div>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
 
       <main>
         {/* Page Header */}
         <header className="page-header">
-          <Text preset="heading-1">ODS React Components Showcase</Text>
-          <Text preset="paragraph">A complete demonstration of OVHcloud Design System React components</Text>
+          <Text preset="heading-1">ODS Components</Text>
           <div style={{position: 'absolute', top: 16, right: 16}}>
             <Toggle aria-label="Toggle light/dark theme" withLabels
                     defaultChecked={true}
@@ -442,25 +442,25 @@ export const Home = () => {
             <div className="component-card">
               <Text preset="caption" className="component-card-label">Default</Text>
               <ButtonGroup>
-                <Button>First</Button>
-                <Button>Second</Button>
-                <Button>Third</Button>
+                <ButtonGroupItem value={"1"}>First</ButtonGroupItem>
+                <ButtonGroupItem value={"2"}>Second</ButtonGroupItem>
+                <ButtonGroupItem value={"3"}>Third</ButtonGroupItem>
               </ButtonGroup>
             </div>
             <div className="component-card">
               <Text preset="caption" className="component-card-label">Outline Variant</Text>
-              <ButtonGroup>
-                <Button variant="outline">List</Button>
-                <Button variant="outline">Grid</Button>
-                <Button variant="outline">Table</Button>
+              <ButtonGroup size="sm">
+                <ButtonGroupItem value={"1"}>List</ButtonGroupItem>
+                <ButtonGroupItem value={"2"}>Grid</ButtonGroupItem>
+                <ButtonGroupItem value={"3"}>Table</ButtonGroupItem>
               </ButtonGroup>
             </div>
             <div className="component-card">
               <Text preset="caption" className="component-card-label">With Icons</Text>
-              <ButtonGroup>
-                <Button variant="ghost"><Icon name="align-left"/>Left</Button>
-                <Button variant="ghost"><Icon name="align-center"/>Center</Button>
-                <Button variant="ghost"><Icon name="align-right"/>Right</Button>
+              <ButtonGroup size="xs">
+                <ButtonGroupItem value={"1"}><Icon name="arrow-left"/>Left</ButtonGroupItem>
+                <ButtonGroupItem value={"2"}><Icon name="arrow-up"/>Center</ButtonGroupItem>
+                <ButtonGroupItem value={"3"}><Icon name="arrow-right"/>Right</ButtonGroupItem>
               </ButtonGroup>
             </div>
           </div>
@@ -915,11 +915,7 @@ export const Home = () => {
           <div className="component-grid">
             <div className="component-card">
               <Text preset="caption" className="component-card-label">Default</Text>
-              <Logo
-                alt="OVHcloud Logo"
-                src="https://corporate.ovhcloud.com/sites/default/files/2021-09/logo-ovhcloud.png"
-                height={60}
-              />
+              <Logo size="lg"/>
             </div>
           </div>
         </section>
@@ -1326,27 +1322,6 @@ export const Home = () => {
           </div>
         </section>
 
-        {/* Switch Section */}
-        <section className="component-section" id="switch">
-          <Text preset="heading-2">Switch</Text>
-          <div className="component-grid">
-            <div className="component-card">
-              <Text preset="caption" className="component-card-label">Sizes</Text>
-              <div className="flex-column">
-                <Switch aria-label="Select option" size="sm">
-                  <SwitchItem value="1">Small 1</SwitchItem>
-                  <SwitchItem value="2">Small 2</SwitchItem>
-                </Switch>
-                <Switch aria-label="Select option" size="md">
-                  <SwitchItem value="1">Medium 1</SwitchItem>
-                  <SwitchItem value="2">Medium 2</SwitchItem>
-                  <SwitchItem value="3">Medium 3</SwitchItem>
-                </Switch>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Table Section */}
         <section className="component-section" id="table">
           <Text preset="heading-2">Table</Text>
@@ -1574,16 +1549,36 @@ export const Home = () => {
             <div className="component-card">
               <Text preset="caption" className="component-card-label">States</Text>
               <div className="flex-column">
-                <Toggle aria-label="Enable feature"/>
-                <Toggle aria-label="Disabled" disabled/>
-                <Toggle aria-label="With labels" withLabels/>
+                <Toggle>
+                  <ToggleControl/>
+                  <ToggleLabel>
+                    Enable Feature
+                  </ToggleLabel>
+                </Toggle>
+                <Toggle>
+                  <ToggleControl/>
+                  <ToggleLabel>
+                    Disabled
+                  </ToggleLabel>
+                </Toggle>
+                <Toggle withLabels>
+                  <ToggleControl/>
+                  <ToggleLabel>
+                    With labels
+                  </ToggleLabel>
+                </Toggle>
               </div>
             </div>
             <div className="component-card">
               <Text preset="caption" className="component-card-label">With Form Field</Text>
               <FormField>
                 <FormFieldLabel>Dark Mode</FormFieldLabel>
-                <Toggle withLabels/>
+                <Toggle withLabels>
+                  <ToggleControl/>
+                  <ToggleLabel>
+                    Dark Mode
+                  </ToggleLabel>
+                </Toggle>
               </FormField>
             </div>
           </div>
