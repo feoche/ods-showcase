@@ -30,9 +30,8 @@ import {
   DrawerBody,
   DrawerContent,
   DrawerTrigger,
-  Editable,
-  EditableControl,
-  EditablePreview,
+  Editable, EditableActions, EditableDisplay, EditableDisplayEmpty,
+  EditableInput,
   FileUpload,
   FileUploadList,
   FormField,
@@ -95,7 +94,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  TreeView
+  TreeView, TreeViewNode, TreeViewNodes
 } from '@ovhcloud/ods-react';
 import * as React from 'react';
 
@@ -745,16 +744,16 @@ export const Home = () => {
           <div className="component-grid">
             <div className="component-card">
               <Text preset="caption" className="component-card-label">Default</Text>
-              <Editable defaultValue="Double-click to edit this text">
-                <EditablePreview/>
-                <EditableControl/>
-              </Editable>
-            </div>
-            <div className="component-card">
-              <Text preset="caption" className="component-card-label">Empty State</Text>
-              <Editable placeholder="Click to enter text">
-                <EditablePreview/>
-                <EditableControl/>
+              <Editable>
+                <EditableDisplay>
+                  <EditableDisplayEmpty>Empty value</EditableDisplayEmpty>
+                </EditableDisplay>
+
+                <EditableInput>
+                  <Input autoFocus />
+                </EditableInput>
+
+                <EditableActions />
               </Editable>
             </div>
           </div>
@@ -1626,32 +1625,91 @@ export const Home = () => {
           <div className="component-grid">
             <div className="component-card full-width">
               <Text preset="caption" className="component-card-label">Hierarchical Navigation</Text>
-              <TreeView items={[
-                {
-                  id: '1',
-                  label: 'Documents',
-                  children: [
-                    {
-                      id: '1.1',
-                      label: 'Projects',
+              <TreeView
+                items={[
+                  {
+                    children: [
+                      {
+                        id: 'app.tsx',
+                        name: 'app.tsx'
+                      },
+                      {
+                        id: 'index.ts',
+                        name: 'index.ts'
+                      },
+                      {
+                        children: [
+                          {
+                            id: 'Button.tsx',
+                            name: 'Button.tsx'
+                          },
+                          {
+                            id: 'Card.tsx',
+                            name: 'Card.tsx'
+                          }
+                        ],
+                        id: 'components',
+                        name: 'components'
+                      }
+                    ],
+                    id: 'src',
+                    name: 'src'
+                  },
+                  {
+                    id: 'package.json',
+                    name: 'package.json'
+                  },
+                  {
+                    id: 'readme.md',
+                    name: 'README.md'
+                  }
+                ]}
+              >
+                <TreeViewNodes>
+                  <TreeViewNode
+                    item={{
                       children: [
-                        { id: '1.1.1', label: 'Project A' },
-                        { id: '1.1.2', label: 'Project B' }
-                      ]
-                    },
-                    { id: '1.2', label: 'Reports' }
-                  ]
-                },
-                {
-                  id: '2',
-                  label: 'Images',
-                  children: [
-                    { id: '2.1', label: 'Photos' },
-                    { id: '2.2', label: 'Screenshots' }
-                  ]
-                },
-                { id: '3', label: 'Videos' }
-              ]} />
+                        {
+                          id: 'app.tsx',
+                          name: 'app.tsx'
+                        },
+                        {
+                          id: 'index.ts',
+                          name: 'index.ts'
+                        },
+                        {
+                          children: [
+                            {
+                              id: 'Button.tsx',
+                              name: 'Button.tsx'
+                            },
+                            {
+                              id: 'Card.tsx',
+                              name: 'Card.tsx'
+                            }
+                          ],
+                          id: 'components',
+                          name: 'components'
+                        }
+                      ],
+                      id: 'src',
+                      name: 'src'
+                    }}
+                  />
+                  <TreeViewNode
+                    item={{
+                      id: 'package.json',
+                      name: 'package.json'
+                    }}
+                  />
+                  <TreeViewNode
+                    item={{
+                      id: 'readme.md',
+                      name: 'README.md'
+                    }}
+                  />
+                </TreeViewNodes>
+              </TreeView>
             </div>
           </div>
         </section>
