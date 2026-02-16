@@ -2,6 +2,22 @@
 
 A frontend project using Vite, TypeScript, React and npm, using all ODS React components.
 
+## Pages
+
+### Home (`/`)
+Showcases all ODS React components.
+
+### Design Tokens (`/design-tokens.html`)
+A dedicated page for testing design tokens, displaying all color combinations from each palette that meet WCAG AA contrast ratio standards (4.5:1 minimum).
+
+Each cell shows:
+- Background token name and hex value
+- Text token name and hex value
+- Contrast ratio
+- WCAG compliance badge (AAA, AA, or AA Large)
+
+This page is built as a standalone HTML file and can be accessed directly at `/design-tokens.html` in both development and production builds.
+
 ## Prerequisites
 
 - Node.js (v22 or later recommended)
