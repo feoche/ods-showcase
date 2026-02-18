@@ -2,6 +2,12 @@
 .vscode
 .idea
 
+# AI assistants
+.github/copilot*
+.copilot
+.claude
+.anthropic
+
 # Logs
 logs
 *.log
