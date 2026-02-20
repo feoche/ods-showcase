@@ -1,11 +1,7 @@
-# IDEs
-.vscode
-.idea
-
 # AI assistants
-.github/copilot*
+.agents
+.github/agents*
 .copilot
-.claude
 .anthropic
 
 # Logs
@@ -23,7 +19,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
-!.vscode/extensions.json
+.vscode
 .idea
 .DS_Store
 *.suo
