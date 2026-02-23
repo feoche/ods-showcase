@@ -107,15 +107,17 @@ import {
 } from '@ovhcloud/ods-react';
 
 import lang from '@shikijs/langs/typescript';
-import theme from '@shikijs/themes/nord';
+import shikiTheme from '@shikijs/themes/nord';
 
 import * as React from 'react';
+import { ComponentCard } from '../components/ComponentCard';
+import { Navbar } from '../components/Navbar';
+import { useTheme } from '../hooks/useTheme';
 
 export const Home = () => {
-  const [isTocOpen, setIsTocOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const { theme, setTheme } = useTheme();
 
   const sections = [
     'Accordion', 'Badge', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Checkbox', 'Clipboard', 'Code',
@@ -185,16 +187,6 @@ export const Home = () => {
     }
   }
 
-  const handleTocClick = (sectionId: string) => {
-    setActiveSection(sectionId);
-    setIsTocOpen(false);
-  };
-
-  const handleThemeToggle = (checked: boolean) => {
-    setIsDarkMode(!checked);
-    document.body.classList.toggle('theme-dark', !checked);
-    document.body.classList.toggle('theme-light', checked);
-  };
 
   // Check if component should be visible based on filters
   const isComponentVisible = (componentName: string) => {
@@ -203,84 +195,29 @@ export const Home = () => {
 
   return (
     <>
-      {/* Fixed Navbar */}
-      <nav className="navbar">
-        <div className="navbar-content">
-          {/* Hamburger Menu (Drawer Trigger) */}
-          <Drawer open={isTocOpen} onOpenChange={(details) => setIsTocOpen(details.open)}>
-            <DrawerTrigger asChild>
-              <button className="navbar-hamburger" aria-label="Open menu">
-                <span className="hamburger-icon">☰</span>
-              </button>
-            </DrawerTrigger>
-            <DrawerContent className="toc-container" position={DRAWER_POSITION.left}>
-              <DrawerBody>
-                <Text preset="label" className="toc-title">Components</Text>
-                <div className="toc-list">
-                  {sections.map((section) => (
-                    <a
-                      key={section.toLowerCase()}
-                      href={`#${section.toLowerCase()}`}
-                      className="toc-link"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleTocClick(section.toLowerCase());
-                      }}
-                    >
-                      {section}
-                    </a>
-                  ))}
-                </div>
-              </DrawerBody>
-            </DrawerContent>
-          </Drawer>
-
-          {/* Title */}
-          <div className="navbar-title">
-            <Text preset="heading-3">ODS Components</Text>
-          </div>
-
-          {/* Search Input */}
-          <div className="navbar-search">
-            <Input
-              placeholder="Search components..."
-              value={searchQuery}
-              onChange={(e: any) => setSearchQuery(e.target.value)}
-              clearable
-            />
-          </div>
-
-          {/* Category Filter */}
-          <div className="navbar-filter">
-            <Select
-              items={[
-                {label: 'All Components', value: 'all'},
-                {label: 'Form Elements', value: 'Form Elements'},
-                {label: 'Navigation', value: 'Navigation'},
-                {label: 'Feedback', value: 'Feedback'},
-                {label: 'Data Display', value: 'Data Display'},
-                {label: 'Actions', value: 'Actions'}
-              ]}
-              value={[selectedCategory]}
-              onValueChange={(details: any) => setSelectedCategory(details.value)}
-            >
-              <SelectControl placeholder="Category"/>
-              <SelectContent/>
-            </Select>
-          </div>
-
-          {/* Theme Toggle */}
-          <div className="navbar-toggle">
-            <Toggle
-              withLabels
-              checked={!isDarkMode}
-              onChange={(e: any) => handleThemeToggle(e.target.checked)}
-            >
-              <ToggleControl/>
-            </Toggle>
-          </div>
-        </div>
-      </nav>
+      <Navbar
+        theme={theme}
+        onThemeChange={setTheme}
+        drawerTitle="Components"
+        drawerContent={(closeDrawer) => sections.map((section) => (
+          <a
+            key={section.toLowerCase()}
+            href={`#${section.toLowerCase()}`}
+            className="toc-link"
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveSection(section.toLowerCase());
+              closeDrawer();
+            }}
+          >
+            {section}
+          </a>
+        ))}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
 
       <main>
         {isComponentVisible('Accordion') && (
@@ -289,8 +226,7 @@ export const Home = () => {
               Accordion
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Accordion>
                   <AccordionItem value="0">
                     <AccordionTrigger>
@@ -301,9 +237,8 @@ export const Home = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Multiple Items</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple Items">
                 <Accordion>
                   <AccordionItem value="1">
                     <AccordionTrigger>
@@ -322,9 +257,8 @@ export const Home = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Multiple Items (single opening)</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple Items (single opening)">
                 <Accordion multiple={false}>
                   <AccordionItem value="1">
                     <AccordionTrigger>
@@ -343,9 +277,8 @@ export const Home = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <Accordion disabled>
                   <AccordionItem value="0">
                     <AccordionTrigger>
@@ -356,9 +289,8 @@ export const Home = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled Item</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled Item">
                 <Accordion>
                   <AccordionItem disabled
                                  value="0">
@@ -378,9 +310,8 @@ export const Home = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Caret position</Text>
+              </ComponentCard>
+              <ComponentCard label="Caret position">
                 <Accordion>
                   <AccordionItem value="0">
                     <AccordionTrigger expandIconPosition="right">
@@ -402,7 +333,7 @@ export const Home = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -414,22 +345,19 @@ export const Home = () => {
               Badge
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Badge>Badge</Badge>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <div className="flex-row">
                   <Badge size="sm">Small</Badge>
                   <Badge>Medium</Badge>
                   <Badge size="lg">Large</Badge>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <div className="flex-row">
                   <Badge color="primary">Primary</Badge>
                   <Badge color="information">Information</Badge>
@@ -442,9 +370,8 @@ export const Home = () => {
                   <Badge color="beta">Beta</Badge>
                   <Badge color="new">New</Badge>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Icons</Text>
+              </ComponentCard>
+              <ComponentCard label="With Icons">
                 <div className="flex-row">
                   <Badge>
                     <Icon name="arrow-left"/>Left icon
@@ -456,7 +383,7 @@ export const Home = () => {
                     Right icon<Icon name="arrow-up"/>
                   </Badge>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -468,8 +395,7 @@ export const Home = () => {
               Breadcrumb
             </Text>
             <div className="component-grid">
-              <div className="component-card full-width">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default" className="full-width">
                 <Breadcrumb>
                   <BreadcrumbItem>
                     <BreadcrumbLink href="#">
@@ -483,9 +409,8 @@ export const Home = () => {
                     <BreadcrumbLink href="#">Page</BreadcrumbLink>
                   </BreadcrumbItem>
                 </Breadcrumb>
-              </div>
-              <div className="component-card full-width">
-                <Text preset="paragraph" className="component-card-label">With Ellipsis</Text>
+              </ComponentCard>
+              <ComponentCard label="With Ellipsis" className="full-width">
                 <Breadcrumb nbItemsAfterEllipsis={4} nbItemsBeforeEllipsis={1}>
                   <BreadcrumbItem>
                     <BreadcrumbLink href="#">Home</BreadcrumbLink>
@@ -509,7 +434,7 @@ export const Home = () => {
                     <BreadcrumbLink href="#">RISE-2</BreadcrumbLink>
                   </BreadcrumbItem>
                 </Breadcrumb>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -521,22 +446,19 @@ export const Home = () => {
               Button
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Button>Primary</Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <div className="flex-row align-center">
                   <Button size="xs">Extra Small</Button>
                   <Button size="sm">Small</Button>
                   <Button size="md">Medium</Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Solid Variant - Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Solid Variant - Colors">
                 <div className="flex-row">
                   <Button color="primary">Primary</Button>
                   <Button color="information">Information</Button>
@@ -545,9 +467,8 @@ export const Home = () => {
                   <Button color="warning">Warning</Button>
                   <Button color="critical">Critical</Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Outline Variant - Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Outline Variant - Colors">
                 <div className="flex-row">
                   <Button color="primary" variant="outline">Primary</Button>
                   <Button color="information" variant="outline">Information</Button>
@@ -556,9 +477,8 @@ export const Home = () => {
                   <Button color="warning" variant="outline">Warning</Button>
                   <Button color="critical" variant="outline">Critical</Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Ghost Variant - Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Ghost Variant - Colors">
                 <div className="flex-row">
                   <Button color="primary" variant="ghost">Primary</Button>
                   <Button color="information" variant="ghost">Information</Button>
@@ -567,25 +487,22 @@ export const Home = () => {
                   <Button color="warning" variant="ghost">Warning</Button>
                   <Button color="critical" variant="ghost">Critical</Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Button disabled>Disabled</Button>
                   <Button variant="outline" disabled>Disabled Outline</Button>
                   <Button variant="ghost" disabled>Disabled Ghost</Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Loading</Text>
+              </ComponentCard>
+              <ComponentCard label="Loading">
                 <div className="flex-row">
                   <Button loading>Loading</Button>
                   <Button variant="outline" loading>Loading Outline</Button>
                   <Button variant="ghost" loading>Loading Ghost</Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Icons</Text>
+              </ComponentCard>
+              <ComponentCard label="With Icons">
                 <div className="flex-row">
                   <Button>
                     <Icon name="arrow-left"/>Left icon
@@ -597,7 +514,7 @@ export const Home = () => {
                     Right icon<Icon name="arrow-right"/>
                   </Button>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -609,16 +526,14 @@ export const Home = () => {
               Button Group
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <ButtonGroup>
                   <ButtonGroupItem value={"1"}>First</ButtonGroupItem>
                   <ButtonGroupItem value={"2"}>Second</ButtonGroupItem>
                   <ButtonGroupItem value={"3"}>Third</ButtonGroupItem>
                 </ButtonGroup>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <ButtonGroup size="xs">
                   <ButtonGroupItem value={"1"}>Extra Small</ButtonGroupItem>
                   <ButtonGroupItem value={"2"}>Size</ButtonGroupItem>
@@ -631,39 +546,35 @@ export const Home = () => {
                   <ButtonGroupItem value={"1"}>Medium</ButtonGroupItem>
                   <ButtonGroupItem value={"2"}>Size</ButtonGroupItem>
                 </ButtonGroup>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Multiple</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple">
                 <ButtonGroup multiple>
                   <ButtonGroupItem value={"1"}>First</ButtonGroupItem>
                   <ButtonGroupItem value={"2"}>Second</ButtonGroupItem>
                   <ButtonGroupItem value={"3"}>Third</ButtonGroupItem>
                 </ButtonGroup>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <ButtonGroup disabled>
                   <ButtonGroupItem value={"1"}>First</ButtonGroupItem>
                   <ButtonGroupItem value={"2"}>Second</ButtonGroupItem>
                   <ButtonGroupItem value={"3"}>Third</ButtonGroupItem>
                 </ButtonGroup>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled item</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled item">
                 <ButtonGroup>
                   <ButtonGroupItem value={"1"} disabled>First</ButtonGroupItem>
                   <ButtonGroupItem value={"2"}>Second</ButtonGroupItem>
                   <ButtonGroupItem value={"3"}>Third</ButtonGroupItem>
                 </ButtonGroup>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Icons</Text>
+              </ComponentCard>
+              <ComponentCard label="With Icons">
                 <ButtonGroup size="xs">
                   <ButtonGroupItem value={"1"}><Icon name="arrow-left"/>Left icon</ButtonGroupItem>
                   <ButtonGroupItem value={"2"}><Icon name="arrow-up"/></ButtonGroupItem>
                   <ButtonGroupItem value={"3"}>Right icon<Icon name="arrow-right"/></ButtonGroupItem>
                 </ButtonGroup>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -675,16 +586,14 @@ export const Home = () => {
               Card
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Card>
                     Card
                   </Card>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <div className="flex-row">
                   <Card color="primary">Primary</Card>
                   <Card color="information">Information</Card>
@@ -693,7 +602,7 @@ export const Home = () => {
                   <Card color="warning">Warning</Card>
                   <Card color="critical">Critical</Card>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -705,15 +614,13 @@ export const Home = () => {
               Checkbox
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Checkbox>
                   <CheckboxControl/>
                   <CheckboxLabel>Checkbox</CheckboxLabel>
                 </Checkbox>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <Checkbox>
                     <CheckboxControl/>
@@ -764,9 +671,8 @@ export const Home = () => {
                     <CheckboxLabel>Disabled Invalid Checked</CheckboxLabel>
                   </Checkbox>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Checkbox Group</Text>
+              </ComponentCard>
+              <ComponentCard label="Checkbox Group">
                 <CheckboxGroup defaultValue={['marketing']} name="acknowledgments">
                   <Checkbox value="term">
                     <CheckboxControl/>
@@ -777,7 +683,7 @@ export const Home = () => {
                     <CheckboxLabel>I agree to receive marketing communications.</CheckboxLabel>
                   </Checkbox>
                 </CheckboxGroup>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -789,17 +695,15 @@ export const Home = () => {
               Clipboard
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Clipboard value="Clipboard">
                     <ClipboardControl/>
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Clipboard value="Loading">
@@ -823,9 +727,8 @@ export const Home = () => {
                     </Clipboard>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Clipboard disabled value="Disabled">
                     <ClipboardControl/>
@@ -855,7 +758,7 @@ export const Home = () => {
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -867,25 +770,22 @@ export const Home = () => {
               Code
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Code>Code</Code>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Copy</Text>
+              </ComponentCard>
+              <ComponentCard label="With Copy">
                 <div className="flex-row">
                   <Code canCopy>{`import { Text } from '@ovhcloud/ods-react';`}</Code>
                 </div>
-              </div>
-              <div className="component-card full-width">
-                <Text preset="paragraph" className="component-card-label">Multi-line (& highlight via Shiki)</Text>
+              </ComponentCard>
+              <ComponentCard label="Multi-line (& highlight via Shiki)" className="full-width">
                 <div className="flex-row">
                   <Code canCopy
                         highlighter={{
                           language: lang,
-                          theme: theme,
+                          theme: shikiTheme,
                         }}>
                     {`function isTargetInElement(event, element) {
   if (!element) {
@@ -895,7 +795,7 @@ export const Home = () => {
 }`}
                   </Code>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -907,8 +807,7 @@ export const Home = () => {
               Combobox
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Combobox
                     items={[
@@ -922,9 +821,8 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Combobox defaultValue={["clearable"]} items={[{label: 'Clearable', value: 'clearable'}]}>
@@ -951,9 +849,8 @@ export const Home = () => {
                     </Combobox>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Highlight Results</Text>
+              </ComponentCard>
+              <ComponentCard label="Highlight Results">
                 <div className="flex-row">
                   <Combobox
                     highlightResults
@@ -967,9 +864,8 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Multiple</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple">
                 <div className="flex-row">
                   <Combobox
                     multiple
@@ -984,9 +880,8 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Grouping</Text>
+              </ComponentCard>
+              <ComponentCard label="Grouping">
                 <div className="flex-row">
                   <Combobox
                     items={[
@@ -1034,7 +929,7 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1046,26 +941,23 @@ export const Home = () => {
               Datepicker
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Datepicker>
                     <DatepickerControl placeholder="Datepicker"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-row">
                   <Datepicker readOnly>
                     <DatepickerControl placeholder="Readonly"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Datepicker disabled>
                     <DatepickerControl placeholder="Disabled"/>
@@ -1095,7 +987,7 @@ export const Home = () => {
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1107,12 +999,10 @@ export const Home = () => {
               Divider
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Divider style={{width: '100%'}}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Spacings</Text>
+              </ComponentCard>
+              <ComponentCard label="Spacings">
                 <div className="flex-column" style={{gap: '0'}}>
                   <Divider spacing="0" style={{width: '100%'}}/>
                   <Divider spacing="2" style={{width: '100%'}}/>
@@ -1127,14 +1017,13 @@ export const Home = () => {
                   <Divider spacing="48" style={{width: '100%'}}/>
                   <Divider spacing="64" style={{width: '100%'}}/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <div className="flex-column" style={{gap: '16px'}}>
                   <Divider style={{width: '100%'}}/>
                   <Divider color="neutral" style={{width: '100%'}}/>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1146,8 +1035,7 @@ export const Home = () => {
               Drawer
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Drawer>
                   <DrawerTrigger asChild>
                     <div className="flex-row">
@@ -1161,9 +1049,8 @@ export const Home = () => {
                     </DrawerBody>
                   </DrawerContent>
                 </Drawer>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Positions</Text>
+              </ComponentCard>
+              <ComponentCard label="Positions">
                 <div className="flex-row">
                   <Drawer>
                     <DrawerTrigger asChild>
@@ -1201,7 +1088,7 @@ export const Home = () => {
                     </DrawerContent>
                   </Drawer>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1213,8 +1100,7 @@ export const Home = () => {
               Editable
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Editable>
                   <EditableDisplay>
                     <EditableDisplayEmpty>Editable</EditableDisplayEmpty>
@@ -1226,7 +1112,7 @@ export const Home = () => {
 
                   <EditableActions/>
                 </Editable>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1238,29 +1124,25 @@ export const Home = () => {
               FileUpload
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <FileUpload>
                   <FileUploadList/>
                 </FileUpload>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Compact variant</Text>
+              </ComponentCard>
+              <ComponentCard label="Compact variant">
                 <FileUpload variant="compact">
                   <FileUploadList/>
                 </FileUpload>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <FileUpload disabled>
                   <FileUploadList/>
                 </FileUpload>
                 <FileUpload disabled variant="compact">
                   <FileUploadList/>
                 </FileUpload>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Constraints</Text>
+              </ComponentCard>
+              <ComponentCard label="With Constraints">
                 <FileUpload
                   acceptedFileLabel="Formats acceptés : images"
                   dropzoneLabel="Glisser-déposer des fichiers"
@@ -1272,7 +1154,7 @@ export const Home = () => {
                 >
                   <FileUploadList/>
                 </FileUpload>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1284,17 +1166,15 @@ export const Home = () => {
               FormField
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <FormField>
                   <FormFieldLabel>Label</FormFieldLabel>
                   <div className="flex-row">
                     <Input placeholder="Field"/>
                   </div>
                 </FormField>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text><FormField>
+              </ComponentCard>
+              <ComponentCard label="Default"><FormField>
                 <FormFieldLabel>
                   Label
                   <FormFieldLabelSubLabel>
@@ -1305,9 +1185,8 @@ export const Home = () => {
                   <Input placeholder="Field"/>
                 </div>
               </FormField>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Helper</Text>
+              </ComponentCard>
+              <ComponentCard label="With Helper">
                 <FormField>
                   <FormFieldLabel>Label</FormFieldLabel>
                   <div className="flex-row">
@@ -1315,9 +1194,8 @@ export const Home = () => {
                   </div>
                   <FormFieldHelper>Field helper</FormFieldHelper>
                 </FormField>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Error</Text>
+              </ComponentCard>
+              <ComponentCard label="With Error">
                 <FormField invalid>
                   <FormFieldLabel>Label</FormFieldLabel>
                   <div className="flex-row">
@@ -1325,7 +1203,7 @@ export const Home = () => {
                   </div>
                   <FormFieldError>Field Error</FormFieldError>
                 </FormField>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1337,18 +1215,16 @@ export const Home = () => {
               Icon
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Icon name="home"/>
-              </div>
-              <div className="component-card full-width">
-                <Text preset="paragraph" className="component-card-label">Common Icons</Text>
+              </ComponentCard>
+              <ComponentCard label="Common Icons" className="full-width">
                 <div className="flex-row" style={{gap: '0'}}>
                   {Object.values(ICON_NAME).map((iconName) => (
                     <Icon name={iconName as ICON_NAME} className={'icon-' + iconName}/>
                   ))}
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1360,14 +1236,12 @@ export const Home = () => {
               Input
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Input placeholder="Input"/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Types</Text>
+              </ComponentCard>
+              <ComponentCard label="Types">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Input placeholder="Email input" type="email"/>
@@ -1388,9 +1262,8 @@ export const Home = () => {
                     <Input placeholder="URL input" type="url"/>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Input defaultValue="Clearable" clearable/>
@@ -1417,9 +1290,8 @@ export const Home = () => {
                     />
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Input disabled defaultValue="Disabled"/>
@@ -1451,7 +1323,7 @@ export const Home = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1463,12 +1335,11 @@ export const Home = () => {
               Kbd
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Kbd>Ctrl</Kbd>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1480,20 +1351,17 @@ export const Home = () => {
               Link
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Link href="https://www.ovhcloud.com">Link</Link>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Link href="https://www.ovhcloud.com" disabled>Disabled</Link>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Icons</Text>
+              </ComponentCard>
+              <ComponentCard label="With Icons">
                 <div className="flex-row">
                   <Link href="https://www.ovhcloud.com">
                     <Icon name="arrow-left"/>Left icon
@@ -1505,7 +1373,7 @@ export const Home = () => {
                     Right icon<Icon name="arrow-right"/>
                   </Link>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1517,14 +1385,12 @@ export const Home = () => {
               Logo
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Logo/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <div className="flex-row">
                   <Logo size="sm"/>
                 </div>
@@ -1534,16 +1400,15 @@ export const Home = () => {
                 <div className="flex-row">
                   <Logo size="lg"/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Variants</Text>
+              </ComponentCard>
+              <ComponentCard label="Variants">
                 <div className="flex-row">
                   <Logo variant="emblem"/>
                 </div>
                 <div className="flex-row">
                   <Logo/>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1555,30 +1420,27 @@ export const Home = () => {
               Medium
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Medium
                   src="https://upload.wikimedia.org/wikipedia/commons/b/b9/NASAComputerRoom7090.NARA.jpg"
                 />
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Height</Text>
+              </ComponentCard>
+              <ComponentCard label="Height">
                 <div className="flex-row">
                   <Medium
                     src="https://upload.wikimedia.org/wikipedia/commons/b/b9/NASAComputerRoom7090.NARA.jpg"
                     height={100}
                   />
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Width</Text>
+              </ComponentCard>
+              <ComponentCard label="Width">
                 <div className="flex-row">
                   <Medium
                     src="https://upload.wikimedia.org/wikipedia/commons/b/b9/NASAComputerRoom7090.NARA.jpg"
                     width={100}
                   />
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1590,16 +1452,14 @@ export const Home = () => {
               Message
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Message>
                     <MessageBody>Message</MessageBody>
                   </Message>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Solid variant - Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Solid variant - Colors">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Message color="primary">
@@ -1638,9 +1498,8 @@ export const Home = () => {
                     </Message>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Light variant - Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Light variant - Colors">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Message variant="light" color="primary">
@@ -1679,15 +1538,14 @@ export const Home = () => {
                     </Message>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Non-dismissable</Text>
+              </ComponentCard>
+              <ComponentCard label="Non-dismissable">
                 <div className="flex-row">
                   <Message dismissible={false}>
                     <MessageBody>Message</MessageBody>
                   </Message>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1699,12 +1557,10 @@ export const Home = () => {
               Meter
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Meter value={50} max={100}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <div className="flex-column" style={{gap: '16px'}}>
                   <Meter
                     high={80}
@@ -1725,7 +1581,7 @@ export const Home = () => {
                     value={50}
                   />
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1735,8 +1591,7 @@ export const Home = () => {
           <section className="component-section" id="modal">
             <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('modal')}>Modal</Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Modal>
                     <ModalTrigger asChild>
@@ -1752,9 +1607,8 @@ export const Home = () => {
                     </ModalContent>
                   </Modal>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <div className="flex-row">
                   <Modal>
                     <ModalTrigger asChild>
@@ -1785,9 +1639,8 @@ export const Home = () => {
                     </ModalContent>
                   </Modal>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Non-dismissable</Text>
+              </ComponentCard>
+              <ComponentCard label="Non-dismissable">
                 <div className="flex-row">
                   <Modal>
                     <ModalTrigger asChild>
@@ -1804,9 +1657,8 @@ export const Home = () => {
                     </ModalContent>
                   </Modal>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Non-escapable</Text>
+              </ComponentCard>
+              <ComponentCard label="Non-escapable">
                 <div className="flex-row">
                   <Modal closeOnEscape={false} closeOnInteractOutside={false}>
                     <ModalTrigger asChild>
@@ -1823,7 +1675,7 @@ export const Home = () => {
                     </ModalContent>
                   </Modal>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1834,16 +1686,13 @@ export const Home = () => {
             <Text preset="heading-2" className="section-heading"
                   onClick={() => setActiveSection('pagination')}>Pagination</Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Pagination totalItems={30}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <Pagination disabled totalItems={30}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With ellipsis</Text>
+              </ComponentCard>
+              <ComponentCard label="With ellipsis">
                 <Pagination
                   defaultPage={1}
                   siblingCount={0}
@@ -1859,15 +1708,14 @@ export const Home = () => {
                   siblingCount={0}
                   totalItems={50}
                 />
-              </div>
-              <div className="component-card full-width">
-                <Text preset="paragraph" className="component-card-label">With Page Size Selector</Text>
+              </ComponentCard>
+              <ComponentCard label="With Page Size Selector" className="full-width">
                 <Pagination
                   totalItems={500}
                   withPageSizeSelector
                   renderTotalItemsLabel={({totalItems}) => `of ${totalItems} results`}
                 />
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1879,14 +1727,12 @@ export const Home = () => {
               Password
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Password value="Password" placeholder="Password"/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Password defaultValue="Unmasked"
@@ -1912,9 +1758,8 @@ export const Home = () => {
                     />
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
                   <div className="flex-row">
                     <Password defaultValue="Disabled Unmasked"
@@ -1949,7 +1794,7 @@ export const Home = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -1961,29 +1806,25 @@ export const Home = () => {
               Phone Number
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <PhoneNumber>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With country list</Text>
+              </ComponentCard>
+              <ComponentCard label="With country list">
                 <PhoneNumber country="fr">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With locales</Text>
+              </ComponentCard>
+              <ComponentCard label="With locales">
                 <PhoneNumber locale="pl"
                              country="pl">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <PhoneNumber defaultValue="+33612345678"
                              country="fr">
                   <PhoneNumberCountryList/>
@@ -2000,9 +1841,8 @@ export const Home = () => {
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl loading/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <PhoneNumber disabled>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
@@ -2026,7 +1866,7 @@ export const Home = () => {
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl loading/>
                 </PhoneNumber>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2038,8 +1878,7 @@ export const Home = () => {
               Popover
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Popover>
                     <PopoverTrigger asChild>
@@ -2050,9 +1889,8 @@ export const Home = () => {
                     </PopoverContent>
                   </Popover>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Positions</Text>
+              </ComponentCard>
+              <ComponentCard label="Positions">
                 <div className="flex-row">
                   <Popover position="top-start">
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
@@ -2113,7 +1951,7 @@ export const Home = () => {
                     <PopoverContent withArrow>Bottom end popover</PopoverContent>
                   </Popover>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2125,12 +1963,10 @@ export const Home = () => {
               Progress Bar
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <ProgressBar value="50"/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Values</Text>
+              </ComponentCard>
+              <ComponentCard label="Values">
                 <div className="flex-column">
                   <ProgressBar/>
                   <ProgressBar value="25"/>
@@ -2138,7 +1974,7 @@ export const Home = () => {
                   <ProgressBar value="75"/>
                   <ProgressBar value="100"/>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2150,16 +1986,14 @@ export const Home = () => {
               Quantity
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Quantity>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <Quantity min={0}>
                   <QuantityControl>
                     <QuantityInput/>
@@ -2180,9 +2014,8 @@ export const Home = () => {
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <Quantity min={0} disabled>
                   <QuantityControl>
                     <QuantityInput/>
@@ -2203,7 +2036,7 @@ export const Home = () => {
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2215,8 +2048,7 @@ export const Home = () => {
               Radio Group
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <RadioGroup defaultValue="option1">
                   <Radio value="option1">
                     <RadioControl/>
@@ -2227,9 +2059,8 @@ export const Home = () => {
                     <RadioLabel>Option 2</RadioLabel>
                   </Radio>
                 </RadioGroup>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Horizontal</Text>
+              </ComponentCard>
+              <ComponentCard label="Horizontal">
                 <RadioGroup orientation="horizontal" defaultValue="option1">
                   <Radio value="option1">
                     <RadioControl/>
@@ -2240,9 +2071,8 @@ export const Home = () => {
                     <RadioLabel>Option 2</RadioLabel>
                   </Radio>
                 </RadioGroup>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <RadioGroup>
                   <Radio value="option1">
                     <RadioControl/>
@@ -2291,7 +2121,7 @@ export const Home = () => {
                     <RadioLabel>Disabled Invalid Checked</RadioLabel>
                   </Radio>
                 </RadioGroup>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2303,20 +2133,16 @@ export const Home = () => {
               Range
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Range defaultValue={[50]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Dual Range</Text>
+              </ComponentCard>
+              <ComponentCard label="Dual Range">
                 <Range defaultValue={[25, 75]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Ticks</Text>
+              </ComponentCard>
+              <ComponentCard label="With Ticks">
                 <Range defaultValue={[42]} ticks={[0, 25, 50, 75, 100]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Custom Ticks</Text>
+              </ComponentCard>
+              <ComponentCard label="Custom Ticks">
                 <Range displayBounds={false} displayTooltip={false} max={5} min={1} defaultValue={[5]} ticks={[{
                   label: 'Very Poor',
                   value: 1
@@ -2333,16 +2159,14 @@ export const Home = () => {
                   label: 'Excellent',
                   value: 5
                 }]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Without bounds</Text>
+              </ComponentCard>
+              <ComponentCard label="Without bounds">
                 <Range displayBounds={false} defaultValue={[50]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <Range defaultValue={[50]} invalid/>
                 <Range defaultValue={[50]} disabled/>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2354,8 +2178,7 @@ export const Home = () => {
               Select
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Select
                     items={[
@@ -2368,9 +2191,8 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Grouped</Text>
+              </ComponentCard>
+              <ComponentCard label="Grouped">
                 <div className="flex-row">
                   <Select
                     items={[
@@ -2418,9 +2240,8 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Multiple selection</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple selection">
                 <div className="flex-row">
                   <Select
                     multiple
@@ -2449,9 +2270,8 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-row">
                   <Select
                     items={[
@@ -2489,9 +2309,8 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Select
                     items={[
@@ -2565,7 +2384,7 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2577,12 +2396,11 @@ export const Home = () => {
               Skeleton
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div aria-busy="true" className="flex-column">
                   <Skeleton/>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2594,26 +2412,23 @@ export const Home = () => {
               Spinner
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Spinner/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <div className="flex-row align-center">
                   <Spinner color="primary"/>
                   <Spinner color="neutral"/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <div className="flex-row align-center">
                   <Spinner size="xs"/>
                   <Spinner size="sm"/>
                   <Spinner size="md"/>
                   <Spinner size="lg"/>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2625,8 +2440,7 @@ export const Home = () => {
               Table
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Table>
                   <caption>Team Members</caption>
                   <thead>
@@ -2644,9 +2458,8 @@ export const Home = () => {
                   </tr>
                   </tbody>
                 </Table>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <Table size="sm">
                   <caption>Small</caption>
                   <thead>
@@ -2698,9 +2511,8 @@ export const Home = () => {
                   </tr>
                   </tbody>
                 </Table>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Striped</Text>
+              </ComponentCard>
+              <ComponentCard label="Striped">
                 <Table variant="striped" size="sm">
                   <thead>
                   <tr>
@@ -2723,7 +2535,7 @@ export const Home = () => {
                   </tr>
                   </tbody>
                 </Table>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2735,8 +2547,7 @@ export const Home = () => {
               Tabs
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Tabs defaultValue="tab1">
                     <TabList>
@@ -2746,9 +2557,8 @@ export const Home = () => {
                     </TabList>
                   </Tabs>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Switch variant</Text>
+              </ComponentCard>
+              <ComponentCard label="Switch variant">
                 <div className="flex-row">
                   <Tabs defaultValue="tab1"
                         variant="switch">
@@ -2759,9 +2569,8 @@ export const Home = () => {
                     </TabList>
                   </Tabs>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <div className="flex-row">
                   <Tabs defaultValue="tab1"
                         size="xs">
@@ -2792,9 +2601,8 @@ export const Home = () => {
                     </TabList>
                   </Tabs>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled Tab</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled Tab">
                 <div className="flex-row">
                   <Tabs defaultValue="tab1">
                     <TabList>
@@ -2804,9 +2612,8 @@ export const Home = () => {
                     </TabList>
                   </Tabs>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Overflow</Text>
+              </ComponentCard>
+              <ComponentCard label="Overflow">
                 <div className="flex-row">
                   <div
                     style={{
@@ -2892,9 +2699,8 @@ export const Home = () => {
                     </Tabs>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With content</Text>
+              </ComponentCard>
+              <ComponentCard label="With content">
                 <div className="flex-row">
                   <Tabs defaultValue="tab1">
                     <TabList>
@@ -2913,7 +2719,7 @@ export const Home = () => {
                     </TabContent>
                   </Tabs>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2925,14 +2731,12 @@ export const Home = () => {
               Tag
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Tag>Tag</Tag>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <div className="flex-row">
                   <Tag color="primary">Primary</Tag>
                   <Tag color="information">Information</Tag>
@@ -2941,20 +2745,18 @@ export const Home = () => {
                   <Tag color="warning">Warning</Tag>
                   <Tag color="critical">Critical</Tag>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Sizes</Text>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
                 <div className="flex-row align-center">
                   <Tag color="primary" size="md">Medium</Tag>
                   <Tag color="primary" size="lg">Large</Tag>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row align-center">
                   <Tag color="primary" disabled>Disabled</Tag>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2966,21 +2768,18 @@ export const Home = () => {
               Text
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Text preset="paragraph">This is text content</Text>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Headings</Text>
+              </ComponentCard>
+              <ComponentCard label="Headings">
                 <Text preset="heading-1" as="div">Heading 1</Text>
                 <Text preset="heading-2" as="div">Heading 2</Text>
                 <Text preset="heading-3" as="div">Heading 3</Text>
                 <Text preset="heading-4" as="div">Heading 4</Text>
                 <Text preset="heading-5" as="div">Heading 5</Text>
                 <Text preset="heading-6" as="div">Heading 6</Text>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Other Presets</Text>
+              </ComponentCard>
+              <ComponentCard label="Other Presets">
                 <div className="flex-column">
                   <Text preset="label">Label</Text>
                   <Text preset="paragraph">Paragraph</Text>
@@ -2988,13 +2787,12 @@ export const Home = () => {
                   <Text preset="span">Span</Text>
                   <Text preset="caption">Caption</Text>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
                   <Text disabled>Disabled</Text>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -3006,33 +2804,29 @@ export const Home = () => {
               Textarea
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Textarea placeholder="Textarea"/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <Textarea defaultValue="Readonly" readOnly/>
                   <Textarea defaultValue="Invalid" invalid/>
                   <Textarea defaultValue="Readonly Invalid" readOnly invalid/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
                   <Textarea defaultValue="Disabled" disabled/>
                   <Textarea defaultValue="Disabled Readonly" disabled readOnly/>
                   <Textarea defaultValue="Disabled Invalid" disabled invalid/>
                   <Textarea defaultValue="Disabled Readonly Invalid" disabled readOnly invalid/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Resizable</Text>
+              </ComponentCard>
+              <ComponentCard label="Resizable">
                 <Textarea placeholder="Resizable" style={{
                   resize: 'both'
                 }}/>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -3044,30 +2838,27 @@ export const Home = () => {
               Tile
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Tile>Tile</Tile>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-row">
                   <Tile>Unselected</Tile>
                 </div>
                 <div className="flex-row">
                   <Tile selected>Selected</Tile>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Tile disabled>Disabled</Tile>
                 </div>
                 <div className="flex-row">
                   <Tile disabled selected>Disabled selected</Tile>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -3079,16 +2870,14 @@ export const Home = () => {
               Timepicker
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Timepicker value="12:00">
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Seconds & Timezones</Text>
+              </ComponentCard>
+              <ComponentCard label="With Seconds & Timezones">
                 <div className="flex-row">
                   <Timepicker withSeconds>
                     <TimepickerControl/>
@@ -3100,9 +2889,8 @@ export const Home = () => {
                     <TimepickerTimezoneList/>
                   </Timepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-row">
                   <Timepicker readOnly>
                     <TimepickerControl/>
@@ -3118,9 +2906,8 @@ export const Home = () => {
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Timepicker disabled readOnly>
                     <TimepickerControl/>
@@ -3136,7 +2923,7 @@ export const Home = () => {
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -3148,17 +2935,15 @@ export const Home = () => {
               Toaster
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Toaster/>
                 <div className="flex-row">
                   <Button onClick={() => toast('Notification message')}>
                     Trigger toast
                   </Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Colors</Text>
+              </ComponentCard>
+              <ComponentCard label="Colors">
                 <Toaster id="colors"/>
                 <div className="flex-row">
                   <Button color="critical" onClick={() => toast.critical('Critical', {
@@ -3202,9 +2987,8 @@ export const Home = () => {
                     Warning toast
                   </Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Non-dismissable</Text>
+              </ComponentCard>
+              <ComponentCard label="Non-dismissable">
                 <Toaster id="dismissible"
                          dismissible={false} />
                 <div className="flex-row">
@@ -3214,9 +2998,8 @@ export const Home = () => {
                     Trigger toast
                   </Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Icon</Text>
+              </ComponentCard>
+              <ComponentCard label="With Icon">
                 <Toaster id="icon" />
                 <div className="flex-row">
                   <Button onClick={() => toast('Notification message with icon', {
@@ -3226,9 +3009,8 @@ export const Home = () => {
                     Trigger toast
                   </Button>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With Icon</Text>
+              </ComponentCard>
+              <ComponentCard label="With Icon">
                 <Toaster
                   id="top-start"
                   position="top-start"
@@ -3287,7 +3069,7 @@ export const Home = () => {
                     Bottom End
                   </Button>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -3299,29 +3081,25 @@ export const Home = () => {
               Toggle
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <Toggle>
                   <ToggleControl/>
                 </Toggle>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With label</Text>
+              </ComponentCard>
+              <ComponentCard label="With label">
                 <Toggle>
                   <ToggleControl/>
                   <ToggleLabel>
                     Toggle Label
                   </ToggleLabel>
                 </Toggle>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">With inner labels</Text>
+              </ComponentCard>
+              <ComponentCard label="With inner labels">
                 <Toggle withLabels>
                   <ToggleControl/>
                 </Toggle>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <Toggle>
                     <ToggleControl/>
@@ -3348,9 +3126,8 @@ export const Home = () => {
                     </ToggleLabel>
                   </Toggle>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
                   <Toggle disabled>
                     <ToggleControl/>
@@ -3377,7 +3154,7 @@ export const Home = () => {
                     </ToggleLabel>
                   </Toggle>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -3390,8 +3167,7 @@ export const Home = () => {
               Tooltip
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -3400,9 +3176,8 @@ export const Home = () => {
                     <TooltipContent>Tooltip Content</TooltipContent>
                   </Tooltip>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Positions</Text>
+              </ComponentCard>
+              <ComponentCard label="Positions">
                 <div className="flex-row">
                   <Tooltip position="top">
                     <TooltipTrigger asChild>
@@ -3463,7 +3238,7 @@ export const Home = () => {
                     <TooltipContent>Bottom end tooltip</TooltipContent>
                   </Tooltip>
                 </div>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -3476,8 +3251,7 @@ export const Home = () => {
               Tree View
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Default</Text>
+              <ComponentCard label="Default">
                 <TreeView
                   items={[
                     {
@@ -3517,9 +3291,8 @@ export const Home = () => {
                     />
                   </TreeViewNodes>
                 </TreeView>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Multiple</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple">
                 <TreeView
                   multiple
                   items={[
@@ -3560,9 +3333,8 @@ export const Home = () => {
                     />
                   </TreeViewNodes>
                 </TreeView>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <TreeView
                   disabled
                   items={[
@@ -3603,9 +3375,8 @@ export const Home = () => {
                     />
                   </TreeViewNodes>
                 </TreeView>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label">Disabled item</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled item">
                 <TreeView
                   items={[
                     {
@@ -3647,7 +3418,7 @@ export const Home = () => {
                     />
                   </TreeViewNodes>
                 </TreeView>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}

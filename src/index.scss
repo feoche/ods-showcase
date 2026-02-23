@@ -61,9 +61,17 @@ main {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-body.theme-dark .navbar {
+body.theme-dark .navbar,
+body.theme-auto .navbar {
   background: var(--ods-color-primary-900);
   border-bottom-color: var(--ods-color-neutral-700);
+}
+
+@media (prefers-color-scheme: light) {
+  body.theme-auto .navbar {
+    background: var(--ods-color-primary-000);
+    border-bottom-color: var(--ods-color-neutral-200);
+  }
 }
 
 .navbar-content {
@@ -103,7 +111,40 @@ body.theme-dark .navbar {
 }
 
 .navbar-title {
+  white-space: nowrap;
+}
+
+.navbar-page-links {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
   margin-right: auto;
+}
+
+.navbar-page-link {
+  white-space: nowrap;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  color: inherit;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--ods-theme-primary-color) 10%, transparent);
+    border-color: var(--ods-theme-primary-color);
+    color: var(--ods-theme-primary-color);
+  }
+
+  &.active {
+    background-color: color-mix(in srgb, var(--ods-theme-primary-color) 12%, transparent);
+    border-color: var(--ods-theme-primary-color);
+    color: var(--ods-theme-primary-color);
+    font-weight: 600;
+    pointer-events: none;
+  }
 }
 
 .navbar-title [data-ods="text"] {
@@ -113,7 +154,8 @@ body.theme-dark .navbar {
 
 .navbar-search {
   flex: 1;
-  max-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar-search [data-ods="input"] {
@@ -124,9 +166,9 @@ body.theme-dark .navbar {
   min-width: 180px;
 }
 
-.navbar-toggle {
-  display: flex;
-  align-items: center;
+.navbar-theme-select {
+  min-width: 130px;
+  flex-shrink: 0;
 }
 
 /* Component Section */
@@ -177,10 +219,46 @@ body.theme-dark .navbar {
   grid-column: 1 / -1;
 }
 
+.component-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
 .component-card-label {
   font-weight: 600;
+  font-size: 0.875rem;
   color: var(--ods-theme-text-color);
-  margin-bottom: 0.2rem;
+}
+
+.component-card-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--ods-color-neutral-300);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ods-color-neutral-500);
+  transition: all 0.15s ease;
+  padding: 0;
+
+  &:hover {
+    border-color: var(--ods-theme-primary-color);
+    color: var(--ods-theme-primary-color);
+    background-color: color-mix(in srgb, var(--ods-theme-primary-color) 8%, transparent);
+  }
+
+  &.copied {
+    border-color: var(--ods-color-success-500);
+    color: var(--ods-color-success-500);
+    background-color: color-mix(in srgb, var(--ods-color-success-500) 8%, transparent);
+  }
 }
 
 .component-card-content {
