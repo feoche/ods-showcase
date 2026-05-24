@@ -18,6 +18,13 @@ dist
 dist-ssr
 *.local
 
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+# Keep screenshot baselines in git (do NOT ignore __screenshots__)
+!tests/visual/__screenshots__/
+
 # Editor directories and files
 .vscode
 .idea

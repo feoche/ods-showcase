@@ -3,6 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  Avatar,
   Badge,
   Breadcrumb,
   BreadcrumbItem,
@@ -11,6 +12,13 @@ import {
   ButtonGroup,
   ButtonGroupItem,
   Card,
+  Cart,
+  CartAction,
+  CartEmpty,
+  CartExtraContent,
+  CartProductGroup,
+  CartProductGroupItem,
+  CartTotal,
   Checkbox,
   CheckboxControl,
   CheckboxGroup,
@@ -22,6 +30,10 @@ import {
   Combobox,
   ComboboxContent,
   ComboboxControl,
+  DataTable,
+  DataTableBody,
+  DataTableEmpty,
+  DataTableHead,
   Datepicker,
   DatepickerContent,
   DatepickerControl,
@@ -36,6 +48,7 @@ import {
   EditableDisplay,
   EditableDisplayEmpty,
   EditableInput,
+  FileThumbnail,
   FileUpload,
   FileUploadList,
   FormField,
@@ -49,9 +62,18 @@ import {
   Kbd,
   Link,
   Logo,
+  Markdown,
   Medium,
+  Menu,
+  MenuContent,
+  MenuGroup,
+  MenuGroupLabel,
+  MenuItem,
+  MenuSubmenu,
+  MenuTrigger,
   Message,
   MessageBody,
+  MessageBubble,
   MessageIcon,
   Meter,
   Modal,
@@ -68,9 +90,17 @@ import {
   PopoverContent,
   PopoverTrigger,
   ProgressBar,
+  PromptInput,
+  PromptInputControls,
+  PromptInputSendButton,
+  PromptInputTextControl,
   Quantity,
   QuantityControl,
   QuantityInput,
+  QueryFilter,
+  QueryFilterContent,
+  QueryFilterControl,
+  QueryFilterTags,
   Radio,
   RadioControl,
   RadioGroup,
@@ -81,6 +111,8 @@ import {
   SelectControl,
   Skeleton,
   Spinner,
+  Switch,
+  SwitchItem,
   Tab,
   TabContent,
   Table,
@@ -119,26 +151,26 @@ export const Home = () => {
   const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
   const { theme, setTheme } = useTheme();
 
-  const sections = [
-    'Accordion', 'Badge', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Checkbox', 'Clipboard', 'Code',
-    'Combobox', 'Datepicker', 'Divider', 'Drawer', 'Editable', 'FileUpload', 'FormField', 'Icon', 'Input',
-    'Kbd', 'Link', 'Logo', 'Medium', 'Message', 'Meter', 'Modal', 'Pagination', 'Password', 'PhoneNumber', 'Popover',
-    'ProgressBar', 'Quantity', 'RadioGroup', 'Range', 'Select', 'Skeleton', 'Spinner',
-    'Table', 'Tabs', 'Tag', 'Text', 'Textarea', 'Tile', 'Timepicker', 'Toaster', 'Toggle', 'Tooltip', 'TreeView'
-  ];
+    const sections = [
+    'Accordion', 'Avatar', 'Badge', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Cart', 'Checkbox', 'Clipboard', 'Code',
+    'Combobox', 'DataTable', 'Datepicker', 'Divider', 'Drawer', 'Editable', 'FileThumbnail', 'FileUpload', 'FormField', 'Icon', 'Input',
+    'Kbd', 'Link', 'Logo', 'Markdown', 'Medium', 'Menu', 'Message', 'MessageBubble', 'Meter', 'Modal', 'Pagination', 'Password',
+    'PhoneNumber', 'Popover', 'ProgressBar', 'PromptInput', 'Quantity', 'QueryFilter', 'RadioGroup', 'Range', 'Select',
+    'Skeleton', 'Spinner', 'Switch', 'Table', 'Tabs', 'Tag', 'Text', 'Textarea', 'Tile', 'Timepicker', 'Toaster', 'Toggle', 'Tooltip', 'TreeView'
+    ];
 
-  // Component categories
-  const componentCategories: Record<string, string[]> = {
+    // Component categories
+    const componentCategories: Record<string, string[]> = {
     'all': sections,
     'Form Elements': ['Checkbox', 'Clipboard', 'Combobox', 'Datepicker', 'Editable', 'FileUpload', 'FormField', 'Input',
-      'Password', 'PhoneNumber', 'Quantity', 'RadioGroup', 'Range', 'Select', 'Textarea',
+      'Password', 'PhoneNumber', 'PromptInput', 'Quantity', 'QueryFilter', 'RadioGroup', 'Range', 'Select', 'Switch', 'Textarea',
       'Timepicker', 'Toggle'],
-    'Navigation': ['Breadcrumb', 'Drawer', 'Link', 'Pagination', 'Tabs'],
-    'Feedback': ['Message', 'Modal', 'Popover', 'Spinner', 'Toaster', 'Tooltip', 'ProgressBar', 'Skeleton'],
-    'Data Display': ['Accordion', 'Badge', 'Card', 'Code', 'Divider', 'Icon', 'Kbd', 'Logo', 'Medium',
+    'Navigation': ['Breadcrumb', 'Drawer', 'Link', 'Menu', 'Pagination', 'Tabs'],
+    'Feedback': ['Message', 'MessageBubble', 'Modal', 'Popover', 'Spinner', 'Toaster', 'Tooltip', 'ProgressBar', 'Skeleton'],
+    'Data Display': ['Accordion', 'Avatar', 'Badge', 'Card', 'Cart', 'Code', 'DataTable', 'Divider', 'FileThumbnail', 'Icon', 'Kbd', 'Logo', 'Markdown', 'Medium',
       'Meter', 'Table', 'Tag', 'Text', 'Tile', 'TreeView'],
     'Actions': ['Button', 'ButtonGroup']
-  };
+    };
 
   // Filter sections based on search and category
   const filteredSections = React.useMemo(() => {
@@ -333,6 +365,29 @@ export const Home = () => {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
+        {/* Avatar Section */}
+        {isComponentVisible('Avatar') && (
+          <section className="component-section" id="avatar">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('avatar')}>
+              Avatar
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default">
+                <div className="flex-row">
+                  <Avatar/>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
+                <div className="flex-row align-center">
+                  <Avatar style={{ width: '32px', height: '32px' }}/>
+                  <Avatar style={{ width: '48px', height: '48px' }}/>
+                  <Avatar style={{ width: '64px', height: '64px' }}/>
+                </div>
               </ComponentCard>
             </div>
           </section>
@@ -607,6 +662,50 @@ export const Home = () => {
           </section>
         )}
 
+        {/* Cart Section */}
+        {isComponentVisible('Cart') && (
+          <section className="component-section" id="cart">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('cart')}>
+              Cart
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default">
+                <Cart>
+                  <CartProductGroup label="Web Hosting" price="$18.98/mo" open>
+                    <CartProductGroupItem label="Starter Plan" price="$5.99/mo"/>
+                    <CartProductGroupItem label="Domain Name" price="$12.99/yr"/>
+                  </CartProductGroup>
+                  <CartTotal label="Total" price="$18.98"/>
+                  <CartAction>
+                    <Button>Checkout</Button>
+                  </CartAction>
+                </Cart>
+              </ComponentCard>
+              <ComponentCard label="With Extra Content">
+                <Cart>
+                  <CartProductGroup label="Cloud Services" price="$20/mo" open>
+                    <CartProductGroupItem label="VPS" price="$10/mo" quantity={2}/>
+                  </CartProductGroup>
+                  <CartExtraContent>
+                    <Text preset="caption">* Prices exclude VAT</Text>
+                  </CartExtraContent>
+                  <CartTotal label="Subtotal" price="$20/mo"/>
+                  <CartAction>
+                    <Button>Order Now</Button>
+                  </CartAction>
+                </Cart>
+              </ComponentCard>
+              <ComponentCard label="Empty">
+                <Cart>
+                  <CartEmpty>
+                    <Text preset="paragraph">Your cart is empty</Text>
+                  </CartEmpty>
+                </Cart>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
         {/* Checkbox Section */}
         {isComponentVisible('Checkbox') && (
           <section className="component-section" id="checkbox">
@@ -695,26 +794,24 @@ export const Home = () => {
               Clipboard
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="clipboard-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
-                  <Clipboard aria-labelledby="clipboard-default-label" value="Clipboard">
+                  <Clipboard value="Clipboard">
                     <ClipboardControl/>
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="clipboard-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Clipboard aria-labelledby="clipboard-states-label" value="Loading">
+                    <Clipboard value="Loading">
                       <ClipboardControl loading/>
                       <ClipboardTrigger/>
                     </Clipboard>
                   </div>
                   <div className="flex-row">
-                    <Clipboard aria-labelledby="clipboard-states-label" value="Unmasked">
+                    <Clipboard value="Unmasked">
                       <ClipboardControl maskOption={{
                         enable: true,
                         initialState: "open"
@@ -723,29 +820,28 @@ export const Home = () => {
                     </Clipboard>
                   </div>
                   <div className="flex-row">
-                    <Clipboard aria-labelledby="clipboard-states-label" value="Masked">
+                    <Clipboard value="Masked">
                       <ClipboardControl maskOption={{enable: true}}/>
                       <ClipboardTrigger/>
                     </Clipboard>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="clipboard-disabled-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
-                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled">
+                  <Clipboard disabled value="Disabled">
                     <ClipboardControl/>
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
                 <div className="flex-row">
-                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled loading">
+                  <Clipboard disabled value="Disabled loading">
                     <ClipboardControl loading/>
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
                 <div className="flex-row">
-                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled unmasked">
+                  <Clipboard disabled value="Disabled unmasked">
                     <ClipboardControl maskOption={{
                       enable: true,
                       initialState: "open"
@@ -754,7 +850,7 @@ export const Home = () => {
                   </Clipboard>
                 </div>
                 <div className="flex-row">
-                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled masked">
+                  <Clipboard disabled value="Disabled masked">
                     <ClipboardControl maskOption={{
                       enable: true
                     }}/>
@@ -810,11 +906,10 @@ export const Home = () => {
               Combobox
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="combobox-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Combobox
-                    aria-labelledby="combobox-default-label"
+                   
                     items={[
                       {label: 'First item', value: 'item-1'},
                       {label: 'Second item', value: 'item-2'},
@@ -826,41 +921,39 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="combobox-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Combobox aria-labelledby="combobox-states-label" defaultValue={["clearable"]} items={[{label: 'Clearable', value: 'clearable'}]}>
+                    <Combobox defaultValue={["clearable"]} items={[{label: 'Clearable', value: 'clearable'}]}>
                       <ComboboxControl clearable placeholder="Clearable"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                   <div className="flex-row">
-                    <Combobox aria-labelledby="combobox-states-label" items={[]}>
+                    <Combobox items={[]}>
                       <ComboboxControl placeholder="Empty"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                   <div className="flex-row">
-                    <Combobox aria-labelledby="combobox-states-label" invalid items={[{label: 'First item', value: 'item1'}]}>
+                    <Combobox invalid items={[{label: 'First item', value: 'item1'}]}>
                       <ComboboxControl placeholder="Invalid"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                   <div className="flex-row">
-                    <Combobox aria-labelledby="combobox-states-label" readOnly items={[{label: 'First item', value: 'item1'}]}>
+                    <Combobox readOnly items={[{label: 'First item', value: 'item1'}]}>
                       <ComboboxControl placeholder="Readonly"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="combobox-highlight-label">Highlight Results</Text>
+              </ComponentCard>
+              <ComponentCard label="Highlight Results">
                 <div className="flex-row">
                   <Combobox
-                    aria-labelledby="combobox-highlight-label"
+                   
                     highlightResults
                     items={[
                       {label: 'France', value: 'fr'},
@@ -872,12 +965,11 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="combobox-multiple-label">Multiple</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple">
                 <div className="flex-row">
                   <Combobox
-                    aria-labelledby="combobox-multiple-label"
+                   
                     multiple
                     items={[
                       {label: 'First item', value: 'item-1'},
@@ -890,12 +982,11 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="combobox-grouping-label">Grouping</Text>
+              </ComponentCard>
+              <ComponentCard label="Grouping">
                 <div className="flex-row">
                   <Combobox
-                    aria-labelledby="combobox-grouping-label"
+                   
                     items={[
                       {
                         label: 'Europe',
@@ -946,6 +1037,35 @@ export const Home = () => {
           </section>
         )}
 
+        {/* DataTable Section */}
+        {isComponentVisible('DataTable') && (
+          <section className="component-section" id="datatable">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('datatable')}>
+              DataTable
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default" className="full-width">
+                <DataTable
+                  columns={[
+                    { id: 'name', header: 'Name', accessorKey: 'name' },
+                    { id: 'role', header: 'Role', accessorKey: 'role' },
+                    { id: 'status', header: 'Status', accessorKey: 'status' },
+                  ]}
+                  data={[
+                    { name: 'Alice', role: 'Developer', status: 'Active' },
+                    { name: 'Bob', role: 'Designer', status: 'Active' },
+                    { name: 'Charlie', role: 'Manager', status: 'On Leave' },
+                  ]}
+                >
+                  <DataTableHead/>
+                  <DataTableBody/>
+                  <DataTableEmpty>No data available</DataTableEmpty>
+                </DataTable>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
         {/* Datepicker Section */}
         {isComponentVisible('Datepicker') && (
           <section className="component-section" id="datepicker">
@@ -953,35 +1073,32 @@ export const Home = () => {
               Datepicker
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="datepicker-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
-                  <Datepicker aria-labelledby="datepicker-default-label">
+                  <Datepicker>
                     <DatepickerControl placeholder="Datepicker"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="datepicker-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-row">
-                  <Datepicker aria-labelledby="datepicker-states-label" readOnly>
+                  <Datepicker readOnly>
                     <DatepickerControl placeholder="Readonly"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="datepicker-disabled-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
-                  <Datepicker aria-labelledby="datepicker-disabled-label" disabled>
+                  <Datepicker disabled>
                     <DatepickerControl placeholder="Disabled"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
                 <div className="flex-row">
                   <Datepicker
-                    aria-labelledby="datepicker-disabled-label"
+                   
                     disabledDates={[
                       new Date(Date.now() + 86400000),
                       new Date(Date.now() + 172800000),
@@ -994,7 +1111,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Datepicker
-                    aria-labelledby="datepicker-disabled-label"
+                   
                     disabledWeekDays={[
                       0,
                       3
@@ -1134,6 +1251,30 @@ export const Home = () => {
           </section>
         )}
 
+        {/* FileThumbnail Section */}
+        {isComponentVisible('FileThumbnail') && (
+          <section className="component-section" id="filethumbnail">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('filethumbnail')}>
+              FileThumbnail
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default">
+                <div className="flex-row">
+                  <FileThumbnail file={new File(['hello'], 'document.pdf', { type: 'application/pdf' })}/>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="With Remove">
+                <div className="flex-row">
+                  <FileThumbnail
+                    file={new File(['hello'], 'image.png', { type: 'image/png' })}
+                    onFileRemove={() => {}}
+                  />
+                </div>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
         {/* FileUpload Section */}
         {isComponentVisible('FileUpload') && (
           <section className="component-section" id="fileupload">
@@ -1141,31 +1282,27 @@ export const Home = () => {
               FileUpload
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="fileupload-default-label">Default</Text>
-                <FileUpload aria-labelledby="fileupload-default-label">
+              <ComponentCard label="Default">
+                <FileUpload>
                   <FileUploadList/>
                 </FileUpload>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="fileupload-compact-label">Compact variant</Text>
-                <FileUpload aria-labelledby="fileupload-compact-label" variant="compact">
+              </ComponentCard>
+              <ComponentCard label="Compact variant">
+                <FileUpload variant="compact">
                   <FileUploadList/>
                 </FileUpload>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="fileupload-disabled-label">Disabled</Text>
-                <FileUpload aria-labelledby="fileupload-disabled-label" disabled>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
+                <FileUpload disabled>
                   <FileUploadList/>
                 </FileUpload>
-                <FileUpload aria-labelledby="fileupload-disabled-label" disabled variant="compact">
+                <FileUpload disabled variant="compact">
                   <FileUploadList/>
                 </FileUpload>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="fileupload-constraints-label">With Constraints</Text>
+              </ComponentCard>
+              <ComponentCard label="With Constraints">
                 <FileUpload
-                  aria-labelledby="fileupload-constraints-label"
+                 
                   acceptedFileLabel="Formats acceptés : images"
                   dropzoneLabel="Glisser-déposer des fichiers"
                   maxFile={3}
@@ -1258,49 +1395,46 @@ export const Home = () => {
               Input
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="input-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
-                  <Input aria-labelledby="input-default-label" placeholder="Input"/>
+                  <Input placeholder="Input"/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="input-types-label">Types</Text>
+              </ComponentCard>
+              <ComponentCard label="Types">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Input aria-labelledby="input-types-label" placeholder="Email input" type="email"/>
+                    <Input placeholder="Email input" type="email"/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-types-label" placeholder="Number input" type="number"/>
+                    <Input placeholder="Number input" type="number"/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-types-label" placeholder="Text input" type="password"/>
+                    <Input placeholder="Text input" type="password"/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-types-label" placeholder="Search input" type="search"/>
+                    <Input placeholder="Search input" type="search"/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-types-label" placeholder="Time input" type="time"/>
+                    <Input placeholder="Time input" type="time"/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-types-label" placeholder="URL input" type="url"/>
+                    <Input placeholder="URL input" type="url"/>
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="input-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Input aria-labelledby="input-states-label" defaultValue="Clearable" clearable/>
+                    <Input defaultValue="Clearable" clearable/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-states-label" defaultValue="Readonly" readOnly/>
+                    <Input defaultValue="Readonly" readOnly/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-states-label" placeholder="Loading" loading/>
+                    <Input placeholder="Loading" loading/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-states-label" value="Unmasked"
+                    <Input value="Unmasked"
                            maskOption={{
                              enable: true,
                              initialState: "open"
@@ -1308,31 +1442,30 @@ export const Home = () => {
                     />
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-states-label" value="Masked"
+                    <Input value="Masked"
                            maskOption={{
                              enable: true
                            }}
                     />
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="input-disabled-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Input aria-labelledby="input-disabled-label" disabled defaultValue="Disabled"/>
+                    <Input disabled defaultValue="Disabled"/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-disabled-label" disabled defaultValue="Disabled Clearable" clearable/>
+                    <Input disabled defaultValue="Disabled Clearable" clearable/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-disabled-label" disabled defaultValue="Disabled Readonly" readOnly/>
+                    <Input disabled defaultValue="Disabled Readonly" readOnly/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-disabled-label" disabled placeholder="Disabled Loading" loading/>
+                    <Input disabled placeholder="Disabled Loading" loading/>
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-disabled-label" value="Disabled Unmasked"
+                    <Input value="Disabled Unmasked"
                            disabled
                            maskOption={{
                              enable: true,
@@ -1341,7 +1474,7 @@ export const Home = () => {
                     />
                   </div>
                   <div className="flex-row">
-                    <Input aria-labelledby="input-disabled-label" value="Disabled Masked"
+                    <Input value="Disabled Masked"
                            disabled
                            maskOption={{
                              enable: true
@@ -1439,6 +1572,20 @@ export const Home = () => {
           </section>
         )}
 
+        {/* Markdown Section */}
+        {isComponentVisible('Markdown') && (
+          <section className="component-section" id="markdown">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('markdown')}>
+              Markdown
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default" className="full-width">
+                <Markdown content={`# Hello World\n\nThis is a **bold** text and this is *italic*.\n\n- Item 1\n- Item 2\n- Item 3\n\n\`\`\`js\nconsole.log('Hello');\n\`\`\``}/>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
         {/* Medium Section */}
         {isComponentVisible('Medium') && (
           <section className="component-section" id="medium">
@@ -1469,6 +1616,65 @@ export const Home = () => {
                     width={100}
                   />
                 </div>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
+        {/* Menu Section */}
+        {isComponentVisible('Menu') && (
+          <section className="component-section" id="menu">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('menu')}>
+              Menu
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default">
+                <Menu>
+                  <MenuTrigger asChild>
+                    <Button>Open Menu</Button>
+                  </MenuTrigger>
+                  <MenuContent>
+                    <MenuItem value="edit">Edit</MenuItem>
+                    <MenuItem value="duplicate">Duplicate</MenuItem>
+                    <MenuItem value="delete">Delete</MenuItem>
+                  </MenuContent>
+                </Menu>
+              </ComponentCard>
+              <ComponentCard label="With Groups">
+                <Menu>
+                  <MenuTrigger asChild>
+                    <Button>Menu with Groups</Button>
+                  </MenuTrigger>
+                  <MenuContent>
+                    <MenuGroup>
+                      <MenuGroupLabel>Actions</MenuGroupLabel>
+                      <MenuItem value="edit">Edit</MenuItem>
+                      <MenuItem value="duplicate">Duplicate</MenuItem>
+                    </MenuGroup>
+                    <MenuGroup>
+                      <MenuGroupLabel>Danger Zone</MenuGroupLabel>
+                      <MenuItem value="delete">Delete</MenuItem>
+                    </MenuGroup>
+                  </MenuContent>
+                </Menu>
+              </ComponentCard>
+              <ComponentCard label="With Submenu">
+                <Menu>
+                  <MenuTrigger asChild>
+                    <Button>Menu with Submenu</Button>
+                  </MenuTrigger>
+                  <MenuContent>
+                    <MenuItem value="new">New File</MenuItem>
+                    <MenuSubmenu>
+                      <MenuItem value="export">Export As...</MenuItem>
+                      <MenuContent>
+                        <MenuItem value="pdf">PDF</MenuItem>
+                        <MenuItem value="csv">CSV</MenuItem>
+                        <MenuItem value="json">JSON</MenuItem>
+                      </MenuContent>
+                    </MenuSubmenu>
+                  </MenuContent>
+                </Menu>
               </ComponentCard>
             </div>
           </section>
@@ -1573,6 +1779,29 @@ export const Home = () => {
                   <Message dismissible={false}>
                     <MessageBody>Message</MessageBody>
                   </Message>
+                </div>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
+        {/* MessageBubble Section */}
+        {isComponentVisible('MessageBubble') && (
+          <section className="component-section" id="messagebubble">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('messagebubble')}>
+              MessageBubble
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default">
+                <div className="flex-column" style={{ gap: '8px' }}>
+                  <MessageBubble variant="ai">Hello! How can I help you?</MessageBubble>
+                  <MessageBubble variant="human">I have a question about my server.</MessageBubble>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Variants">
+                <div className="flex-column" style={{ gap: '8px' }}>
+                  <MessageBubble variant="ai">AI message</MessageBubble>
+                  <MessageBubble variant="human">Human message</MessageBubble>
                 </div>
               </ComponentCard>
             </div>
@@ -1756,70 +1985,67 @@ export const Home = () => {
               Password
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="password-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
-                  <Password aria-labelledby="password-default-label" value="Password" placeholder="Password"/>
+                  <Password value="Password" placeholder="Password"/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="password-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Password aria-labelledby="password-states-label" defaultValue="Unmasked"
+                    <Password defaultValue="Unmasked"
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password aria-labelledby="password-states-label" defaultValue="Clearable"
+                    <Password defaultValue="Clearable"
                               clearable
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password aria-labelledby="password-states-label" defaultValue="Readonly"
+                    <Password defaultValue="Readonly"
                               readOnly
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password aria-labelledby="password-states-label" defaultValue="Loading"
+                    <Password defaultValue="Loading"
                               loading
                               maskInitialState="open"
                     />
                   </div>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="password-disabled-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Unmasked"
+                    <Password defaultValue="Disabled Unmasked"
                               disabled
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Masked"
+                    <Password defaultValue="Disabled Masked"
                               disabled
                     />
                   </div>
                   <div className="flex-row">
-                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Clearable"
+                    <Password defaultValue="Disabled Clearable"
                               disabled
                               clearable
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Readonly"
+                    <Password defaultValue="Disabled Readonly"
                               disabled
                               readOnly
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Loading"
+                    <Password defaultValue="Disabled Loading"
                               disabled
                               loading
                               maskInitialState="open"
@@ -1838,66 +2064,61 @@ export const Home = () => {
               Phone Number
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="phone-default-label">Default</Text>
-                <PhoneNumber aria-labelledby="phone-default-label">
+              <ComponentCard label="Default">
+                <PhoneNumber>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="phone-country-label">With country list</Text>
-                <PhoneNumber aria-labelledby="phone-country-label" country="fr">
+              </ComponentCard>
+              <ComponentCard label="With country list">
+                <PhoneNumber country="fr">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="phone-locales-label">With locales</Text>
-                <PhoneNumber aria-labelledby="phone-locales-label" locale="pl"
+              </ComponentCard>
+              <ComponentCard label="With locales">
+                <PhoneNumber locale="pl"
                              country="pl">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="phone-states-label">States</Text>
-                <PhoneNumber aria-labelledby="phone-states-label" defaultValue="+33612345678"
+              </ComponentCard>
+              <ComponentCard label="States">
+                <PhoneNumber defaultValue="+33612345678"
                              country="fr">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl clearable/>
                 </PhoneNumber>
-                <PhoneNumber aria-labelledby="phone-states-label" defaultValue="+33612345678"
+                <PhoneNumber defaultValue="+33612345678"
                              country="fr"
                              readOnly>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-                <PhoneNumber aria-labelledby="phone-states-label" defaultValue="+33612345678"
+                <PhoneNumber defaultValue="+33612345678"
                              country="fr">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl loading/>
                 </PhoneNumber>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="phone-disabled-label">Disabled</Text>
-                <PhoneNumber aria-labelledby="phone-disabled-label" disabled>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
+                <PhoneNumber disabled>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-                <PhoneNumber aria-labelledby="phone-disabled-label" defaultValue="+33612345678"
+                <PhoneNumber defaultValue="+33612345678"
                              country="fr"
                              disabled>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl clearable/>
                 </PhoneNumber>
-                <PhoneNumber aria-labelledby="phone-disabled-label" defaultValue="+33612345678"
+                <PhoneNumber defaultValue="+33612345678"
                              country="fr"
                              readOnly
                              disabled>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-                <PhoneNumber aria-labelledby="phone-disabled-label" defaultValue="+33612345678"
+                <PhoneNumber defaultValue="+33612345678"
                              country="fr"
                              disabled>
                   <PhoneNumberCountryList/>
@@ -2016,6 +2237,25 @@ export const Home = () => {
           </section>
         )}
 
+        {/* PromptInput Section */}
+        {isComponentVisible('PromptInput') && (
+          <section className="component-section" id="promptinput">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('promptinput')}>
+              PromptInput
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default" className="full-width">
+                <PromptInput>
+                  <PromptInputControls>
+                    <PromptInputTextControl placeholder="Type your message..."/>
+                    <PromptInputSendButton/>
+                  </PromptInputControls>
+                </PromptInput>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
         {/* Quantity Section */}
         {isComponentVisible('Quantity') && (
           <section className="component-section" id="quantity">
@@ -2023,59 +2263,92 @@ export const Home = () => {
               Quantity
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="quantity-default-label">Default</Text>
-                <Quantity aria-labelledby="quantity-default-label">
+              <ComponentCard label="Default">
+                <Quantity>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="quantity-states-label">States</Text>
-                <Quantity aria-labelledby="quantity-states-label" min={0}>
+              </ComponentCard>
+              <ComponentCard label="States">
+                <Quantity min={0}>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity aria-labelledby="quantity-states-label" max={0}>
+                <Quantity max={0}>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity aria-labelledby="quantity-states-label" min={0} max={0}>
+                <Quantity min={0} max={0}>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity aria-labelledby="quantity-states-label" readOnly>
+                <Quantity readOnly>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="quantity-disabled-label">Disabled</Text>
-                <Quantity aria-labelledby="quantity-disabled-label" min={0} disabled>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
+                <Quantity min={0} disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity aria-labelledby="quantity-disabled-label" max={0} disabled>
+                <Quantity max={0} disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity aria-labelledby="quantity-disabled-label" min={0} max={0} disabled>
+                <Quantity min={0} max={0} disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity aria-labelledby="quantity-disabled-label" readOnly disabled>
+                <Quantity readOnly disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
+        {/* QueryFilter Section */}
+        {isComponentVisible('QueryFilter') && (
+          <section className="component-section" id="queryfilter">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('queryfilter')}>
+              QueryFilter
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default" className="full-width">
+                <QueryFilter
+                  filterProperty={{
+                    label: 'Properties',
+                    options: [
+                      { label: 'Status', value: 'status' },
+                      { label: 'Region', value: 'region' },
+                    ],
+                  }}
+                  filterOption={{
+                    status: {
+                      operator: { label: 'Operators', options: [{ label: 'is', value: 'is' }, { label: 'is not', value: 'is_not' }] },
+                      value: { label: 'Values', options: [{ label: 'Active', value: 'active' }, { label: 'Inactive', value: 'inactive' }] },
+                    },
+                    region: {
+                      operator: { label: 'Operators', options: [{ label: 'is', value: 'is' }] },
+                      value: { label: 'Values', options: [{ label: 'EU', value: 'eu' }, { label: 'US', value: 'us' }, { label: 'APAC', value: 'apac' }] },
+                    },
+                  }}
+                >
+                  <QueryFilterControl placeholder="Filter..."/>
+                  <QueryFilterContent/>
+                  <QueryFilterTags/>
+                </QueryFilter>
               </ComponentCard>
             </div>
           </section>
@@ -2173,20 +2446,16 @@ export const Home = () => {
               Range
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="range-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <Range aria-labelledby={["range-default-label"]} defaultValue={[50]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="range-dual-label">Dual Range</Text>
+              </ComponentCard>
+              <ComponentCard label="Dual Range">
                 <Range aria-labelledby={["range-dual-label"]} defaultValue={[25, 75]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="range-ticks-label">With Ticks</Text>
+              </ComponentCard>
+              <ComponentCard label="With Ticks">
                 <Range aria-labelledby={["range-ticks-label"]} defaultValue={[42]} ticks={[0, 25, 50, 75, 100]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="range-custom-label">Custom Ticks</Text>
+              </ComponentCard>
+              <ComponentCard label="Custom Ticks">
                 <Range aria-labelledby={["range-custom-label"]} displayBounds={false} displayTooltip={false} max={5} min={1} defaultValue={[5]} ticks={[{
                   label: 'Very Poor',
                   value: 1
@@ -2203,16 +2472,14 @@ export const Home = () => {
                   label: 'Excellent',
                   value: 5
                 }]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="range-nobounds-label">Without bounds</Text>
+              </ComponentCard>
+              <ComponentCard label="Without bounds">
                 <Range aria-labelledby={["range-nobounds-label"]} displayBounds={false} defaultValue={[50]}/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="range-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <Range aria-labelledby={["range-states-label"]} defaultValue={[50]} invalid/>
                 <Range aria-labelledby={["range-states-label"]} defaultValue={[50]} disabled/>
-              </div>
+              </ComponentCard>
             </div>
           </section>
         )}
@@ -2224,11 +2491,10 @@ export const Home = () => {
               Select
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="select-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
                   <Select
-                    aria-labelledby="select-default-label"
+                   
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2239,12 +2505,11 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="select-grouped-label">Grouped</Text>
+              </ComponentCard>
+              <ComponentCard label="Grouped">
                 <div className="flex-row">
                   <Select
-                    aria-labelledby="select-grouped-label"
+                   
                     items={[
                       {
                         label: 'Europe',
@@ -2290,12 +2555,11 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="select-multiple-label">Multiple selection</Text>
+              </ComponentCard>
+              <ComponentCard label="Multiple selection">
                 <div className="flex-row">
                   <Select
-                    aria-labelledby="select-multiple-label"
+                   
                     multiple
                     defaultValue={['1', '2']}
                     items={[
@@ -2310,7 +2574,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Select
-                    aria-labelledby="select-multiple-label"
+                   
                     multiple="merge"
                     defaultValue={['1', '2']}
                     items={[
@@ -2323,12 +2587,11 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="select-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-row">
                   <Select
-                    aria-labelledby="select-states-label"
+                   
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2341,7 +2604,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Select
-                    aria-labelledby="select-states-label"
+                   
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2354,7 +2617,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Select
-                    aria-labelledby="select-states-label"
+                   
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2484,6 +2747,36 @@ export const Home = () => {
                   <Spinner size="sm"/>
                   <Spinner size="md"/>
                   <Spinner size="lg"/>
+                </div>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
+        {/* Switch Section */}
+        {isComponentVisible('Switch') && (
+          <section className="component-section" id="switch">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('switch')}>
+              Switch
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default">
+                <Switch defaultValue="option1">
+                  <SwitchItem value="option1">Option 1</SwitchItem>
+                  <SwitchItem value="option2">Option 2</SwitchItem>
+                  <SwitchItem value="option3">Option 3</SwitchItem>
+                </Switch>
+              </ComponentCard>
+              <ComponentCard label="Sizes">
+                <div className="flex-column" style={{ gap: '16px' }}>
+                  <Switch defaultValue="a" size="sm">
+                    <SwitchItem value="a">Small</SwitchItem>
+                    <SwitchItem value="b">Size</SwitchItem>
+                  </Switch>
+                  <Switch defaultValue="a" size="md">
+                    <SwitchItem value="a">Medium</SwitchItem>
+                    <SwitchItem value="b">Size</SwitchItem>
+                  </Switch>
                 </div>
               </ComponentCard>
             </div>
@@ -2861,30 +3154,26 @@ export const Home = () => {
               Textarea
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="textarea-default-label">Default</Text>
-                <Textarea aria-labelledby="textarea-default-label" placeholder="Textarea"/>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="textarea-states-label">States</Text>
+              <ComponentCard label="Default">
+                <Textarea placeholder="Textarea"/>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-column">
-                  <Textarea aria-labelledby="textarea-states-label" defaultValue="Readonly" readOnly/>
-                  <Textarea aria-labelledby="textarea-states-label" defaultValue="Invalid" invalid/>
-                  <Textarea aria-labelledby="textarea-states-label" defaultValue="Readonly Invalid" readOnly invalid/>
+                  <Textarea defaultValue="Readonly" readOnly/>
+                  <Textarea defaultValue="Invalid" invalid/>
+                  <Textarea defaultValue="Readonly Invalid" readOnly invalid/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="textarea-disabled-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-column">
-                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled" disabled/>
-                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled Readonly" disabled readOnly/>
-                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled Invalid" disabled invalid/>
-                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled Readonly Invalid" disabled readOnly invalid/>
+                  <Textarea defaultValue="Disabled" disabled/>
+                  <Textarea defaultValue="Disabled Readonly" disabled readOnly/>
+                  <Textarea defaultValue="Disabled Invalid" disabled invalid/>
+                  <Textarea defaultValue="Disabled Readonly Invalid" disabled readOnly invalid/>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="textarea-resizable-label">Resizable</Text>
-                <Textarea aria-labelledby="textarea-resizable-label" placeholder="Resizable" style={{
+              </ComponentCard>
+              <ComponentCard label="Resizable">
+                <Textarea placeholder="Resizable" style={{
                   resize: 'both'
                 }}/>
               </ComponentCard>
@@ -2931,60 +3220,56 @@ export const Home = () => {
               Timepicker
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="timepicker-default-label">Default</Text>
+              <ComponentCard label="Default">
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-default-label" value="12:00">
+                  <Timepicker value="12:00">
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="timepicker-seconds-label">With Seconds & Timezones</Text>
+              </ComponentCard>
+              <ComponentCard label="With Seconds & Timezones">
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-seconds-label" withSeconds>
+                  <Timepicker withSeconds>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-seconds-label" withSeconds>
+                  <Timepicker withSeconds>
                     <TimepickerControl/>
                     <TimepickerTimezoneList/>
                   </Timepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="timepicker-states-label">States</Text>
+              </ComponentCard>
+              <ComponentCard label="States">
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-states-label" readOnly>
+                  <Timepicker readOnly>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-states-label" invalid>
+                  <Timepicker invalid>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-states-label" readOnly invalid>
+                  <Timepicker readOnly invalid>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="timepicker-disabled-label">Disabled</Text>
+              </ComponentCard>
+              <ComponentCard label="Disabled">
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-disabled-label" disabled readOnly>
-                    <TimepickerControl/>
-                  </Timepicker>
-                </div>
-                <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-disabled-label" disabled invalid>
+                  <Timepicker disabled readOnly>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker aria-labelledby="timepicker-disabled-label" disabled readOnly invalid>
+                  <Timepicker disabled invalid>
+                    <TimepickerControl/>
+                  </Timepicker>
+                </div>
+                <div className="flex-row">
+                  <Timepicker disabled readOnly invalid>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
@@ -3146,9 +3431,8 @@ export const Home = () => {
               Toggle
             </Text>
             <div className="component-grid">
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="toggle-default-label">Default</Text>
-                <Toggle aria-labelledby="toggle-default-label">
+              <ComponentCard label="Default">
+                <Toggle>
                   <ToggleControl/>
                 </Toggle>
               </ComponentCard>
@@ -3159,10 +3443,9 @@ export const Home = () => {
                     Toggle Label
                   </ToggleLabel>
                 </Toggle>
-              </div>
-              <div className="component-card">
-                <Text preset="paragraph" className="component-card-label" id="toggle-inner-label">With inner labels</Text>
-                <Toggle aria-labelledby="toggle-inner-label" withLabels>
+              </ComponentCard>
+              <ComponentCard label="With inner labels">
+                <Toggle withLabels>
                   <ToggleControl/>
                 </Toggle>
               </ComponentCard>
