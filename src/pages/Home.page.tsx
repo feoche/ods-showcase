@@ -376,7 +376,7 @@ export const Home = () => {
                   <Badge>
                     <Icon name="arrow-left"/>Left icon
                   </Badge>
-                  <Badge>
+                  <Badge aria-label="Up">
                     <Icon name="arrow-up"/>
                   </Badge>
                   <Badge>
@@ -507,7 +507,7 @@ export const Home = () => {
                   <Button>
                     <Icon name="arrow-left"/>Left icon
                   </Button>
-                  <Button>
+                  <Button aria-label="Close">
                     <Icon name="xmark"/>
                   </Button>
                   <Button>
@@ -571,7 +571,7 @@ export const Home = () => {
               <ComponentCard label="With Icons">
                 <ButtonGroup size="xs">
                   <ButtonGroupItem value={"1"}><Icon name="arrow-left"/>Left icon</ButtonGroupItem>
-                  <ButtonGroupItem value={"2"}><Icon name="arrow-up"/></ButtonGroupItem>
+                  <ButtonGroupItem value={"2"} aria-label="Up"><Icon name="arrow-up"/></ButtonGroupItem>
                   <ButtonGroupItem value={"3"}>Right icon<Icon name="arrow-right"/></ButtonGroupItem>
                 </ButtonGroup>
               </ComponentCard>
@@ -695,24 +695,26 @@ export const Home = () => {
               Clipboard
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="clipboard-default-label">Default</Text>
                 <div className="flex-row">
-                  <Clipboard value="Clipboard">
+                  <Clipboard aria-labelledby="clipboard-default-label" value="Clipboard">
                     <ClipboardControl/>
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="States">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="clipboard-states-label">States</Text>
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Clipboard value="Loading">
+                    <Clipboard aria-labelledby="clipboard-states-label" value="Loading">
                       <ClipboardControl loading/>
                       <ClipboardTrigger/>
                     </Clipboard>
                   </div>
                   <div className="flex-row">
-                    <Clipboard value="Unmasked">
+                    <Clipboard aria-labelledby="clipboard-states-label" value="Unmasked">
                       <ClipboardControl maskOption={{
                         enable: true,
                         initialState: "open"
@@ -721,28 +723,29 @@ export const Home = () => {
                     </Clipboard>
                   </div>
                   <div className="flex-row">
-                    <Clipboard value="Masked">
+                    <Clipboard aria-labelledby="clipboard-states-label" value="Masked">
                       <ClipboardControl maskOption={{enable: true}}/>
                       <ClipboardTrigger/>
                     </Clipboard>
                   </div>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="clipboard-disabled-label">Disabled</Text>
                 <div className="flex-row">
-                  <Clipboard disabled value="Disabled">
+                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled">
                     <ClipboardControl/>
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
                 <div className="flex-row">
-                  <Clipboard disabled value="Disabled loading">
+                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled loading">
                     <ClipboardControl loading/>
                     <ClipboardTrigger/>
                   </Clipboard>
                 </div>
                 <div className="flex-row">
-                  <Clipboard disabled value="Disabled unmasked">
+                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled unmasked">
                     <ClipboardControl maskOption={{
                       enable: true,
                       initialState: "open"
@@ -751,7 +754,7 @@ export const Home = () => {
                   </Clipboard>
                 </div>
                 <div className="flex-row">
-                  <Clipboard disabled value="Disabled masked">
+                  <Clipboard aria-labelledby="clipboard-disabled-label" disabled value="Disabled masked">
                     <ClipboardControl maskOption={{
                       enable: true
                     }}/>
@@ -807,9 +810,11 @@ export const Home = () => {
               Combobox
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="combobox-default-label">Default</Text>
                 <div className="flex-row">
                   <Combobox
+                    aria-labelledby="combobox-default-label"
                     items={[
                       {label: 'First item', value: 'item-1'},
                       {label: 'Second item', value: 'item-2'},
@@ -821,38 +826,41 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="States">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="combobox-states-label">States</Text>
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Combobox defaultValue={["clearable"]} items={[{label: 'Clearable', value: 'clearable'}]}>
+                    <Combobox aria-labelledby="combobox-states-label" defaultValue={["clearable"]} items={[{label: 'Clearable', value: 'clearable'}]}>
                       <ComboboxControl clearable placeholder="Clearable"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                   <div className="flex-row">
-                    <Combobox items={[]}>
+                    <Combobox aria-labelledby="combobox-states-label" items={[]}>
                       <ComboboxControl placeholder="Empty"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                   <div className="flex-row">
-                    <Combobox invalid items={[{label: 'First item', value: 'item1'}]}>
+                    <Combobox aria-labelledby="combobox-states-label" invalid items={[{label: 'First item', value: 'item1'}]}>
                       <ComboboxControl placeholder="Invalid"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                   <div className="flex-row">
-                    <Combobox readOnly items={[{label: 'First item', value: 'item1'}]}>
+                    <Combobox aria-labelledby="combobox-states-label" readOnly items={[{label: 'First item', value: 'item1'}]}>
                       <ComboboxControl placeholder="Readonly"/>
                       <ComboboxContent/>
                     </Combobox>
                   </div>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Highlight Results">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="combobox-highlight-label">Highlight Results</Text>
                 <div className="flex-row">
                   <Combobox
+                    aria-labelledby="combobox-highlight-label"
                     highlightResults
                     items={[
                       {label: 'France', value: 'fr'},
@@ -864,10 +872,12 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Multiple">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="combobox-multiple-label">Multiple</Text>
                 <div className="flex-row">
                   <Combobox
+                    aria-labelledby="combobox-multiple-label"
                     multiple
                     items={[
                       {label: 'First item', value: 'item-1'},
@@ -880,10 +890,12 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Grouping">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="combobox-grouping-label">Grouping</Text>
                 <div className="flex-row">
                   <Combobox
+                    aria-labelledby="combobox-grouping-label"
                     items={[
                       {
                         label: 'Europe',
@@ -941,31 +953,35 @@ export const Home = () => {
               Datepicker
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="datepicker-default-label">Default</Text>
                 <div className="flex-row">
-                  <Datepicker>
+                  <Datepicker aria-labelledby="datepicker-default-label">
                     <DatepickerControl placeholder="Datepicker"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="States">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="datepicker-states-label">States</Text>
                 <div className="flex-row">
-                  <Datepicker readOnly>
+                  <Datepicker aria-labelledby="datepicker-states-label" readOnly>
                     <DatepickerControl placeholder="Readonly"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="datepicker-disabled-label">Disabled</Text>
                 <div className="flex-row">
-                  <Datepicker disabled>
+                  <Datepicker aria-labelledby="datepicker-disabled-label" disabled>
                     <DatepickerControl placeholder="Disabled"/>
                     <DatepickerContent/>
                   </Datepicker>
                 </div>
                 <div className="flex-row">
                   <Datepicker
+                    aria-labelledby="datepicker-disabled-label"
                     disabledDates={[
                       new Date(Date.now() + 86400000),
                       new Date(Date.now() + 172800000),
@@ -978,6 +994,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Datepicker
+                    aria-labelledby="datepicker-disabled-label"
                     disabledWeekDays={[
                       0,
                       3
@@ -1124,26 +1141,31 @@ export const Home = () => {
               FileUpload
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
-                <FileUpload>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="fileupload-default-label">Default</Text>
+                <FileUpload aria-labelledby="fileupload-default-label">
                   <FileUploadList/>
                 </FileUpload>
-              </ComponentCard>
-              <ComponentCard label="Compact variant">
-                <FileUpload variant="compact">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="fileupload-compact-label">Compact variant</Text>
+                <FileUpload aria-labelledby="fileupload-compact-label" variant="compact">
                   <FileUploadList/>
                 </FileUpload>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
-                <FileUpload disabled>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="fileupload-disabled-label">Disabled</Text>
+                <FileUpload aria-labelledby="fileupload-disabled-label" disabled>
                   <FileUploadList/>
                 </FileUpload>
-                <FileUpload disabled variant="compact">
+                <FileUpload aria-labelledby="fileupload-disabled-label" disabled variant="compact">
                   <FileUploadList/>
                 </FileUpload>
-              </ComponentCard>
-              <ComponentCard label="With Constraints">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="fileupload-constraints-label">With Constraints</Text>
                 <FileUpload
+                  aria-labelledby="fileupload-constraints-label"
                   acceptedFileLabel="Formats acceptés : images"
                   dropzoneLabel="Glisser-déposer des fichiers"
                   maxFile={3}
@@ -1236,46 +1258,49 @@ export const Home = () => {
               Input
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="input-default-label">Default</Text>
                 <div className="flex-row">
-                  <Input placeholder="Input"/>
+                  <Input aria-labelledby="input-default-label" placeholder="Input"/>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Types">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="input-types-label">Types</Text>
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Input placeholder="Email input" type="email"/>
+                    <Input aria-labelledby="input-types-label" placeholder="Email input" type="email"/>
                   </div>
                   <div className="flex-row">
-                    <Input placeholder="Number input" type="number"/>
+                    <Input aria-labelledby="input-types-label" placeholder="Number input" type="number"/>
                   </div>
                   <div className="flex-row">
-                    <Input placeholder="Text input" type="password"/>
+                    <Input aria-labelledby="input-types-label" placeholder="Text input" type="password"/>
                   </div>
                   <div className="flex-row">
-                    <Input placeholder="Search input" type="search"/>
+                    <Input aria-labelledby="input-types-label" placeholder="Search input" type="search"/>
                   </div>
                   <div className="flex-row">
-                    <Input placeholder="Time input" type="time"/>
+                    <Input aria-labelledby="input-types-label" placeholder="Time input" type="time"/>
                   </div>
                   <div className="flex-row">
-                    <Input placeholder="URL input" type="url"/>
+                    <Input aria-labelledby="input-types-label" placeholder="URL input" type="url"/>
                   </div>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="States">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="input-states-label">States</Text>
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Input defaultValue="Clearable" clearable/>
+                    <Input aria-labelledby="input-states-label" defaultValue="Clearable" clearable/>
                   </div>
                   <div className="flex-row">
-                    <Input defaultValue="Readonly" readOnly/>
+                    <Input aria-labelledby="input-states-label" defaultValue="Readonly" readOnly/>
                   </div>
                   <div className="flex-row">
-                    <Input placeholder="Loading" loading/>
+                    <Input aria-labelledby="input-states-label" placeholder="Loading" loading/>
                   </div>
                   <div className="flex-row">
-                    <Input value="Unmasked"
+                    <Input aria-labelledby="input-states-label" value="Unmasked"
                            maskOption={{
                              enable: true,
                              initialState: "open"
@@ -1283,30 +1308,31 @@ export const Home = () => {
                     />
                   </div>
                   <div className="flex-row">
-                    <Input value="Masked"
+                    <Input aria-labelledby="input-states-label" value="Masked"
                            maskOption={{
                              enable: true
                            }}
                     />
                   </div>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="input-disabled-label">Disabled</Text>
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Input disabled defaultValue="Disabled"/>
+                    <Input aria-labelledby="input-disabled-label" disabled defaultValue="Disabled"/>
                   </div>
                   <div className="flex-row">
-                    <Input disabled defaultValue="Disabled Clearable" clearable/>
+                    <Input aria-labelledby="input-disabled-label" disabled defaultValue="Disabled Clearable" clearable/>
                   </div>
                   <div className="flex-row">
-                    <Input disabled defaultValue="Disabled Readonly" readOnly/>
+                    <Input aria-labelledby="input-disabled-label" disabled defaultValue="Disabled Readonly" readOnly/>
                   </div>
                   <div className="flex-row">
-                    <Input disabled placeholder="Disabled Loading" loading/>
+                    <Input aria-labelledby="input-disabled-label" disabled placeholder="Disabled Loading" loading/>
                   </div>
                   <div className="flex-row">
-                    <Input value="Disabled Unmasked"
+                    <Input aria-labelledby="input-disabled-label" value="Disabled Unmasked"
                            disabled
                            maskOption={{
                              enable: true,
@@ -1315,7 +1341,7 @@ export const Home = () => {
                     />
                   </div>
                   <div className="flex-row">
-                    <Input value="Disabled Masked"
+                    <Input aria-labelledby="input-disabled-label" value="Disabled Masked"
                            disabled
                            maskOption={{
                              enable: true
@@ -1366,7 +1392,7 @@ export const Home = () => {
                   <Link href="https://www.ovhcloud.com">
                     <Icon name="arrow-left"/>Left icon
                   </Link>
-                  <Link href="https://www.ovhcloud.com">
+                  <Link href="https://www.ovhcloud.com" aria-label="Up">
                     <Icon name="arrow-up"/>
                   </Link>
                   <Link href="https://www.ovhcloud.com" target="_blank">
@@ -1422,12 +1448,14 @@ export const Home = () => {
             <div className="component-grid">
               <ComponentCard label="Default">
                 <Medium
+                  alt="NASA Computer Room 7090"
                   src="https://upload.wikimedia.org/wikipedia/commons/b/b9/NASAComputerRoom7090.NARA.jpg"
                 />
               </ComponentCard>
               <ComponentCard label="Height">
                 <div className="flex-row">
                   <Medium
+                    alt="NASA Computer Room 7090 with fixed height"
                     src="https://upload.wikimedia.org/wikipedia/commons/b/b9/NASAComputerRoom7090.NARA.jpg"
                     height={100}
                   />
@@ -1436,6 +1464,7 @@ export const Home = () => {
               <ComponentCard label="Width">
                 <div className="flex-row">
                   <Medium
+                    alt="NASA Computer Room 7090 with fixed width"
                     src="https://upload.wikimedia.org/wikipedia/commons/b/b9/NASAComputerRoom7090.NARA.jpg"
                     width={100}
                   />
@@ -1727,67 +1756,70 @@ export const Home = () => {
               Password
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="password-default-label">Default</Text>
                 <div className="flex-row">
-                  <Password value="Password" placeholder="Password"/>
+                  <Password aria-labelledby="password-default-label" value="Password" placeholder="Password"/>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="States">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="password-states-label">States</Text>
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Password defaultValue="Unmasked"
+                    <Password aria-labelledby="password-states-label" defaultValue="Unmasked"
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password defaultValue="Clearable"
+                    <Password aria-labelledby="password-states-label" defaultValue="Clearable"
                               clearable
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password defaultValue="Readonly"
+                    <Password aria-labelledby="password-states-label" defaultValue="Readonly"
                               readOnly
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password defaultValue="Loading"
+                    <Password aria-labelledby="password-states-label" defaultValue="Loading"
                               loading
                               maskInitialState="open"
                     />
                   </div>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="password-disabled-label">Disabled</Text>
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Password defaultValue="Disabled Unmasked"
+                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Unmasked"
                               disabled
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password defaultValue="Disabled Masked"
+                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Masked"
                               disabled
                     />
                   </div>
                   <div className="flex-row">
-                    <Password defaultValue="Disabled Clearable"
+                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Clearable"
                               disabled
                               clearable
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password defaultValue="Disabled Readonly"
+                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Readonly"
                               disabled
                               readOnly
                               maskInitialState="open"
                     />
                   </div>
                   <div className="flex-row">
-                    <Password defaultValue="Disabled Loading"
+                    <Password aria-labelledby="password-disabled-label" defaultValue="Disabled Loading"
                               disabled
                               loading
                               maskInitialState="open"
@@ -1806,61 +1838,66 @@ export const Home = () => {
               Phone Number
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
-                <PhoneNumber>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="phone-default-label">Default</Text>
+                <PhoneNumber aria-labelledby="phone-default-label">
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </ComponentCard>
-              <ComponentCard label="With country list">
-                <PhoneNumber country="fr">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="phone-country-label">With country list</Text>
+                <PhoneNumber aria-labelledby="phone-country-label" country="fr">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </ComponentCard>
-              <ComponentCard label="With locales">
-                <PhoneNumber locale="pl"
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="phone-locales-label">With locales</Text>
+                <PhoneNumber aria-labelledby="phone-locales-label" locale="pl"
                              country="pl">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-              </ComponentCard>
-              <ComponentCard label="States">
-                <PhoneNumber defaultValue="+33612345678"
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="phone-states-label">States</Text>
+                <PhoneNumber aria-labelledby="phone-states-label" defaultValue="+33612345678"
                              country="fr">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl clearable/>
                 </PhoneNumber>
-                <PhoneNumber defaultValue="+33612345678"
+                <PhoneNumber aria-labelledby="phone-states-label" defaultValue="+33612345678"
                              country="fr"
                              readOnly>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-                <PhoneNumber defaultValue="+33612345678"
+                <PhoneNumber aria-labelledby="phone-states-label" defaultValue="+33612345678"
                              country="fr">
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl loading/>
                 </PhoneNumber>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
-                <PhoneNumber disabled>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="phone-disabled-label">Disabled</Text>
+                <PhoneNumber aria-labelledby="phone-disabled-label" disabled>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-                <PhoneNumber defaultValue="+33612345678"
+                <PhoneNumber aria-labelledby="phone-disabled-label" defaultValue="+33612345678"
                              country="fr"
                              disabled>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl clearable/>
                 </PhoneNumber>
-                <PhoneNumber defaultValue="+33612345678"
+                <PhoneNumber aria-labelledby="phone-disabled-label" defaultValue="+33612345678"
                              country="fr"
                              readOnly
                              disabled>
                   <PhoneNumberCountryList/>
                   <PhoneNumberControl/>
                 </PhoneNumber>
-                <PhoneNumber defaultValue="+33612345678"
+                <PhoneNumber aria-labelledby="phone-disabled-label" defaultValue="+33612345678"
                              country="fr"
                              disabled>
                   <PhoneNumberCountryList/>
@@ -1986,52 +2023,55 @@ export const Home = () => {
               Quantity
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
-                <Quantity>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="quantity-default-label">Default</Text>
+                <Quantity aria-labelledby="quantity-default-label">
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-              </ComponentCard>
-              <ComponentCard label="States">
-                <Quantity min={0}>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="quantity-states-label">States</Text>
+                <Quantity aria-labelledby="quantity-states-label" min={0}>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity max={0}>
+                <Quantity aria-labelledby="quantity-states-label" max={0}>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity min={0} max={0}>
+                <Quantity aria-labelledby="quantity-states-label" min={0} max={0}>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity readOnly>
+                <Quantity aria-labelledby="quantity-states-label" readOnly>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
-                <Quantity min={0} disabled>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="quantity-disabled-label">Disabled</Text>
+                <Quantity aria-labelledby="quantity-disabled-label" min={0} disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity max={0} disabled>
+                <Quantity aria-labelledby="quantity-disabled-label" max={0} disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity min={0} max={0} disabled>
+                <Quantity aria-labelledby="quantity-disabled-label" min={0} max={0} disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
                 </Quantity>
-                <Quantity readOnly disabled>
+                <Quantity aria-labelledby="quantity-disabled-label" readOnly disabled>
                   <QuantityControl>
                     <QuantityInput/>
                   </QuantityControl>
@@ -2133,17 +2173,21 @@ export const Home = () => {
               Range
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
-                <Range defaultValue={[50]}/>
-              </ComponentCard>
-              <ComponentCard label="Dual Range">
-                <Range defaultValue={[25, 75]}/>
-              </ComponentCard>
-              <ComponentCard label="With Ticks">
-                <Range defaultValue={[42]} ticks={[0, 25, 50, 75, 100]}/>
-              </ComponentCard>
-              <ComponentCard label="Custom Ticks">
-                <Range displayBounds={false} displayTooltip={false} max={5} min={1} defaultValue={[5]} ticks={[{
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="range-default-label">Default</Text>
+                <Range aria-labelledby={["range-default-label"]} defaultValue={[50]}/>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="range-dual-label">Dual Range</Text>
+                <Range aria-labelledby={["range-dual-label"]} defaultValue={[25, 75]}/>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="range-ticks-label">With Ticks</Text>
+                <Range aria-labelledby={["range-ticks-label"]} defaultValue={[42]} ticks={[0, 25, 50, 75, 100]}/>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="range-custom-label">Custom Ticks</Text>
+                <Range aria-labelledby={["range-custom-label"]} displayBounds={false} displayTooltip={false} max={5} min={1} defaultValue={[5]} ticks={[{
                   label: 'Very Poor',
                   value: 1
                 }, {
@@ -2159,14 +2203,16 @@ export const Home = () => {
                   label: 'Excellent',
                   value: 5
                 }]}/>
-              </ComponentCard>
-              <ComponentCard label="Without bounds">
-                <Range displayBounds={false} defaultValue={[50]}/>
-              </ComponentCard>
-              <ComponentCard label="States">
-                <Range defaultValue={[50]} invalid/>
-                <Range defaultValue={[50]} disabled/>
-              </ComponentCard>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="range-nobounds-label">Without bounds</Text>
+                <Range aria-labelledby={["range-nobounds-label"]} displayBounds={false} defaultValue={[50]}/>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="range-states-label">States</Text>
+                <Range aria-labelledby={["range-states-label"]} defaultValue={[50]} invalid/>
+                <Range aria-labelledby={["range-states-label"]} defaultValue={[50]} disabled/>
+              </div>
             </div>
           </section>
         )}
@@ -2178,9 +2224,11 @@ export const Home = () => {
               Select
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="select-default-label">Default</Text>
                 <div className="flex-row">
                   <Select
+                    aria-labelledby="select-default-label"
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2191,10 +2239,12 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Grouped">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="select-grouped-label">Grouped</Text>
                 <div className="flex-row">
                   <Select
+                    aria-labelledby="select-grouped-label"
                     items={[
                       {
                         label: 'Europe',
@@ -2240,10 +2290,12 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Multiple selection">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="select-multiple-label">Multiple selection</Text>
                 <div className="flex-row">
                   <Select
+                    aria-labelledby="select-multiple-label"
                     multiple
                     defaultValue={['1', '2']}
                     items={[
@@ -2258,6 +2310,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Select
+                    aria-labelledby="select-multiple-label"
                     multiple="merge"
                     defaultValue={['1', '2']}
                     items={[
@@ -2270,10 +2323,12 @@ export const Home = () => {
                     <SelectContent/>
                   </Select>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="States">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="select-states-label">States</Text>
                 <div className="flex-row">
                   <Select
+                    aria-labelledby="select-states-label"
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2286,6 +2341,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Select
+                    aria-labelledby="select-states-label"
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2298,6 +2354,7 @@ export const Home = () => {
                 </div>
                 <div className="flex-row">
                   <Select
+                    aria-labelledby="select-states-label"
                     items={[
                       {label: 'First item', value: '1'},
                       {label: 'Second item', value: '2'},
@@ -2804,26 +2861,30 @@ export const Home = () => {
               Textarea
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
-                <Textarea placeholder="Textarea"/>
-              </ComponentCard>
-              <ComponentCard label="States">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="textarea-default-label">Default</Text>
+                <Textarea aria-labelledby="textarea-default-label" placeholder="Textarea"/>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="textarea-states-label">States</Text>
                 <div className="flex-column">
-                  <Textarea defaultValue="Readonly" readOnly/>
-                  <Textarea defaultValue="Invalid" invalid/>
-                  <Textarea defaultValue="Readonly Invalid" readOnly invalid/>
+                  <Textarea aria-labelledby="textarea-states-label" defaultValue="Readonly" readOnly/>
+                  <Textarea aria-labelledby="textarea-states-label" defaultValue="Invalid" invalid/>
+                  <Textarea aria-labelledby="textarea-states-label" defaultValue="Readonly Invalid" readOnly invalid/>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="textarea-disabled-label">Disabled</Text>
                 <div className="flex-column">
-                  <Textarea defaultValue="Disabled" disabled/>
-                  <Textarea defaultValue="Disabled Readonly" disabled readOnly/>
-                  <Textarea defaultValue="Disabled Invalid" disabled invalid/>
-                  <Textarea defaultValue="Disabled Readonly Invalid" disabled readOnly invalid/>
+                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled" disabled/>
+                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled Readonly" disabled readOnly/>
+                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled Invalid" disabled invalid/>
+                  <Textarea aria-labelledby="textarea-disabled-label" defaultValue="Disabled Readonly Invalid" disabled readOnly invalid/>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Resizable">
-                <Textarea placeholder="Resizable" style={{
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="textarea-resizable-label">Resizable</Text>
+                <Textarea aria-labelledby="textarea-resizable-label" placeholder="Resizable" style={{
                   resize: 'both'
                 }}/>
               </ComponentCard>
@@ -2870,56 +2931,60 @@ export const Home = () => {
               Timepicker
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="timepicker-default-label">Default</Text>
                 <div className="flex-row">
-                  <Timepicker value="12:00">
+                  <Timepicker aria-labelledby="timepicker-default-label" value="12:00">
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="With Seconds & Timezones">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="timepicker-seconds-label">With Seconds & Timezones</Text>
                 <div className="flex-row">
-                  <Timepicker withSeconds>
+                  <Timepicker aria-labelledby="timepicker-seconds-label" withSeconds>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker withSeconds>
+                  <Timepicker aria-labelledby="timepicker-seconds-label" withSeconds>
                     <TimepickerControl/>
                     <TimepickerTimezoneList/>
                   </Timepicker>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="States">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="timepicker-states-label">States</Text>
                 <div className="flex-row">
-                  <Timepicker readOnly>
+                  <Timepicker aria-labelledby="timepicker-states-label" readOnly>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker invalid>
+                  <Timepicker aria-labelledby="timepicker-states-label" invalid>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker readOnly invalid>
+                  <Timepicker aria-labelledby="timepicker-states-label" readOnly invalid>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
-              </ComponentCard>
-              <ComponentCard label="Disabled">
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="timepicker-disabled-label">Disabled</Text>
                 <div className="flex-row">
-                  <Timepicker disabled readOnly>
-                    <TimepickerControl/>
-                  </Timepicker>
-                </div>
-                <div className="flex-row">
-                  <Timepicker disabled invalid>
+                  <Timepicker aria-labelledby="timepicker-disabled-label" disabled readOnly>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
                 <div className="flex-row">
-                  <Timepicker disabled readOnly invalid>
+                  <Timepicker aria-labelledby="timepicker-disabled-label" disabled invalid>
+                    <TimepickerControl/>
+                  </Timepicker>
+                </div>
+                <div className="flex-row">
+                  <Timepicker aria-labelledby="timepicker-disabled-label" disabled readOnly invalid>
                     <TimepickerControl/>
                   </Timepicker>
                 </div>
@@ -3081,8 +3146,9 @@ export const Home = () => {
               Toggle
             </Text>
             <div className="component-grid">
-              <ComponentCard label="Default">
-                <Toggle>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="toggle-default-label">Default</Text>
+                <Toggle aria-labelledby="toggle-default-label">
                   <ToggleControl/>
                 </Toggle>
               </ComponentCard>
@@ -3093,9 +3159,10 @@ export const Home = () => {
                     Toggle Label
                   </ToggleLabel>
                 </Toggle>
-              </ComponentCard>
-              <ComponentCard label="With inner labels">
-                <Toggle withLabels>
+              </div>
+              <div className="component-card">
+                <Text preset="paragraph" className="component-card-label" id="toggle-inner-label">With inner labels</Text>
+                <Toggle aria-labelledby="toggle-inner-label" withLabels>
                   <ToggleControl/>
                 </Toggle>
               </ComponentCard>
