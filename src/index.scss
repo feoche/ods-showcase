@@ -55,7 +55,8 @@ main {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  // Above all page content, below ODS overlays (popover, select, drawer, modal...)
+  z-index: calc(var(--ods-theme-overlay-z-index) - 1);
   background: var(--ods-color-primary-000);
   border-bottom: 1px solid var(--ods-color-neutral-200);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
