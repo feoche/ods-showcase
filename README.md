@@ -1,11 +1,11 @@
 # ODS Sandbox
 
-A frontend project using Vite, TypeScript, React and npm, using all ODS React components.
+A frontend project using Vite, TypeScript, React and npm, using all ODS React components (`@ovhcloud/ods-react` 19.7.3).
 
 ## Pages
 
 ### Home (`/`)
-Showcases all ODS React components.
+Showcases all ODS React components of the pinned ODS version (currently 19.7.3).
 
 ### Design Tokens (`/design-tokens.html`)
 A dedicated page for testing design tokens, displaying all color combinations from each palette that meet WCAG AA contrast ratio standards (4.5:1 minimum).

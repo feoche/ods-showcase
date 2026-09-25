@@ -412,6 +412,13 @@ $neutral-scale: generate-color-scale($color-neutral);
     --ods-message-text-color-neutral: #{get-shade-variable("neutral", "100")};
   }
 
+  & [data-ods="message-bubble"] {
+    --ods-message-bubble-ai-background-color: #{get-shade-variable("information", "900")};
+    --ods-message-bubble-human-background-color: #{get-shade-variable("primary", "800")};
+    --ods-message-bubble-error-background-color: #{get-shade-variable("critical", "900")};
+    --ods-message-bubble-error-text-color: #{get-shade-variable("critical", "100")};
+  }
+
   & [data-ods="meter"] {
     --ods-meter-background-color-normal: #{get-shade-variable("primary", "400")};
   }
@@ -420,6 +427,10 @@ $neutral-scale: generate-color-scale($color-neutral);
     --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "600")};
     --ods-theme-background-color-selected: #{get-shade-variable("primary", "000")};
     --ods-button-text-color-primary: #{get-shade-variable("primary", "900")};
+  }
+
+  & [data-ods="prompt-input-text-control"]:not([readonly]):not([disabled]) {
+    background: transparent;
   }
 
   & [data-ods="quantity-input"]:not([readonly]):not([disabled]) {
@@ -439,6 +450,7 @@ $neutral-scale: generate-color-scale($color-neutral);
     fill: #{get-shade-variable("primary", "000")};
   }
 
+  & [data-ods="data-table"],
   & [data-ods="table"] {
     --ods-table-head-background-color: #{get-shade-variable("primary", "900")};
     --ods-table-head-text-color: #{get-shade-variable("neutral", "000")};

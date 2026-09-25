@@ -149,6 +149,7 @@ import { useTheme } from '../hooks/useTheme';
 export const Home = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
+  const [comboboxValue, setComboboxValue] = React.useState<string[]>(['item-1']);
   const { theme, setTheme } = useTheme();
 
     const sections = [
@@ -983,6 +984,30 @@ export const Home = () => {
                   </Combobox>
                 </div>
               </ComponentCard>
+              <ComponentCard label="Controlled (programmatic clear)">
+                <div className="flex-column">
+                  <Combobox
+                    items={[
+                      {label: 'First item', value: 'item-1'},
+                      {label: 'Second item', value: 'item-2'},
+                      {label: 'Third item', value: 'item-3'},
+                    ]}
+                    onValueChange={({value}) => setComboboxValue(value)}
+                    value={comboboxValue}
+                  >
+                    <ComboboxControl placeholder="Combobox"/>
+                    <ComboboxContent/>
+                  </Combobox>
+                  <div className="flex-row">
+                    <Button size="sm" variant="outline" onClick={() => setComboboxValue(['item-2'])}>
+                      Select second
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => setComboboxValue([])}>
+                      Clear
+                    </Button>
+                  </div>
+                </div>
+              </ComponentCard>
               <ComponentCard label="Grouping">
                 <div className="flex-row">
                   <Combobox
@@ -1156,6 +1181,15 @@ export const Home = () => {
                 <div className="flex-column" style={{gap: '16px'}}>
                   <Divider style={{width: '100%'}}/>
                   <Divider color="neutral" style={{width: '100%'}}/>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Vertical">
+                <div className="flex-row align-center" style={{height: '48px'}}>
+                  <span>Left</span>
+                  <Divider orientation="vertical"/>
+                  <span>Middle</span>
+                  <Divider orientation="vertical" color="neutral"/>
+                  <span>Right</span>
                 </div>
               </ComponentCard>
             </div>
@@ -3105,6 +3139,14 @@ export const Home = () => {
               <ComponentCard label="Disabled">
                 <div className="flex-row align-center">
                   <Tag color="primary" disabled>Disabled</Tag>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Icons">
+                <div className="flex-row align-center">
+                  <Tag color="primary">Default (xmark)</Tag>
+                  <Tag color="primary" icon="plus">Plus</Tag>
+                  <Tag color="primary" icon="check">Check</Tag>
+                  <Tag color="primary" icon={null}>No icon</Tag>
                 </div>
               </ComponentCard>
             </div>

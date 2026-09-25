@@ -20,8 +20,8 @@
     "package.json": "sort-package-json"
   },
   "dependencies": {
-    "@ovhcloud/ods-react": "latest",
-    "@ovhcloud/ods-themes": "latest",
+    "@ovhcloud/ods-react": "19.7.3",
+    "@ovhcloud/ods-themes": "19.7.3",
     "@shikijs/langs": "^4.1.0",
     "@shikijs/themes": "^4.1.0",
     "@tanstack/react-query": "^5.82.0",
