@@ -82,6 +82,9 @@ import {
   ModalHeader,
   ModalTrigger,
   Pagination,
+  PaginationPages,
+  PaginationPageSelector,
+  PaginationPageSizeSelector,
   Password,
   PhoneNumber,
   PhoneNumberControl,
@@ -436,7 +439,7 @@ export const Home = () => {
                     <Icon name="arrow-up"/>
                   </Badge>
                   <Badge>
-                    Right icon<Icon name="arrow-up"/>
+                    Right icon<Icon name="arrow-right"/>
                   </Badge>
                 </div>
               </ComponentCard>
@@ -1177,18 +1180,12 @@ export const Home = () => {
                   <Divider spacing="64" style={{width: '100%'}}/>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Colors">
-                <div className="flex-column" style={{gap: '16px'}}>
-                  <Divider style={{width: '100%'}}/>
-                  <Divider color="neutral" style={{width: '100%'}}/>
-                </div>
-              </ComponentCard>
               <ComponentCard label="Vertical">
                 <div className="flex-row align-center" style={{height: '48px'}}>
                   <span>Left</span>
                   <Divider orientation="vertical"/>
                   <span>Middle</span>
-                  <Divider orientation="vertical" color="neutral"/>
+                  <Divider orientation="vertical"/>
                   <span>Right</span>
                 </div>
               </ComponentCard>
@@ -1979,34 +1976,37 @@ export const Home = () => {
                   onClick={() => setActiveSection('pagination')}>Pagination</Text>
             <div className="component-grid">
               <ComponentCard label="Default">
-                <Pagination totalItems={30}/>
+                <Pagination totalItems={30}>
+                  <PaginationPages/>
+                </Pagination>
               </ComponentCard>
               <ComponentCard label="Disabled">
-                <Pagination disabled totalItems={30}/>
+                <Pagination disabled totalItems={30}>
+                  <PaginationPages/>
+                </Pagination>
               </ComponentCard>
               <ComponentCard label="With ellipsis">
-                <Pagination
-                  defaultPage={1}
-                  siblingCount={0}
-                  totalItems={50}
-                />
-                <Pagination
-                  defaultPage={3}
-                  siblingCount={0}
-                  totalItems={50}
-                />
-                <Pagination
-                  defaultPage={5}
-                  siblingCount={0}
-                  totalItems={50}
-                />
+                <Pagination defaultPage={1} siblingCount={0} totalItems={50}>
+                  <PaginationPages/>
+                </Pagination>
+                <Pagination defaultPage={3} siblingCount={0} totalItems={50}>
+                  <PaginationPages/>
+                </Pagination>
+                <Pagination defaultPage={5} siblingCount={0} totalItems={50}>
+                  <PaginationPages/>
+                </Pagination>
               </ComponentCard>
               <ComponentCard label="With Page Size Selector" className="full-width">
-                <Pagination
-                  totalItems={500}
-                  withPageSizeSelector
-                  renderTotalItemsLabel={({totalItems}) => `of ${totalItems} results`}
-                />
+                <Pagination totalItems={500}>
+                  <PaginationPageSizeSelector/>
+                  <PaginationPages/>
+                </Pagination>
+              </ComponentCard>
+              <ComponentCard label="With Page Selector" className="full-width">
+                <Pagination totalItems={500}>
+                  <PaginationPages/>
+                  <PaginationPageSelector/>
+                </Pagination>
               </ComponentCard>
             </div>
           </section>
@@ -2184,19 +2184,19 @@ export const Home = () => {
               </ComponentCard>
               <ComponentCard label="Positions">
                 <div className="flex-row">
-                  <Popover position="top-start">
+                  <Popover overlayConfig={{position: 'top-start'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Top Start</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Top start popover</PopoverContent>
                   </Popover>
-                  <Popover position="top">
+                  <Popover overlayConfig={{position: 'top'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Top</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Top popover</PopoverContent>
                   </Popover>
-                  <Popover position="top-end">
+                  <Popover overlayConfig={{position: 'top-end'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Top End</Button>
                     </PopoverTrigger>
@@ -2204,7 +2204,7 @@ export const Home = () => {
                   </Popover>
                 </div>
                 <div className="flex-row">
-                  <Popover position="left">
+                  <Popover overlayConfig={{position: 'left'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Left</Button>
                     </PopoverTrigger>
@@ -2216,7 +2216,7 @@ export const Home = () => {
                     </PopoverTrigger>
                     <PopoverContent withArrow>Auto popover</PopoverContent>
                   </Popover>
-                  <Popover position="right">
+                  <Popover overlayConfig={{position: 'right'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Right</Button>
                     </PopoverTrigger>
@@ -2224,19 +2224,19 @@ export const Home = () => {
                   </Popover>
                 </div>
                 <div className="flex-row">
-                  <Popover position="bottom-start">
+                  <Popover overlayConfig={{position: 'bottom-start'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Bottom Start</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Bottom start popover</PopoverContent>
                   </Popover>
-                  <Popover position="bottom">
+                  <Popover overlayConfig={{position: 'bottom'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Bottom</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Bottom popover</PopoverContent>
                   </Popover>
-                  <Popover position="bottom-end">
+                  <Popover overlayConfig={{position: 'bottom-end'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
                       <Button variant="outline" size="sm">Bottom End</Button>
                     </PopoverTrigger>
@@ -3571,19 +3571,19 @@ export const Home = () => {
               </ComponentCard>
               <ComponentCard label="Positions">
                 <div className="flex-row">
-                  <Tooltip position="top">
+                  <Tooltip overlayConfig={{position: 'top'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Top</Button>
                     </TooltipTrigger>
                     <TooltipContent>Top tooltip</TooltipContent>
                   </Tooltip>
-                  <Tooltip position="top-start">
+                  <Tooltip overlayConfig={{position: 'top-start'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Top Start</Button>
                     </TooltipTrigger>
                     <TooltipContent>Top start tooltip</TooltipContent>
                   </Tooltip>
-                  <Tooltip position="top-end">
+                  <Tooltip overlayConfig={{position: 'top-end'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Top End</Button>
                     </TooltipTrigger>
@@ -3591,7 +3591,7 @@ export const Home = () => {
                   </Tooltip>
                 </div>
                     <div className="flex-row">
-                  <Tooltip position="left">
+                  <Tooltip overlayConfig={{position: 'left'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Left</Button>
                     </TooltipTrigger>
@@ -3603,7 +3603,7 @@ export const Home = () => {
                     </TooltipTrigger>
                     <TooltipContent>Auto tooltip</TooltipContent>
                   </Tooltip>
-                  <Tooltip position="right">
+                  <Tooltip overlayConfig={{position: 'right'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Right</Button>
                     </TooltipTrigger>
@@ -3611,19 +3611,19 @@ export const Home = () => {
                   </Tooltip>
                 </div>
                 <div className="flex-row">
-                  <Tooltip position="bottom">
+                  <Tooltip overlayConfig={{position: 'bottom'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Bottom</Button>
                     </TooltipTrigger>
                     <TooltipContent>Bottom tooltip</TooltipContent>
                   </Tooltip>
-                  <Tooltip position="bottom-start">
+                  <Tooltip overlayConfig={{position: 'bottom-start'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Bottom Start</Button>
                     </TooltipTrigger>
                     <TooltipContent>Bottom start tooltip</TooltipContent>
                   </Tooltip>
-                  <Tooltip position="bottom-end">
+                  <Tooltip overlayConfig={{position: 'bottom-end'}}>
                     <TooltipTrigger asChild>
                       <Button style={{flex: '1 1'}} variant="outline" size="sm">Bottom End</Button>
                     </TooltipTrigger>
