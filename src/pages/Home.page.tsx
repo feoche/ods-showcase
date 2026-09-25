@@ -3402,7 +3402,7 @@ export const Home = () => {
                   </Button>
                 </div>
               </ComponentCard>
-              <ComponentCard label="With Icon">
+              <ComponentCard label="Positions">
                 <Toaster
                   id="top-start"
                   position="top-start"
