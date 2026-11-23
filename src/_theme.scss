@@ -113,6 +113,21 @@ $neutral-scale: generate-color-scale($color-neutral);
   }
 }
 
+// ODS 20 palette custom properties: the palette the ODS semantic tokens read.
+// Primary and neutral, success, warning and critical map to the ODS blue, gray,
+// green, orange and red families; the 000 and 025/075 steps have no ODS 20 step.
+$palette-family: ("primary": "blue", "neutral": "gray", "success": "green", "warning": "orange", "critical": "red");
+$palette-steps: ("050": "50", "100": "100", "200": "200", "300": "300", "400": "400", "500": "500", "600": "600", "700": "700", "800": "800", "900": "900");
+
+@mixin output-palette-scale($name, $scale) {
+  $family: map.get($palette-family, $name);
+  @if $family {
+    @each $level, $step in $palette-steps {
+      --ods-palette-#{$family}-#{$step}: #{map.get($scale, $level)};
+    }
+  }
+}
+
 // ============================================
 // MIXIN: Base ODS Colors (shared across themes)
 // ============================================
@@ -132,6 +147,13 @@ $neutral-scale: generate-color-scale($color-neutral);
   @include output-color-scale("success", $success-scale);
   @include output-color-scale("warning", $warning-scale);
   @include output-color-scale("neutral", $neutral-scale);
+
+  // ODS 20 palette the semantic tokens read
+  @include output-palette-scale("primary", $primary-scale);
+  @include output-palette-scale("neutral", $neutral-scale);
+  @include output-palette-scale("success", $success-scale);
+  @include output-palette-scale("warning", $warning-scale);
+  @include output-palette-scale("critical", $critical-scale);
 }
 
 // ============================================
