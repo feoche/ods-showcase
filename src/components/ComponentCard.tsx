@@ -30,9 +30,7 @@ export const ComponentCard = ({ label, children, className }: ComponentCardProps
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant="outline"
               size="xs"
-              color="primary"
               className={`component-card-copy${copied ? ' copied' : ''}`}
               onClick={handleCopy}
               aria-label={copied ? 'Copied!' : 'Copy code'}

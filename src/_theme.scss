@@ -89,7 +89,7 @@ $color-promotion: #ccff66 !default;
 /// @param {String} $level - Shade level (000-900)
 /// @return {String} - CSS variable for that shade
 @function get-shade-variable($scale, $level) {
-  @return var(--ods-color-#{$scale}-#{$level});
+  @return var(--showcase-color-#{$scale}-#{$level});
 }
 
 // ============================================
@@ -109,7 +109,7 @@ $neutral-scale: generate-color-scale($color-neutral);
 
 @mixin output-color-scale($name, $scale) {
   @each $level, $color in $scale {
-    --ods-color-#{$name}-#{$level}: #{$color};
+    --showcase-color-#{$name}-#{$level}: #{$color};
   }
 }
 
@@ -119,11 +119,11 @@ $neutral-scale: generate-color-scale($color-neutral);
 
 @mixin ods-base-colors {
   // Accent colors
-  --ods-color-text: #{$color-text};
-  --ods-color-alpha: #{$color-alpha};
-  --ods-color-beta: #{$color-beta};
-  --ods-color-new: #{$color-new};
-  --ods-color-promotion: #{$color-promotion};
+  --ods-semantic-color-content-text: #{$color-text};
+  --ods-semantic-color-surface-decorative-alpha: #{$color-alpha};
+  --ods-semantic-color-surface-decorative-beta: #{$color-beta};
+  --ods-semantic-color-surface-decorative-new: #{$color-new};
+  --ods-semantic-color-surface-decorative-promotion: #{$color-promotion};
 
   // Color scales
   @include output-color-scale("primary", $primary-scale);
@@ -143,87 +143,55 @@ $neutral-scale: generate-color-scale($color-neutral);
   @include ods-base-colors;
 
   // Theme semantic colors
-  --ods-theme-anchor-text-color: #{get-shade-variable("primary", "500")};
-  --ods-theme-anchor-text-color-hover: #{get-shade-variable("primary", "600")};
-  --ods-theme-anchor-text-color-visited: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-content-brand: #{get-shade-variable("primary", "500")};
+  --ods-semantic-color-interaction-brand-visited: #{get-shade-variable("primary", "700")};
 
-  --ods-theme-background-color: #{get-shade-variable("primary", "000")};
-  --ods-theme-background-color-disabled: #{get-shade-variable("neutral", "100")};
-  --ods-theme-background-color-drag-over: #{get-shade-variable("primary", "100")};
-  --ods-theme-background-color-readonly: #{get-shade-variable("neutral", "050")};
-  --ods-theme-background-color-selected: #{get-shade-variable("primary", "800")};
+  --ods-semantic-color-surface-raised: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-surface-drag-over: #{get-shade-variable("primary", "100")};
 
-  --ods-theme-border-color-disabled: #{get-shade-variable("neutral", "200")};
-  --ods-theme-border-color-drag-over: #{get-shade-variable("primary", "100")};
-  --ods-theme-border-color-readonly: #{get-shade-variable("neutral", "050")};
-  --ods-theme-border-color-selected: #{get-shade-variable("primary", "800")};
 
-  --ods-theme-brand-color: #{get-shade-variable("primary", "700")};
-  --ods-theme-heading-text-color: #{get-shade-variable("primary", "800")};
-  --ods-theme-progress-background-color: #{get-shade-variable("primary", "500")};
-  --ods-theme-split-background-color: #{get-shade-variable("neutral", "100")};
-  --ods-theme-split-border-color: #{get-shade-variable("neutral", "100")};
-  --ods-theme-text-color: #{shade-dark(get-shade($primary-scale, "700"), 10)};
-  --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "500")};
-  --ods-theme-text-color-selected: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-border-drag-over: #{get-shade-variable("primary", "100")};
+  --ods-semantic-color-border-selected-solid: #{get-shade-variable("primary", "800")};
 
-  --ods-theme-track-background-color: #{get-shade-variable("neutral", "100")};
-  --ods-theme-track-background-color-disabled: #{get-shade-variable("neutral", "500")};
+  --ods-semantic-color-brand: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-border-separator: #{get-shade-variable("neutral", "100")};
+  --ods-semantic-color-content-text: #{shade-dark(get-shade($primary-scale, "700"), 10)};
+
+  --ods-semantic-color-surface-track: #{get-shade-variable("neutral", "100")};
 
   // Status colors
-  --ods-theme-critical-color: #{get-shade-variable("critical", "500")};
-  --ods-theme-information-color: #{get-shade-variable("information", "500")};
-  --ods-theme-neutral-color: #{get-shade-variable("neutral", "500")};
-  --ods-theme-primary-color: #{get-shade-variable("primary", "500")};
-  --ods-theme-success-color: #{get-shade-variable("success", "500")};
-  --ods-theme-warning-color: #{get-shade-variable("warning", "500")};
 
   // UI elements
-  --ods-theme-outline-color: #{get-shade-variable("primary", "700")};
-  --ods-theme-backdrop-background-color: #{get-shade-variable("primary", "500")};
-  --ods-theme-backdrop-opacity: 0.75;
+  --ods-semantic-color-surface-backdrop: #{get-shade-variable("primary", "500")};
+  --ods-semantic-opacity-backdrop: 0.75;
 
   // Input styles
-  --ods-theme-input-background-color-checked: #{get-shade-variable("primary", "500")};
-  --ods-theme-input-background-color-checked-hover: #{get-shade-variable("primary", "700")};
-  --ods-theme-input-background-color-invalid: #{get-shade-variable("critical", "500")};
-  --ods-theme-input-border-color: #{get-shade-variable("primary", "100")};
-  --ods-theme-input-border-color-checked: #{get-shade-variable("primary", "500")};
-  --ods-theme-input-border-color-checked-hover: #{get-shade-variable("primary", "700")};
-  --ods-theme-input-border-color-hover: #{get-shade-variable("primary", "500")};
-  --ods-theme-input-border-color-invalid: #{get-shade-variable("critical", "500")};
-  --ods-theme-input-option-background-color-hover: #{get-shade-variable("primary", "100")};
-  --ods-theme-input-option-background-color-selected: #{get-shade-variable("primary", "050")};
-  --ods-theme-input-option-background-color-selected-hover: #{get-shade-variable("primary", "100")};
-  --ods-theme-input-placeholder-text-color: #{get-shade-variable("primary", "600")};
-  --ods-theme-input-text-color: var(--ods-color-text);
-  --ods-theme-input-text-color-checked: var(--ods-theme-background-color);
-  --ods-theme-input-text-color-invalid: #{get-shade-variable("critical", "500")};
+  --ods-semantic-color-surface-control-solid: #{get-shade-variable("primary", "500")};
+  --ods-semantic-color-border-control-solid: #{get-shade-variable("primary", "500")};
+  --ods-semantic-color-interaction-control-solid-hover: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-interaction-highlight: #{get-shade-variable("primary", "100")};
+  --ods-semantic-color-surface-selected: #{get-shade-variable("primary", "050")};
+  --ods-semantic-color-interaction-selected-highlight: #{get-shade-variable("primary", "100")};
+  --ods-semantic-color-content-on-control-solid: var(--ods-semantic-color-surface-raised);
+  --ods-semantic-color-content-critical: #{get-shade-variable("critical", "500")};
 
   // Form element tokens
-  --ods-color-background-disabled-default: #{get-shade-variable("neutral", "100")};
-  --ods-color-background-readonly-default: #{get-shade-variable("neutral", "050")};
-  --ods-color-border-disabled-default: #{get-shade-variable("neutral", "200")};
-  --ods-color-border-readonly-default: #{get-shade-variable("neutral", "050")};
-  --ods-color-element-background-selected: #{get-shade-variable("primary", "800")};
-  --ods-color-element-text-selected: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-surface-readonly: #{get-shade-variable("neutral", "050")};
+  --ods-semantic-color-border-readonly: #{get-shade-variable("neutral", "050")};
+  --ods-semantic-color-surface-selected-solid: #{get-shade-variable("primary", "800")};
+  --ods-semantic-color-content-on-selected-solid: #{get-shade-variable("primary", "000")};
 
-  --ods-color-form-element-background-critical: #{get-shade-variable("primary", "000")};
-  --ods-color-form-element-background-default: #{get-shade-variable("primary", "000")};
-  --ods-color-form-element-background-focus-default: #{get-shade-variable("primary", "000")};
-  --ods-color-form-element-background-hover-default: #{get-shade-variable("primary", "000")};
-  --ods-color-form-element-background-selected-critical: #{get-shade-variable("critical", "500")};
-  --ods-color-form-element-border-critical: #{get-shade-variable("critical", "500")};
-  --ods-color-form-element-border-default: #{get-shade-variable("neutral", "000")};
-  --ods-color-form-element-border-focus-default: #{get-shade-variable("neutral", "500")};
-  --ods-color-form-element-border-hover-default: #{get-shade-variable("neutral", "500")};
-  --ods-color-form-element-text-default: var(--ods-color-text);
-  --ods-color-form-element-text-placeholder-default: #{get-shade-variable("neutral", "600")};
+  --ods-semantic-color-surface-control: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-interaction-control-highlight: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-surface-critical: #{get-shade-variable("critical", "500")};
+  --ods-semantic-color-border-critical: #{get-shade-variable("critical", "500")};
+  --ods-semantic-color-border-control: #{get-shade-variable("neutral", "000")};
+  --ods-semantic-color-interaction-control-hover: #{get-shade-variable("neutral", "500")};
+  --ods-semantic-color-content-placeholder: #{get-shade-variable("neutral", "600")};
 
-  --ods-color-heading: #{get-shade-variable("primary", "800")};
-  --ods-color-text: var(--ods-theme-text-color);
-  --ods-color-text-disabled-default: #{get-shade-variable("neutral", "500")};
-  --ods-outline-color-default: #{get-shade-variable("primary", "700")};
+
+  --ods-semantic-color-content-heading: #{get-shade-variable("primary", "800")};
+  --ods-semantic-color-focus: #{get-shade-variable("primary", "700")};
 }
 
 // ============================================
@@ -235,89 +203,56 @@ $neutral-scale: generate-color-scale($color-neutral);
   @include ods-base-colors;
 
   // Theme semantic colors
-  --ods-theme-anchor-text-color: #{get-shade-variable("primary", "000")};
-  --ods-theme-anchor-text-color-hover: #{get-shade-variable("primary", "100")};
-  --ods-theme-anchor-text-color-visited: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-content-brand: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-interaction-brand-visited: #{get-shade-variable("primary", "000")};
 
-  --ods-theme-background-color: #{get-shade-variable("primary", "900")};
-  --ods-theme-background-color-disabled: #{get-shade-variable("neutral", "400")};
-  --ods-theme-background-color-drag-over: #{get-shade-variable("primary", "700")};
-  --ods-theme-background-color-readonly: #{get-shade-variable("primary", "800")};
-  --ods-theme-background-color-selected: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-surface-raised: #{get-shade-variable("primary", "900")};
+  --ods-semantic-color-surface-drag-over: #{get-shade-variable("primary", "700")};
 
-  --ods-theme-border-color-disabled: #{get-shade-variable("neutral", "300")};
-  --ods-theme-border-color-drag-over: #{get-shade-variable("primary", "700")};
-  --ods-theme-border-color-readonly: #{get-shade-variable("primary", "800")};
-  --ods-theme-border-color-selected: #{get-shade-variable("primary", "700")};
 
-  --ods-theme-brand-color: #{get-shade-variable("primary", "000")};
-  --ods-theme-heading-text-color: #{get-shade-variable("neutral", "000")};
-  --ods-theme-progress-background-color: #{get-shade-variable("primary", "300")};
-  --ods-theme-split-background-color: #{get-shade-variable("neutral", "100")};
-  --ods-theme-split-border-color: #{get-shade-variable("neutral", "600")};
-  --ods-theme-text-color: #{get-shade-variable("neutral", "000")};
-  --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "900")};
-  --ods-theme-text-color-selected: #{get-shade-variable("neutral", "000")};
+  --ods-semantic-color-border-drag-over: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-border-selected-solid: #{get-shade-variable("primary", "700")};
 
-  --ods-theme-track-background-color: #{get-shade-variable("neutral", "800")};
-  --ods-theme-track-background-color-disabled: #{get-shade-variable("neutral", "600")};
+  --ods-semantic-color-brand: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-border-separator: #{get-shade-variable("neutral", "600")};
+
+  --ods-semantic-color-surface-track: #{get-shade-variable("neutral", "800")};
 
   // Status colors (lighter for dark mode)
-  --ods-theme-critical-color: #{get-shade-variable("critical", "300")};
-  --ods-theme-information-color: #{get-shade-variable("information", "300")};
-  --ods-theme-neutral-color: #{get-shade-variable("neutral", "900")};
-  --ods-theme-primary-color: #{get-shade-variable("primary", "000")};
-  --ods-theme-success-color: #{get-shade-variable("success", "300")};
-  --ods-theme-warning-color: #{get-shade-variable("warning", "300")};
 
   // UI elements
-  --ods-theme-outline-color: #{get-shade-variable("primary", "050")};
-  --ods-theme-backdrop-background-color: #{get-shade-variable("primary", "900")};
-  --ods-theme-backdrop-opacity: 0.85;
-  --ods-theme-overlay-box-shadow: 0 2px 8px rgba(200, 200, 200, 0.6);
-  --ods-theme-font-family: var(--ods-font-family-default);
+  --ods-semantic-color-surface-backdrop: #{get-shade-variable("primary", "900")};
+  --ods-semantic-opacity-backdrop: 0.85;
+  --ods-semantic-shadow-overlay: 0 2px 8px rgba(200, 200, 200, 0.6);
 
   // Input styles
-  --ods-theme-input-background-color-checked: #{get-shade-variable("primary", "500")};
-  --ods-theme-input-background-color-checked-hover: #{get-shade-variable("primary", "600")};
-  --ods-theme-input-background-color-invalid: #{get-shade-variable("critical", "600")};
-  --ods-theme-input-border-color: #{get-shade-variable("primary", "000")};
-  --ods-theme-input-border-color-checked: #{get-shade-variable("primary", "500")};
-  --ods-theme-input-border-color-checked-hover: #{get-shade-variable("primary", "600")};
-  --ods-theme-input-border-color-hover: #{get-shade-variable("primary", "100")};
-  --ods-theme-input-border-color-invalid: #{get-shade-variable("critical", "600")};
-  --ods-theme-input-option-background-color-hover: #{get-shade-variable("primary", "700")};
-  --ods-theme-input-option-background-color-selected: #{get-shade-variable("primary", "800")};
-  --ods-theme-input-option-background-color-selected-hover: #{get-shade-variable("primary", "700")};
-  --ods-theme-input-placeholder-text-color: #{get-shade-variable("neutral", "300")};
-  --ods-theme-input-text-color: #{get-shade-variable("neutral", "000")};
-  --ods-theme-input-text-color-checked: #{get-shade-variable("primary", "000")};
-  --ods-theme-input-text-color-invalid: #{get-shade-variable("critical", "600")};
+  --ods-semantic-color-surface-control-solid: #{get-shade-variable("primary", "500")};
+  --ods-semantic-color-border-control-solid: #{get-shade-variable("primary", "500")};
+  --ods-semantic-color-interaction-control-solid-hover: #{get-shade-variable("primary", "600")};
+  --ods-semantic-color-interaction-highlight: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-surface-selected: #{get-shade-variable("primary", "800")};
+  --ods-semantic-color-interaction-selected-highlight: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-content-on-control-solid: #{get-shade-variable("primary", "000")};
+  --ods-semantic-color-content-critical: #{get-shade-variable("critical", "600")};
 
   // Form element tokens
-  --ods-color-background-disabled-default: #{get-shade-variable("neutral", "900")};
-  --ods-color-background-readonly-default: #{get-shade-variable("primary", "800")};
-  --ods-color-border-disabled-default: #{get-shade-variable("neutral", "600")};
-  --ods-color-border-readonly-default: #{get-shade-variable("primary", "800")};
-  --ods-color-element-background-selected: #{get-shade-variable("primary", "700")};
-  --ods-color-element-text-selected: #{get-shade-variable("neutral", "000")};
+  --ods-semantic-color-surface-readonly: #{get-shade-variable("primary", "800")};
+  --ods-semantic-color-border-readonly: #{get-shade-variable("primary", "800")};
+  --ods-semantic-color-surface-selected-solid: #{get-shade-variable("primary", "700")};
+  --ods-semantic-color-content-on-selected-solid: #{get-shade-variable("neutral", "000")};
 
-  --ods-color-form-element-background-critical: #{get-shade-variable("critical", "900")};
-  --ods-color-form-element-background-default: #{get-shade-variable("primary", "000")};
-  --ods-color-form-element-background-focus-default: #{get-shade-variable("neutral", "900")};
-  --ods-color-form-element-background-hover-default: #{get-shade-variable("neutral", "900")};
-  --ods-color-form-element-background-selected-critical: #{get-shade-variable("critical", "300")};
-  --ods-color-form-element-border-critical: #{get-shade-variable("critical", "300")};
-  --ods-color-form-element-border-default: #{get-shade-variable("neutral", "600")};
-  --ods-color-form-element-border-focus-default: #{get-shade-variable("primary", "300")};
-  --ods-color-form-element-border-hover-default: #{get-shade-variable("primary", "200")};
-  --ods-color-form-element-text-default: #{get-shade-variable("neutral", "200")};
-  --ods-color-form-element-text-placeholder-default: #{get-shade-variable("neutral", "200")};
+  --ods-semantic-color-surface-control: #{get-shade-variable("neutral", "900")};
+  --ods-semantic-color-interaction-control-highlight: #{get-shade-variable("neutral", "900")};
+  --ods-semantic-color-surface-critical: #{get-shade-variable("critical", "300")};
+  --ods-semantic-color-border-critical: #{get-shade-variable("critical", "300")};
+  --ods-semantic-color-border-control: #{get-shade-variable("neutral", "600")};
+  --ods-semantic-color-interaction-control-hover: #{get-shade-variable("primary", "200")};
+  --ods-semantic-color-content-placeholder: #{get-shade-variable("neutral", "200")};
 
-  --ods-color-heading: #{get-shade-variable("neutral", "000")};
-  --ods-color-text: #{get-shade-variable("neutral", "200")};
-  --ods-color-text-disabled-default: #{get-shade-variable("neutral", "500")};
-  --ods-outline-color-default: #{get-shade-variable("neutral", "000")};
+
+  --ods-semantic-color-content-heading: #{get-shade-variable("neutral", "000")};
+  --ods-semantic-color-content-text: #{get-shade-variable("neutral", "200")};
+  --ods-semantic-color-focus: #{get-shade-variable("neutral", "000")};
 
   & [data-ods="accordion"] {
     --ods-accordion-border-color: #{get-shade-variable("primary", "000")};
@@ -327,89 +262,79 @@ $neutral-scale: generate-color-scale($color-neutral);
   }
 
   & [data-ods="badge"] {
-    --ods-badge-background-color-critical: #{get-shade-variable("critical", "300")};
-    --ods-badge-background-color-information: #{get-shade-variable("information", "300")};
-    --ods-badge-background-color-neutral: #{get-shade-variable("neutral", "300")};
-    --ods-badge-background-color-primary: #{get-shade-variable("primary", "500")};
-    --ods-badge-background-color-success: #{get-shade-variable("success", "600")};
-    --ods-badge-background-color-warning: #{get-shade-variable("warning", "300")};
+    --ods-badge-background-color-critical-high: #{get-shade-variable("critical", "300")};
+    --ods-badge-background-color-information-high: #{get-shade-variable("information", "300")};
+    --ods-badge-background-color-neutral-high: #{get-shade-variable("neutral", "300")};
+    --ods-badge-background-color-accent-high: #{get-shade-variable("primary", "500")};
+    --ods-badge-background-color-success-high: #{get-shade-variable("success", "600")};
+    --ods-badge-background-color-warning-high: #{get-shade-variable("warning", "300")};
 
-    --ods-badge-text-color-critical: #{get-shade-variable("critical", "900")};
-    --ods-badge-text-color-information: #{get-shade-variable("information", "900")};
-    --ods-badge-text-color-neutral: #{get-shade-variable("neutral", "900")};
-    --ods-badge-text-color-primary: #{get-shade-variable("primary", "000")};
-    --ods-badge-text-color-success: #{get-shade-variable("success", "000")};
-    --ods-badge-text-color-warning: #{get-shade-variable("warning", "900")};
+    --ods-badge-text-color-critical-high: #{get-shade-variable("critical", "900")};
+    --ods-badge-text-color-information-high: #{get-shade-variable("information", "900")};
+    --ods-badge-text-color-neutral-high: #{get-shade-variable("neutral", "900")};
+    --ods-badge-text-color-accent-high: #{get-shade-variable("primary", "000")};
+    --ods-badge-text-color-success-high: #{get-shade-variable("success", "000")};
+    --ods-badge-text-color-warning-high: #{get-shade-variable("warning", "900")};
   }
 
   & [data-ods="button"] {
-    --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "900")};
 
-    --ods-button-background-color-primary-outline: #{get-shade-variable("primary", "900")};
-    --ods-button-border-color-primary-outline: #{get-shade-variable("primary", "300")};
-    --ods-button-text-color-primary-outline: #{get-shade-variable("primary", "100")};
+    --ods-button-background-color-brand-medium: #{get-shade-variable("primary", "900")};
+    --ods-button-border-color-brand-medium: #{get-shade-variable("primary", "300")};
+    --ods-button-text-color-brand-medium: #{get-shade-variable("primary", "100")};
 
-    --ods-button-background-color-critical-outline: #{get-shade-variable("critical", "900")};
-    --ods-button-border-color-critical-outline: #{get-shade-variable("critical", "300")};
-    --ods-button-text-color-critical-outline: #{get-shade-variable("critical", "100")};
+    --ods-button-background-color-critical-medium: #{get-shade-variable("critical", "900")};
+    --ods-button-border-color-critical-medium: #{get-shade-variable("critical", "300")};
+    --ods-button-text-color-critical-medium: #{get-shade-variable("critical", "100")};
 
-    --ods-button-background-color-information-outline: #{get-shade-variable("information", "900")};
-    --ods-button-border-color-information-outline: #{get-shade-variable("information", "300")};
-    --ods-button-text-color-information-outline: #{get-shade-variable("information", "100")};
 
-    --ods-button-background-color-neutral-outline: #{get-shade-variable("neutral", "900")};
-    --ods-button-border-color-neutral-outline: #{get-shade-variable("neutral", "300")};
-    --ods-button-text-color-neutral-outline: #{get-shade-variable("neutral", "100")};
 
-    --ods-button-background-color-success-outline: #{get-shade-variable("success", "900")};
-    --ods-button-border-color-success-outline: #{get-shade-variable("success", "300")};
-    --ods-button-text-color-success-outline: #{get-shade-variable("success", "100")};
+    --ods-button-background-color-neutral-medium: #{get-shade-variable("neutral", "900")};
+    --ods-button-border-color-neutral-medium: #{get-shade-variable("neutral", "300")};
+    --ods-button-text-color-neutral-medium: #{get-shade-variable("neutral", "100")};
 
-    --ods-button-background-color-warning-outline: #{get-shade-variable("warning", "900")};
-    --ods-button-border-color-warning-outline: #{get-shade-variable("warning", "300")};
-    --ods-button-text-color-warning-outline: #{get-shade-variable("warning", "100")};
 
-    --ods-button-text-color-primary-ghost: #{get-shade-variable("primary", "000")};
-    --ods-button-text-color-critical-ghost: #{get-shade-variable("critical", "200")};
-    --ods-button-text-color-information-ghost: #{get-shade-variable("information", "200")};
-    --ods-button-text-color-neutral-ghost: #{get-shade-variable("neutral", "200")};
-    --ods-button-text-color-success-ghost: #{get-shade-variable("success", "200")};
-    --ods-button-text-color-warning-ghost: #{get-shade-variable("warning", "200")};
+
+
+
+    --ods-button-text-color-brand-low: #{get-shade-variable("primary", "000")};
+    --ods-button-text-color-critical-low: #{get-shade-variable("critical", "200")};
+    --ods-button-text-color-neutral-low: #{get-shade-variable("neutral", "200")};
   }
 
   & [data-ods="card"] {
-    --ods-card-border-color-primary: #{get-shade-variable("primary", "000")};
+    --ods-card-border-color-accent: #{get-shade-variable("primary", "000")};
   }
 
   & [data-ods="code"] {
-    --ods-code-secondary-color: #{get-shade-variable("primary", "800")};
+    --ods-code-background-color: #{get-shade-variable("primary", "800")};
   }
 
   & [data-ods="combobox-content"] {
-    background-color: var(--ods-theme-background-color);
+    background-color: var(--ods-semantic-color-surface-raised);
   }
 
   & [data-ods="breadcrumb-link"],
   & [data-ods="link"] {
-    --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "300")};
 
     &::after {
+      /* ods-v20: checked: scaleX(1) is the rest state, the underline is this ::after in v20 too */
       transform: scaleX(1);
     }
   }
 
   & [data-ods="message"] {
-    --ods-message-background-color-success: #{get-shade-variable("success", "900")};
-    --ods-message-background-color-information: #{get-shade-variable("information", "900")};
-    --ods-message-background-color-warning: #{get-shade-variable("warning", "900")};
-    --ods-message-background-color-critical: #{get-shade-variable("critical", "900")};
-    --ods-message-background-color-neutral: #{get-shade-variable("neutral", "900")};
+    --ods-message-background-color-success-high: #{get-shade-variable("success", "900")};
+    --ods-message-background-color-information-high: #{get-shade-variable("information", "900")};
+    --ods-message-background-color-warning-high: #{get-shade-variable("warning", "900")};
+    --ods-message-background-color-critical-high: #{get-shade-variable("critical", "900")};
+    --ods-message-background-color-neutral-high: #{get-shade-variable("neutral", "900")};
 
-    --ods-message-text-color-success: #{get-shade-variable("success", "100")};
-    --ods-message-text-color-information: #{get-shade-variable("information", "100")};
-    --ods-message-text-color-warning: #{get-shade-variable("warning", "100")};
-    --ods-message-text-color-critical: #{get-shade-variable("critical", "100")};
-    --ods-message-text-color-neutral: #{get-shade-variable("neutral", "100")};
+    --ods-message-text-color-success-high: #{get-shade-variable("success", "100")};
+    --ods-message-text-color-information-high: #{get-shade-variable("information", "100")};
+    --ods-message-text-color-warning-high: #{get-shade-variable("warning", "100")};
+    --ods-message-text-color-critical-high: #{get-shade-variable("critical", "100")};
+    --ods-message-text-color-neutral-high: #{get-shade-variable("neutral", "100")};
   }
 
   & [data-ods="message-bubble"] {
@@ -424,9 +349,8 @@ $neutral-scale: generate-color-scale($color-neutral);
   }
 
   & [data-ods="pagination"] [data-ods="button"] {
-    --ods-theme-text-color-disabled: #{get-shade-variable("neutral", "600")};
-    --ods-theme-background-color-selected: #{get-shade-variable("primary", "000")};
-    --ods-button-text-color-primary: #{get-shade-variable("primary", "900")};
+    --ods-semantic-color-surface-selected-solid: #{get-shade-variable("primary", "000")};
+    --ods-button-text-color-brand-high: #{get-shade-variable("primary", "900")};
   }
 
   & [data-ods="prompt-input-text-control"]:not([readonly]):not([disabled]) {
@@ -460,8 +384,6 @@ $neutral-scale: generate-color-scale($color-neutral);
 
   & [data-ods="tab"] {
     --ods-tab-border-color: #{get-shade-variable("primary", "000")};
-    --ods-tab-border-color-selected: #{get-shade-variable("primary", "300")};
-    --ods-tab-text-color-selected: #{get-shade-variable("primary", "300")};
     --ods-tab-heading-text-color: #{get-shade-variable("neutral", "000")};
 
     &[disabled] {
@@ -473,14 +395,14 @@ $neutral-scale: generate-color-scale($color-neutral);
     --ods-tag-background-color-critical: #{get-shade-variable("critical", "200")};
     --ods-tag-background-color-information: #{get-shade-variable("information", "200")};
     --ods-tag-background-color-neutral: #{get-shade-variable("neutral", "200")};
-    --ods-tag-background-color-primary: #{get-shade-variable("primary", "200")};
+    --ods-tag-background-color-accent: #{get-shade-variable("primary", "200")};
     --ods-tag-background-color-success: #{get-shade-variable("success", "200")};
     --ods-tag-background-color-warning: #{get-shade-variable("warning", "200")};
 
     --ods-tag-text-color-critical: #{get-shade-variable("critical", "900")};
     --ods-tag-text-color-information: #{get-shade-variable("information", "900")};
     --ods-tag-text-color-neutral: #{get-shade-variable("neutral", "900")};
-    --ods-tag-text-color-primary: #{get-shade-variable("primary", "900")};
+    --ods-tag-text-color-accent: #{get-shade-variable("primary", "900")};
     --ods-tag-text-color-success: #{get-shade-variable("success", "900")};
     --ods-tag-text-color-warning: #{get-shade-variable("warning", "900")};
   }
@@ -491,7 +413,6 @@ $neutral-scale: generate-color-scale($color-neutral);
 
   & [data-ods="toggle-control"] {
     --ods-toggle-control-background-color: #{get-shade-variable("primary", "900")};
-    --ods-toggle-control-background-color-hover: #{get-shade-variable("primary", "800")};
     --ods-toggle-control-label-off-text-color: #{get-shade-variable("primary", "000")};
     --ods-toggle-control-thumb-background-color: #{get-shade-variable("primary", "000")};
 

@@ -6,7 +6,8 @@
 // To customize, override these variables BEFORE the import:
 // $color-primary: #6200ee;
 // $color-critical: #b00020;
-@use "@ovhcloud/ods-themes/default" as *;
+@use "@ovhcloud/ods-themes/default/css" as *;
+@use "@ovhcloud/ods-themes/default/fonts" as *;
 @use "theme";
 
 @layer theme, base, components, utilities;
@@ -15,7 +16,7 @@
 
 :root {
   --ods-theme-font-family-default: "Noto Sans Display", sans-serif;
-  --ods-theme-font-family-code: "Noto Sans Mono", monospace;
+  --ods-semantic-font-family-code: "Noto Sans Mono", monospace;
 }
 
 html {
@@ -28,13 +29,13 @@ html, body {
 }
 
 body.theme-light {
-  background: var(--ods-color-primary-000);
-  color: var(--ods-color-primary-500);
+  background: var(--ods-semantic-color-surface-page);
+  color: var(--ods-semantic-color-content-brand);
 }
 
 body.theme-dark {
-  background: var(--ods-color-primary-900);
-  color: var(--ods-color-primary-000);
+  background: var(--ods-semantic-color-surface-selected-solid);
+  color: var(--ods-semantic-color-content-on-solid);
 }
 
 
@@ -56,22 +57,23 @@ main {
   left: 0;
   right: 0;
   // Above all page content, below ODS overlays (popover, select, drawer, modal...)
-  z-index: calc(var(--ods-theme-overlay-z-index) - 1);
-  background: var(--ods-color-primary-000);
-  border-bottom: 1px solid var(--ods-color-neutral-200);
+  /* ods-v20: checked: navbar stays above page content (sticky 100) and under the dropdown layer (200) */
+  z-index: calc(var(--ods-semantic-z-index-dropdown) - 1);
+  background: var(--ods-semantic-color-surface-raised);
+  border-bottom: 1px solid var(--ods-semantic-color-border-neutral-subtle);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 body.theme-dark .navbar,
 body.theme-auto .navbar {
-  background: var(--ods-color-primary-900);
-  border-bottom-color: var(--ods-color-neutral-700);
+  background: var(--ods-semantic-color-surface-selected-solid);
+  border-bottom-color: var(--ods-semantic-color-border-neutral);
 }
 
 @media (prefers-color-scheme: light) {
   body.theme-auto .navbar {
-    background: var(--ods-color-primary-000);
-    border-bottom-color: var(--ods-color-neutral-200);
+    background: var(--ods-semantic-color-surface-raised);
+    border-bottom-color: var(--ods-semantic-color-border-neutral-subtle);
   }
 }
 
@@ -86,11 +88,11 @@ body.theme-auto .navbar {
 
 .navbar-hamburger {
   background: transparent;
-  border: 1px solid var(--ods-color-neutral-300);
+  border: 1px solid var(--ods-semantic-color-border-control);
   border-radius: 4px;
   padding: 0.5rem;
   cursor: pointer;
-  color: var(--ods-theme-text-color);
+  color: var(--ods-semantic-color-content-text);
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -100,9 +102,9 @@ body.theme-auto .navbar {
 }
 
 .navbar-hamburger:hover {
-  background-color: color-mix(in srgb, var(--ods-theme-primary-color) 10%, transparent);
-  border-color: var(--ods-theme-primary-color);
-  color: var(--ods-theme-primary-color);
+  background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 10%, transparent);
+  border-color: var(--ods-semantic-color-border-brand);
+  color: var(--ods-semantic-color-content-brand);
 }
 
 .hamburger-icon {
@@ -134,15 +136,15 @@ body.theme-auto .navbar {
   transition: all 0.15s ease;
 
   &:hover {
-    background-color: color-mix(in srgb, var(--ods-theme-primary-color) 10%, transparent);
-    border-color: var(--ods-theme-primary-color);
-    color: var(--ods-theme-primary-color);
+    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 10%, transparent);
+    border-color: var(--ods-semantic-color-border-brand);
+    color: var(--ods-semantic-color-content-brand);
   }
 
   &.active {
-    background-color: color-mix(in srgb, var(--ods-theme-primary-color) 12%, transparent);
-    border-color: var(--ods-theme-primary-color);
-    color: var(--ods-theme-primary-color);
+    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 12%, transparent);
+    border-color: var(--ods-semantic-color-border-brand);
+    color: var(--ods-semantic-color-content-brand);
     font-weight: 600;
     pointer-events: none;
   }
@@ -181,7 +183,7 @@ body.theme-auto .navbar {
 
 .component-section > [data-ods="text"]:first-child {
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid var(--ods-color-primary-500, #0050d7);
+  border-bottom: 1px solid var(--ods-semantic-color-border-brand, #0050d7);
   margin-bottom: 0.25rem;
 }
 
@@ -193,7 +195,7 @@ body.theme-auto .navbar {
 }
 
 .section-heading:hover {
-  color: var(--ods-theme-primary-color, #0050d7) !important;
+  color: var(--ods-semantic-color-content-brand, #0050d7) !important;
 }
 
 .section-heading:active {
@@ -231,7 +233,7 @@ body.theme-auto .navbar {
 .component-card-label {
   font-weight: 600;
   font-size: 0.875rem;
-  color: var(--ods-theme-text-color);
+  color: var(--ods-semantic-color-content-text);
 }
 
 .component-card-copy {
@@ -242,23 +244,23 @@ body.theme-auto .navbar {
   height: 26px;
   flex-shrink: 0;
   background: transparent;
-  border: 1px solid var(--ods-color-neutral-300);
+  border: 1px solid var(--ods-semantic-color-border-control);
   border-radius: 4px;
   cursor: pointer;
-  color: var(--ods-color-neutral-500);
+  color: var(--ods-semantic-color-content-neutral);
   transition: all 0.15s ease;
   padding: 0;
 
   &:hover {
-    border-color: var(--ods-theme-primary-color);
-    color: var(--ods-theme-primary-color);
-    background-color: color-mix(in srgb, var(--ods-theme-primary-color) 8%, transparent);
+    border-color: var(--ods-semantic-color-border-brand);
+    color: var(--ods-semantic-color-content-brand);
+    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 8%, transparent);
   }
 
   &.copied {
-    border-color: var(--ods-color-success-500);
-    color: var(--ods-color-success-500);
-    background-color: color-mix(in srgb, var(--ods-color-success-500) 8%, transparent);
+    border-color: var(--ods-semantic-color-border-success);
+    color: var(--ods-semantic-color-content-success);
+    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-success) 8%, transparent);
   }
 }
 
@@ -291,9 +293,9 @@ body.theme-auto .navbar {
   display: block;
   margin-bottom: 1rem;
   font-weight: 600;
-  color: var(--ods-theme-heading-text-color);
+  color: var(--ods-semantic-color-content-heading);
   padding: 0.5rem 0;
-  border-bottom: 1px solid var(--ods-color-neutral-200);
+  border-bottom: 1px solid var(--ods-semantic-color-border-neutral-subtle);
 }
 
 .toc-list {
@@ -304,7 +306,7 @@ body.theme-auto .navbar {
 
 .toc-link {
   padding: 0.5rem 0.75rem;
-  color: var(--ods-theme-text-color);
+  color: var(--ods-semantic-color-content-text);
   text-decoration: none;
   font-size: 0.875rem;
   border-radius: 4px;
@@ -316,15 +318,15 @@ body.theme-auto .navbar {
 }
 
 .toc-link:hover {
-  background-color: color-mix(in srgb, var(--ods-theme-primary-color) 10%, transparent);
-  color: var(--ods-theme-primary-color);
+  background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 10%, transparent);
+  color: var(--ods-semantic-color-content-brand);
 }
 
 .toc-link-active {
-  background-color: color-mix(in srgb, var(--ods-theme-primary-color) 15%, transparent);
-  color: var(--ods-theme-primary-color);
+  background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 15%, transparent);
+  color: var(--ods-semantic-color-content-brand);
   font-weight: 500;
-  border-right: 3px solid var(--ods-theme-primary-color);
+  border-right: 3px solid var(--ods-semantic-color-border-brand);
   padding-right: calc(0.75rem - 3px);
 }
 

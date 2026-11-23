@@ -129,7 +129,7 @@ export const DesignTokens = () => {
         const resolvedPaletteShades: PaletteShades[] = palettes.map((palette) => ({
           name: palette.name,
           shades: palette.shades.flatMap((level) => {
-            const raw = styles.getPropertyValue(`--ods-color-${palette.name}-${level}`);
+            const raw = styles.getPropertyValue(`--showcase-color-${palette.name}-${level}`);
             const hex = parseColorToHex(raw);
             return hex ? [{level, hex}] : [];
           }),
@@ -207,7 +207,7 @@ export const DesignTokens = () => {
             display: 'flex',
             borderRadius: '6px',
             overflow: 'hidden',
-            border: '1px solid var(--ods-color-neutral-300)'
+            border: '1px solid var(--ods-semantic-color-border-control)'
           }}>
             {(['AA', 'AAA'] as const).map((level) => (
               <button
@@ -220,7 +220,7 @@ export const DesignTokens = () => {
                   border: 'none',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
-                  background: wcagFilter === level ? 'var(--ods-theme-primary-color)' : 'transparent',
+                  background: wcagFilter === level ? 'var(--ods-semantic-color-surface-brand)' : 'transparent',
                   color: wcagFilter === level ? '#fff' : 'inherit',
                 }}
               >
@@ -314,7 +314,7 @@ export const DesignTokens = () => {
                         <div style={{display: 'flex', alignItems: 'center', placeContent: 'flex-end', gap: '0.5rem'}}>
                           <span>{combo.contrastRatio.toFixed(2)}:1</span>
                           <Badge
-                            color={combo.wcagLevel === 'AAA' ? 'success' : combo.wcagLevel === 'AA' ? 'information' : 'critical'}>
+                            status={combo.wcagLevel === 'AAA' ? 'success' : combo.wcagLevel === 'AA' ? 'information' : 'critical'}>
                             {combo.wcagLevel}
                           </Badge>
                         </div>

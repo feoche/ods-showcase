@@ -114,8 +114,6 @@ import {
   SelectControl,
   Skeleton,
   Spinner,
-  Switch,
-  SwitchItem,
   Tab,
   TabContent,
   Table,
@@ -418,16 +416,16 @@ export const Home = () => {
               </ComponentCard>
               <ComponentCard label="Colors">
                 <div className="flex-row">
-                  <Badge color="primary">Primary</Badge>
-                  <Badge color="information">Information</Badge>
-                  <Badge color="neutral">Neutral</Badge>
-                  <Badge color="success">Success</Badge>
-                  <Badge color="warning">Warning</Badge>
-                  <Badge color="critical">Critical</Badge>
-                  <Badge color="promotion">Promotion</Badge>
-                  <Badge color="alpha">Alpha</Badge>
-                  <Badge color="beta">Beta</Badge>
-                  <Badge color="new">New</Badge>
+                  <Badge status="accent">Primary</Badge>
+                  <Badge>Information</Badge>
+                  <Badge status="neutral">Neutral</Badge>
+                  <Badge status="success">Success</Badge>
+                  <Badge status="warning">Warning</Badge>
+                  <Badge status="critical">Critical</Badge>
+                  <Badge status="promotion">Promotion</Badge>
+                  <Badge status="alpha">Alpha</Badge>
+                  <Badge status="beta">Beta</Badge>
+                  <Badge status="new">New</Badge>
                 </div>
               </ComponentCard>
               <ComponentCard label="With Icons">
@@ -519,46 +517,37 @@ export const Home = () => {
               </ComponentCard>
               <ComponentCard label="Solid Variant - Colors">
                 <div className="flex-row">
-                  <Button color="primary">Primary</Button>
-                  <Button color="information">Information</Button>
-                  <Button color="neutral">Neutral</Button>
-                  <Button color="success">Success</Button>
-                  <Button color="warning">Warning</Button>
-                  <Button color="critical">Critical</Button>
+                  <Button>Primary</Button>
+                  <Button status="neutral">Neutral</Button>
+                  <Button status="critical">Critical</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="Outline Variant - Colors">
                 <div className="flex-row">
-                  <Button color="primary" variant="outline">Primary</Button>
-                  <Button color="information" variant="outline">Information</Button>
-                  <Button color="neutral" variant="outline">Neutral</Button>
-                  <Button color="success" variant="outline">Success</Button>
-                  <Button color="warning" variant="outline">Warning</Button>
-                  <Button color="critical" variant="outline">Critical</Button>
+                  <Button>Primary</Button>
+                  <Button status="neutral">Neutral</Button>
+                  <Button status="critical">Critical</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="Ghost Variant - Colors">
                 <div className="flex-row">
-                  <Button color="primary" variant="ghost">Primary</Button>
-                  <Button color="information" variant="ghost">Information</Button>
-                  <Button color="neutral" variant="ghost">Neutral</Button>
-                  <Button color="success" variant="ghost">Success</Button>
-                  <Button color="warning" variant="ghost">Warning</Button>
-                  <Button color="critical" variant="ghost">Critical</Button>
+                  <Button emphasis="low">Primary</Button>
+                  <Button status="neutral" emphasis="low">Neutral</Button>
+                  <Button status="critical" emphasis="low">Critical</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="Disabled">
                 <div className="flex-row">
                   <Button disabled>Disabled</Button>
-                  <Button variant="outline" disabled>Disabled Outline</Button>
-                  <Button variant="ghost" disabled>Disabled Ghost</Button>
+                  <Button disabled>Disabled Outline</Button>
+                  <Button emphasis="low" disabled>Disabled Ghost</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="Loading">
                 <div className="flex-row">
                   <Button loading>Loading</Button>
-                  <Button variant="outline" loading>Loading Outline</Button>
-                  <Button variant="ghost" loading>Loading Ghost</Button>
+                  <Button loading>Loading Outline</Button>
+                  <Button emphasis="low" loading>Loading Ghost</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="With Icons">
@@ -654,12 +643,12 @@ export const Home = () => {
               </ComponentCard>
               <ComponentCard label="Colors">
                 <div className="flex-row">
-                  <Card color="primary">Primary</Card>
-                  <Card color="information">Information</Card>
-                  <Card color="neutral">Neutral</Card>
-                  <Card color="success">Success</Card>
-                  <Card color="warning">Warning</Card>
-                  <Card color="critical">Critical</Card>
+                  <Card status="accent">Primary</Card>
+                  <Card status="information">Information</Card>
+                  <Card>Neutral</Card>
+                  <Card status="success">Success</Card>
+                  <Card status="warning">Warning</Card>
+                  <Card status="critical">Critical</Card>
                 </div>
               </ComponentCard>
             </div>
@@ -1002,10 +991,10 @@ export const Home = () => {
                     <ComboboxContent/>
                   </Combobox>
                   <div className="flex-row">
-                    <Button size="sm" variant="outline" onClick={() => setComboboxValue(['item-2'])}>
+                    <Button size="sm" onClick={() => setComboboxValue(['item-2'])}>
                       Select second
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => setComboboxValue([])}>
+                    <Button size="sm" onClick={() => setComboboxValue([])}>
                       Clear
                     </Button>
                   </div>
@@ -1219,7 +1208,7 @@ export const Home = () => {
                 <div className="flex-row">
                   <Drawer>
                     <DrawerTrigger asChild>
-                      <Button variant="outline">Left</Button>
+                      <Button>Left</Button>
                     </DrawerTrigger>
                     <DrawerContent position={DRAWER_POSITION.left}>
                       <DrawerBody>Left drawer content</DrawerBody>
@@ -1227,7 +1216,7 @@ export const Home = () => {
                   </Drawer>
                   <Drawer>
                     <DrawerTrigger asChild>
-                      <Button variant="outline">Right</Button>
+                      <Button>Right</Button>
                     </DrawerTrigger>
                     <DrawerContent position={DRAWER_POSITION.right}>
                       <DrawerBody>
@@ -1238,7 +1227,7 @@ export const Home = () => {
                   </Drawer>
                   <Drawer>
                     <DrawerTrigger asChild>
-                      <Button variant="outline">Top</Button>
+                      <Button>Top</Button>
                     </DrawerTrigger>
                     <DrawerContent position={DRAWER_POSITION.top}>
                       <DrawerBody>Top drawer content</DrawerBody>
@@ -1246,7 +1235,7 @@ export const Home = () => {
                   </Drawer>
                   <Drawer>
                     <DrawerTrigger asChild>
-                      <Button variant="outline">Bottom</Button>
+                      <Button>Bottom</Button>
                     </DrawerTrigger>
                     <DrawerContent position={DRAWER_POSITION.bottom}>
                       <DrawerBody>Bottom drawer content</DrawerBody>
@@ -1728,37 +1717,37 @@ export const Home = () => {
               <ComponentCard label="Solid variant - Colors">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Message color="primary">
+                    <Message status="accent">
                       <MessageIcon name="home"/>
                       <MessageBody>Primary Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message color="information">
+                    <Message>
                       <MessageIcon name="circle-info"/>
                       <MessageBody>Information Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message color="neutral">
+                    <Message status="neutral">
                       <MessageIcon name="email"/>
                       <MessageBody>Neutral Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message color="success">
+                    <Message status="success">
                       <MessageIcon name="circle-check"/>
                       <MessageBody>Success Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message color="warning">
+                    <Message status="warning">
                       <MessageIcon name="triangle-exclamation"/>
                       <MessageBody>Warning Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message color="critical">
+                    <Message status="critical">
                       <MessageIcon name="hexagon-exclamation"/>
                       <MessageBody>Critical Message</MessageBody>
                     </Message>
@@ -1768,37 +1757,37 @@ export const Home = () => {
               <ComponentCard label="Light variant - Colors">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Message variant="light" color="primary">
+                    <Message status="accent">
                       <MessageIcon name="home"/>
                       <MessageBody>Primary Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message variant="light" color="information">
+                    <Message>
                       <MessageIcon name="circle-info"/>
                       <MessageBody>Information Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message variant="light" color="neutral">
+                    <Message status="neutral">
                       <MessageIcon name="email"/>
                       <MessageBody>Neutral Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message variant="light" color="success">
+                    <Message status="success">
                       <MessageIcon name="circle-check"/>
                       <MessageBody>Success Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message variant="light" color="warning">
+                    <Message status="warning">
                       <MessageIcon name="triangle-exclamation"/>
                       <MessageBody>Warning Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message variant="light" color="critical">
+                    <Message status="critical">
                       <MessageIcon name="hexagon-exclamation"/>
                       <MessageBody>Critical Message</MessageBody>
                     </Message>
@@ -1916,7 +1905,7 @@ export const Home = () => {
                 <div className="flex-row">
                   <Modal>
                     <ModalTrigger asChild>
-                      <Button color="critical">Critical Modal</Button>
+                      <Button status="critical">Critical Modal</Button>
                     </ModalTrigger>
                     <ModalContent>
                       <ModalHeader>
@@ -2186,19 +2175,19 @@ export const Home = () => {
                 <div className="flex-row">
                   <Popover overlayConfig={{position: 'top-start'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Top Start</Button>
+                      <Button size="sm">Top Start</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Top start popover</PopoverContent>
                   </Popover>
                   <Popover overlayConfig={{position: 'top'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Top</Button>
+                      <Button size="sm">Top</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Top popover</PopoverContent>
                   </Popover>
                   <Popover overlayConfig={{position: 'top-end'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Top End</Button>
+                      <Button size="sm">Top End</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Top end popover</PopoverContent>
                   </Popover>
@@ -2206,19 +2195,19 @@ export const Home = () => {
                 <div className="flex-row">
                   <Popover overlayConfig={{position: 'left'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Left</Button>
+                      <Button size="sm">Left</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Left popover</PopoverContent>
                   </Popover>
                   <Popover>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Auto</Button>
+                      <Button size="sm">Auto</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Auto popover</PopoverContent>
                   </Popover>
                   <Popover overlayConfig={{position: 'right'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Right</Button>
+                      <Button size="sm">Right</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Right popover</PopoverContent>
                   </Popover>
@@ -2226,19 +2215,19 @@ export const Home = () => {
                 <div className="flex-row">
                   <Popover overlayConfig={{position: 'bottom-start'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Bottom Start</Button>
+                      <Button size="sm">Bottom Start</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Bottom start popover</PopoverContent>
                   </Popover>
                   <Popover overlayConfig={{position: 'bottom'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Bottom</Button>
+                      <Button size="sm">Bottom</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Bottom popover</PopoverContent>
                   </Popover>
                   <Popover overlayConfig={{position: 'bottom-end'}}>
                     <PopoverTrigger style={{flex: '1 1'}} asChild>
-                      <Button variant="outline" size="sm">Bottom End</Button>
+                      <Button size="sm">Bottom End</Button>
                     </PopoverTrigger>
                     <PopoverContent withArrow>Bottom end popover</PopoverContent>
                   </Popover>
@@ -2771,8 +2760,8 @@ export const Home = () => {
               </ComponentCard>
               <ComponentCard label="Colors">
                 <div className="flex-row align-center">
-                  <Spinner color="primary"/>
-                  <Spinner color="neutral"/>
+                  <Spinner/>
+                  <Spinner/>
                 </div>
               </ComponentCard>
               <ComponentCard label="Sizes">
@@ -2795,22 +2784,28 @@ export const Home = () => {
             </Text>
             <div className="component-grid">
               <ComponentCard label="Default">
-                <Switch defaultValue="option1">
-                  <SwitchItem value="option1">Option 1</SwitchItem>
-                  <SwitchItem value="option2">Option 2</SwitchItem>
-                  <SwitchItem value="option3">Option 3</SwitchItem>
-                </Switch>
+                <Tabs defaultValue="option1" variant="switch">
+                  <TabList>
+                    <Tab value="option1">Option 1</Tab>
+                    <Tab value="option2">Option 2</Tab>
+                    <Tab value="option3">Option 3</Tab>
+                  </TabList>
+                </Tabs>
               </ComponentCard>
               <ComponentCard label="Sizes">
                 <div className="flex-column" style={{ gap: '16px' }}>
-                  <Switch defaultValue="a" size="sm">
-                    <SwitchItem value="a">Small</SwitchItem>
-                    <SwitchItem value="b">Size</SwitchItem>
-                  </Switch>
-                  <Switch defaultValue="a" size="md">
-                    <SwitchItem value="a">Medium</SwitchItem>
-                    <SwitchItem value="b">Size</SwitchItem>
-                  </Switch>
+                  <Tabs defaultValue="a" size="sm" variant="switch">
+                    <TabList>
+                      <Tab value="a">Small</Tab>
+                      <Tab value="b">Size</Tab>
+                    </TabList>
+                  </Tabs>
+                  <Tabs defaultValue="a" size="md" variant="switch">
+                    <TabList>
+                      <Tab value="a">Medium</Tab>
+                      <Tab value="b">Size</Tab>
+                    </TabList>
+                  </Tabs>
                 </div>
               </ComponentCard>
             </div>
@@ -2897,7 +2892,7 @@ export const Home = () => {
                 </Table>
               </ComponentCard>
               <ComponentCard label="Striped">
-                <Table variant="striped" size="sm">
+                <Table striped size="sm">
                   <thead>
                   <tr>
                     <th scope="col">Product</th>
@@ -3122,31 +3117,31 @@ export const Home = () => {
               </ComponentCard>
               <ComponentCard label="Colors">
                 <div className="flex-row">
-                  <Tag color="primary">Primary</Tag>
-                  <Tag color="information">Information</Tag>
-                  <Tag color="neutral">Neutral</Tag>
-                  <Tag color="success">Success</Tag>
-                  <Tag color="warning">Warning</Tag>
-                  <Tag color="critical">Critical</Tag>
+                  <Tag status="accent">Primary</Tag>
+                  <Tag>Information</Tag>
+                  <Tag status="neutral">Neutral</Tag>
+                  <Tag status="success">Success</Tag>
+                  <Tag status="warning">Warning</Tag>
+                  <Tag status="critical">Critical</Tag>
                 </div>
               </ComponentCard>
               <ComponentCard label="Sizes">
                 <div className="flex-row align-center">
-                  <Tag color="primary" size="md">Medium</Tag>
-                  <Tag color="primary" size="lg">Large</Tag>
+                  <Tag status="accent" size="md">Medium</Tag>
+                  <Tag status="accent" size="lg">Large</Tag>
                 </div>
               </ComponentCard>
               <ComponentCard label="Disabled">
                 <div className="flex-row align-center">
-                  <Tag color="primary" disabled>Disabled</Tag>
+                  <Tag status="accent" disabled>Disabled</Tag>
                 </div>
               </ComponentCard>
               <ComponentCard label="Icons">
                 <div className="flex-row align-center">
-                  <Tag color="primary">Default (xmark)</Tag>
-                  <Tag color="primary" icon="plus">Plus</Tag>
-                  <Tag color="primary" icon="check">Check</Tag>
-                  <Tag color="primary" icon={null}>No icon</Tag>
+                  <Tag status="accent">Default (xmark)</Tag>
+                  <Tag status="accent" icon="plus">Plus</Tag>
+                  <Tag status="accent" icon="check">Check</Tag>
+                  <Tag status="accent" icon={null}>No icon</Tag>
                 </div>
               </ComponentCard>
             </div>
@@ -3338,42 +3333,42 @@ export const Home = () => {
               <ComponentCard label="Colors">
                 <Toaster id="colors"/>
                 <div className="flex-row">
-                  <Button color="critical" onClick={() => toast.critical('Critical', {
+                  <Button status="critical" onClick={() => toast.critical('Critical', {
                     toasterId: 'colors'
                   })}>
                     Critical toast
                   </Button>
                 </div>
                 <div className="flex-row">
-                  <Button color="information" onClick={() => toast.information('Information', {
+                  <Button onClick={() => toast.information('Information', {
                     toasterId: 'colors'
                   })}>
                     Information toast
                   </Button>
                 </div>
                 <div className="flex-row">
-                  <Button color="neutral" onClick={() => toast.neutral('Neutral', {
+                  <Button status="neutral" onClick={() => toast.neutral('Neutral', {
                     toasterId: 'colors'
                   })}>
                     Neutral toast
                   </Button>
                 </div>
                 <div className="flex-row">
-                  <Button color="primary" onClick={() => toast.primary('Primary', {
+                  <Button onClick={() => toast.accent('Primary', {
                     toasterId: 'colors'
                   })}>
                     Primary toast
                   </Button>
                 </div>
                 <div className="flex-row">
-                  <Button color="success" onClick={() => toast.success('Success', {
+                  <Button onClick={() => toast.success('Success', {
                     toasterId: 'colors'
                   })}>
                     Success toast
                   </Button>
                 </div>
                 <div className="flex-row">
-                  <Button color="warning" onClick={() => toast.warning('Warning', {
+                  <Button onClick={() => toast.warning('Warning', {
                     toasterId: 'colors'
                   })}>
                     Warning toast
@@ -3573,19 +3568,19 @@ export const Home = () => {
                 <div className="flex-row">
                   <Tooltip overlayConfig={{position: 'top'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Top</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Top</Button>
                     </TooltipTrigger>
                     <TooltipContent>Top tooltip</TooltipContent>
                   </Tooltip>
                   <Tooltip overlayConfig={{position: 'top-start'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Top Start</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Top Start</Button>
                     </TooltipTrigger>
                     <TooltipContent>Top start tooltip</TooltipContent>
                   </Tooltip>
                   <Tooltip overlayConfig={{position: 'top-end'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Top End</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Top End</Button>
                     </TooltipTrigger>
                     <TooltipContent>Top end tooltip</TooltipContent>
                   </Tooltip>
@@ -3593,19 +3588,19 @@ export const Home = () => {
                     <div className="flex-row">
                   <Tooltip overlayConfig={{position: 'left'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Left</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Left</Button>
                     </TooltipTrigger>
                     <TooltipContent>Left tooltip</TooltipContent>
                   </Tooltip>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Auto</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Auto</Button>
                     </TooltipTrigger>
                     <TooltipContent>Auto tooltip</TooltipContent>
                   </Tooltip>
                   <Tooltip overlayConfig={{position: 'right'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Right</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Right</Button>
                     </TooltipTrigger>
                     <TooltipContent>Right tooltip</TooltipContent>
                   </Tooltip>
@@ -3613,19 +3608,19 @@ export const Home = () => {
                 <div className="flex-row">
                   <Tooltip overlayConfig={{position: 'bottom'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Bottom</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Bottom</Button>
                     </TooltipTrigger>
                     <TooltipContent>Bottom tooltip</TooltipContent>
                   </Tooltip>
                   <Tooltip overlayConfig={{position: 'bottom-start'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Bottom Start</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Bottom Start</Button>
                     </TooltipTrigger>
                     <TooltipContent>Bottom start tooltip</TooltipContent>
                   </Tooltip>
                   <Tooltip overlayConfig={{position: 'bottom-end'}}>
                     <TooltipTrigger asChild>
-                      <Button style={{flex: '1 1'}} variant="outline" size="sm">Bottom End</Button>
+                      <Button style={{flex: '1 1'}} size="sm">Bottom End</Button>
                     </TooltipTrigger>
                     <TooltipContent>Bottom end tooltip</TooltipContent>
                   </Tooltip>
