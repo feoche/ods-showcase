@@ -130,7 +130,7 @@ main {
   border-bottom-right-radius: 0;
 }
 
-/* Never narrower than their labels: "Blue Jeans" stays on one line. */
+/* Never narrower than their labels: "White label" stays on one line. */
 .navbar-theme-select {
   flex-shrink: 0;
 }
@@ -152,9 +152,10 @@ main {
 }
 
 /* The theme select shows Aluminium and Blue Jeans in their own colours, in the control and in the
-   dropdown: on their solid control colour (navy, blue, as their primary buttons). Fixed values,
-   since the --ods tokens only hold the active theme's colours. The control and the options are
-   drawn with the --ods tokens below, so these redefine them; hover lightens the theme's colour. */
+   dropdown: on their solid control colour (navy, blue, as their primary buttons). White label keeps
+   the default select styling. Fixed values, since the --ods tokens only hold the active theme's
+   colours. The control and the options are drawn with the --ods tokens below, so these redefine
+   them; hover lightens the theme's colour. */
 $theme-colors: (
   aluminium: (background: #1a2d4b, text: #ffffff, border: #1a2d4b),
   blue-jeans: (background: #0050d7, text: #ffffff, border: #0050d7),
@@ -216,6 +217,10 @@ $mode-option-tokens: (
   blue-jeans: (
     light: (#ffffff, #4d5592, #e6faff, #4d5592, #f3fdff, #bef1ff, #000e9c),
     dark: (#091222, #edf0f5, #1a2d4b, #f4f5f8, #283d61, #374f76, #ffffff),
+  ),
+  white-label: (
+    light: (#ffffff, #475569, #e8edf3, #334155, #f1f4f8, #dde3eb, #002dbe),
+    dark: (#0b1220, #e8edf3, #334155, #f1f4f8, #334155, #475569, #4bb2f6),
   ),
 );
 

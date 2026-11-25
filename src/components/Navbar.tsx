@@ -24,7 +24,9 @@ const CATEGORY_ITEMS = [
   { label: 'Actions', value: 'Actions', customRendererData: { icon: 'lightning' } },
 ];
 
+// White label first: it is the default theme.
 const THEME_ITEMS = [
+  { label: 'White label', value: 'white-label' },
   { label: 'Aluminium', value: 'aluminium' },
   { label: 'Blue Jeans', value: 'blue-jeans' },
 ];

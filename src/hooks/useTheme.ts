@@ -3,13 +3,19 @@ import blueJeansUrl from '@ovhcloud/ods-themes/blue-jeans/css?url';
 import blueJeansDarkUrl from '@ovhcloud/ods-themes/blue-jeans-dark/css?url';
 import aluminiumUrl from '@ovhcloud/ods-themes/default/css?url';
 import * as React from 'react';
+// The white label is not in a published @ovhcloud/ods-themes yet: these are copies of its build
+// (ovh/design-system#1181). Once it is published, import '@ovhcloud/ods-themes/white-label/css?url'
+// and 'white-label-dark/css?url' instead and delete src/themes/.
+import whiteLabelUrl from '../themes/white-label/light.css?url';
+import whiteLabelDarkUrl from '../themes/white-label/dark.css?url';
 
-export type Theme = 'aluminium' | 'blue-jeans';
+export type Theme = 'aluminium' | 'blue-jeans' | 'white-label';
 export type Mode = 'auto' | 'light' | 'dark';
 
 const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
   aluminium: { light: aluminiumUrl, dark: aluminiumDarkUrl },
   'blue-jeans': { light: blueJeansUrl, dark: blueJeansDarkUrl },
+  'white-label': { light: whiteLabelUrl, dark: whiteLabelDarkUrl },
 };
 
 const THEMES = Object.keys(THEME_URLS) as Theme[];
@@ -18,7 +24,7 @@ const THEME_STORAGE_KEY = 'ods-showcase-theme';
 const MODE_STORAGE_KEY = 'ods-showcase-mode';
 const THEME_PARAM = 'theme';
 const MODE_PARAM = 'mode';
-const DEFAULT_THEME: Theme = 'aluminium';
+const DEFAULT_THEME: Theme = 'white-label';
 const DEFAULT_MODE: Mode = 'auto';
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 

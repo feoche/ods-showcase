@@ -43,6 +43,8 @@ const themes = [
   'aluminium-dark',
   'blue-jeans',
   'blue-jeans-dark',
+  'white-label',
+  'white-label-dark',
 ] as const;
 
 for (const theme of themes) {
