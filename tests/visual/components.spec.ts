@@ -49,6 +49,8 @@ const themes = [
   'terminal-dark',
   'hackathon',
   'hackathon-dark',
+  'black-friday',
+  'black-friday-dark',
 ] as const;
 
 for (const theme of themes) {

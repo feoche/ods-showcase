@@ -15,8 +15,12 @@ import terminalUrl from '../themes/terminal/light.css?url';
 // Hackathon is the OVHcloud hackathon page's look, from its computed styles, with a light mode the page doesn't have.
 import hackathonDarkUrl from '../themes/hackathon/dark.css?url';
 import hackathonUrl from '../themes/hackathon/light.css?url';
+// Black Friday is the OVHcloud Black Friday page's look, from its computed styles: its dark deal sections and
+// its white offer tiles.
+import blackFridayDarkUrl from '../themes/black-friday/dark.css?url';
+import blackFridayUrl from '../themes/black-friday/light.css?url';
 
-export type Theme = 'aluminium' | 'blue-jeans' | 'white-label' | 'terminal' | 'hackathon';
+export type Theme = 'aluminium' | 'blue-jeans' | 'white-label' | 'terminal' | 'hackathon' | 'black-friday';
 export type Mode = 'auto' | 'light' | 'dark';
 
 const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
@@ -25,6 +29,7 @@ const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
   'white-label': { light: whiteLabelUrl, dark: whiteLabelDarkUrl },
   terminal: { light: terminalUrl, dark: terminalDarkUrl },
   hackathon: { light: hackathonUrl, dark: hackathonDarkUrl },
+  'black-friday': { light: blackFridayUrl, dark: blackFridayDarkUrl },
 };
 
 const THEMES = Object.keys(THEME_URLS) as Theme[];

@@ -26,6 +26,13 @@ body {
   color: var(--ods-semantic-color-content-text);
 }
 
+/* Card and Tile set no text colour, so their plain text inherits the body's. A theme can give them their
+   own surface and ink (Black Friday's white tiles on its blue page): give their text that ink. */
+[data-ods="card"],
+[data-ods="tile"] {
+  color: var(--ods-semantic-color-content-text);
+}
+
 /* Layout */
 main {
   max-width: 1400px;
@@ -155,17 +162,18 @@ main {
   white-space: nowrap;
 }
 
-/* The theme select shows Aluminium, Blue Jeans, Terminal and Hackathon in their own colours, in the
+/* The theme select shows Aluminium, Blue Jeans, Terminal, Hackathon and Black Friday in their own colours, in the
    control and in the dropdown: on their solid control colour (navy, blue, as their primary buttons;
-   Terminal green on black and Hackathon cyan on night navy, as their pages). White label keeps the
-   default select styling. Fixed values, since the --ods tokens only hold the active theme's
-   colours. The control and the options are drawn with the --ods tokens below, so these redefine
-   them; hover lightens the theme's colour. */
+   Terminal green on black and Hackathon cyan on night navy, as their pages; Black Friday white on royal
+   blue, as its menu pill). White label keeps the default select styling. Fixed values, since the --ods tokens only hold the active
+   theme's colours. The control and the options are drawn with the --ods tokens below, so
+   these redefine them; hover lightens the theme's colour. */
 $theme-colors: (
   aluminium: (background: #1a2d4b, text: #ffffff, border: #1a2d4b),
   blue-jeans: (background: #0050d7, text: #ffffff, border: #0050d7),
   terminal: (background: #020604, text: #00ff41, border: #2f6b44),
   hackathon: (background: #0b1748, text: #22e3ff, border: #1b789e),
+  black-friday: (background: #03107f, text: #ffffff, border: #000e9c),
 );
 
 @each $theme, $colors in $theme-colors {
@@ -236,6 +244,10 @@ $mode-option-tokens: (
   hackathon: (
     light: (#ffffff, #0a0e2c, #e6fcff, #0a0e2c, #e8ecff, #b8f6ff, #007a99),
     dark: (#0d1437, #e8ecff, #0e3663, #7aefff, #1e2956, #1b789e, #22e3ff),
+  ),
+  black-friday: (
+    light: (#ffffff, #4d5592, #e6faff, #00185e, #f3fdff, #bef1ff, #000e9c),
+    dark: (#07162e, #e8ebff, #112072, #ffffff, #112072, #1c2a7c, #70e3ff),
   ),
 );
 
