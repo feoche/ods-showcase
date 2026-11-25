@@ -76,8 +76,9 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  height: 40px;
+  box-sizing: border-box;
+  min-width: var(--ods-semantic-size-block-size-md);
+  height: var(--ods-semantic-size-block-size-md);
 }
 
 .navbar-hamburger:hover {
@@ -308,7 +309,15 @@ main {
   }
 }
 
-.navbar-version {
+/* The ODS version sits in the popover's top right corner, next to the mode. */
+.theme-picker__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ods-semantic-size-space-gap-group);
+}
+
+.theme-picker__version {
   flex-shrink: 0;
   white-space: nowrap;
 }

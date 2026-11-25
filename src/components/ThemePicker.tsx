@@ -1,6 +1,8 @@
 import {
+  Badge,
   BUTTON_EMPHASIS,
   BUTTON_GROUP_SIZE,
+  BUTTON_SIZE,
   Button,
   ButtonGroup,
   ButtonGroupItem,
@@ -283,6 +285,7 @@ export const ThemePicker = ({
           aria-label={`Appearance: ${current.label} theme, ${currentMode.label} mode`}
           className="theme-picker-trigger"
           emphasis={BUTTON_EMPHASIS.medium}
+          size={BUTTON_SIZE.sm}
         >
           <Icon name="theme" />
           <span className="theme-picker-trigger__theme">{current.label}</span>
@@ -295,27 +298,32 @@ export const ThemePicker = ({
       </PopoverTrigger>
 
       <PopoverContent aria-label="Appearance" className="theme-picker">
-        <section className="theme-picker__section">
-          <div className="theme-picker__heading">
-            <Text id="theme-picker-mode" preset="label">
-              Mode
-            </Text>
-          </div>
-          <ButtonGroup
-            aria-labelledby="theme-picker-mode"
-            onValueChange={(detail) =>
-              detail.value[0] && onModeChange(detail.value[0])
-            }
-            size={BUTTON_GROUP_SIZE.sm}
-            value={[mode]}
-          >
-            {MODE_OPTIONS.map((option) => (
-              <ButtonGroupItem key={option.value} value={option.value}>
-                <Icon name={option.icon} /> {option.label}
-              </ButtonGroupItem>
-            ))}
-          </ButtonGroup>
-        </section>
+        <div className="theme-picker__top">
+          <section className="theme-picker__section">
+            <div className="theme-picker__heading">
+              <Text id="theme-picker-mode" preset="label">
+                Mode
+              </Text>
+            </div>
+            <ButtonGroup
+              aria-labelledby="theme-picker-mode"
+              onValueChange={(detail) =>
+                detail.value[0] && onModeChange(detail.value[0])
+              }
+              size={BUTTON_GROUP_SIZE.sm}
+              value={[mode]}
+            >
+              {MODE_OPTIONS.map((option) => (
+                <ButtonGroupItem key={option.value} value={option.value}>
+                  <Icon name={option.icon} /> {option.label}
+                </ButtonGroupItem>
+              ))}
+            </ButtonGroup>
+          </section>
+          <Badge className="theme-picker__version" size="sm" status="neutral">
+            ODS v{__ODS_VERSION__}
+          </Badge>
+        </div>
 
         <section className="theme-picker__section">
           <div className="theme-picker__heading">

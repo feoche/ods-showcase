@@ -1,5 +1,4 @@
 import {
-  Badge,
   DRAWER_POSITION,
   Drawer,
   DrawerBody,
@@ -172,10 +171,6 @@ export const Navbar = ({
           theme={theme}
         />
 
-        {/* ODS version */}
-        <Badge className="navbar-version" status="neutral" size="sm">
-          ODS v{__ODS_VERSION__}
-        </Badge>
       </div>
     </nav>
   );
