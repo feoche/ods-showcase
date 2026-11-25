@@ -34,3 +34,6 @@ blob-report/
 *.njsproj
 *.sln
 *.sw?
+
+# Brainstorming mockups
+.superpowers/
