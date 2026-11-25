@@ -77,7 +77,12 @@ const interactiveTests: InteractiveTest[] = [
   },
 ];
 
-const themes = ['theme-light', 'theme-dark'] as const;
+const themes = [
+  'aluminium',
+  'aluminium-dark',
+  'blue-jeans',
+  'blue-jeans-dark',
+] as const;
 
 for (const theme of themes) {
   test.describe(`Interactive states — ${theme}`, () => {

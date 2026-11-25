@@ -2,25 +2,14 @@
 // ODS Showcase Styles
 // ============================================
 
-// Import the theme generator with customizable Sass variables
-// To customize, override these variables BEFORE the import:
-// $color-primary: #6200ee;
-// $color-critical: #b00020;
-@use "@ovhcloud/ods-themes/default/css" as *;
-@use "@ovhcloud/ods-themes/default/fonts" as *;
-@use "theme";
+// The ODS theme stylesheet itself is loaded through <link id="ods-theme">, swapped by useTheme.
+@use "sass:map";
+@use "@ovhcloud/ods-themes/default/fonts";
 
 @layer theme, base, components, utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wght@100..900&display=swap');
-
-:root {
-  --ods-theme-font-family-default: "Noto Sans Display", sans-serif;
-  --ods-semantic-font-family-code: "Noto Sans Mono", monospace;
-}
-
 html {
-  font-family: var(--ods-theme-font-family-default), sans-serif;
+  font-family: var(--ods-semantic-font-family-body);
 }
 
 html, body {
@@ -28,16 +17,10 @@ html, body {
   margin: 0;
 }
 
-body.theme-light {
+body {
   background: var(--ods-semantic-color-surface-page);
-  color: var(--ods-semantic-color-content-brand);
+  color: var(--ods-semantic-color-content-text);
 }
-
-body.theme-dark {
-  background: var(--ods-semantic-color-surface-selected-solid);
-  color: var(--ods-semantic-color-content-on-solid);
-}
-
 
 /* Layout */
 main {
@@ -57,24 +40,10 @@ main {
   left: 0;
   right: 0;
   // Above all page content, below ODS overlays (popover, select, drawer, modal...)
-  /* ods-v20: checked: navbar stays above page content (sticky 100) and under the dropdown layer (200) */
   z-index: calc(var(--ods-semantic-z-index-dropdown) - 1);
   background: var(--ods-semantic-color-surface-raised);
-  border-bottom: 1px solid var(--ods-semantic-color-border-neutral-subtle);
+  border-bottom: 1px solid var(--ods-semantic-color-border-container);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-body.theme-dark .navbar,
-body.theme-auto .navbar {
-  background: var(--ods-semantic-color-surface-selected-solid);
-  border-bottom-color: var(--ods-semantic-color-border-neutral);
-}
-
-@media (prefers-color-scheme: light) {
-  body.theme-auto .navbar {
-    background: var(--ods-semantic-color-surface-raised);
-    border-bottom-color: var(--ods-semantic-color-border-neutral-subtle);
-  }
 }
 
 .navbar-content {
@@ -102,7 +71,7 @@ body.theme-auto .navbar {
 }
 
 .navbar-hamburger:hover {
-  background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 10%, transparent);
+  background-color: color-mix(in srgb, var(--ods-semantic-color-content-brand) 10%, transparent);
   border-color: var(--ods-semantic-color-border-brand);
   color: var(--ods-semantic-color-content-brand);
 }
@@ -117,39 +86,6 @@ body.theme-auto .navbar {
   white-space: nowrap;
 }
 
-.navbar-page-links {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  margin-right: auto;
-}
-
-.navbar-page-link {
-  white-space: nowrap;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  padding: 0.375rem 0.75rem;
-  border-radius: 4px;
-  border: 1px solid transparent;
-  color: inherit;
-  transition: all 0.15s ease;
-
-  &:hover {
-    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 10%, transparent);
-    border-color: var(--ods-semantic-color-border-brand);
-    color: var(--ods-semantic-color-content-brand);
-  }
-
-  &.active {
-    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 12%, transparent);
-    border-color: var(--ods-semantic-color-border-brand);
-    color: var(--ods-semantic-color-content-brand);
-    font-weight: 600;
-    pointer-events: none;
-  }
-}
-
 .navbar-title [data-ods="text"] {
   margin: 0;
   white-space: nowrap;
@@ -161,7 +97,13 @@ body.theme-auto .navbar {
   flex-direction: column;
 }
 
-.navbar-search [data-ods="input"] {
+.navbar-search-input {
+  width: 100%;
+}
+
+.navbar-filter [data-ods="select"],
+.navbar-theme-select [data-ods="select"],
+.navbar-mode-select [data-ods="select"] {
   width: 100%;
 }
 
@@ -169,9 +111,154 @@ body.theme-auto .navbar {
   min-width: 180px;
 }
 
-.navbar-theme-select {
-  min-width: 130px;
+/* ODS has no input group: the two selects are joined by squaring their inner corners
+   and overlapping their shared border. */
+.navbar-appearance {
+  display: flex;
+  margin-left: auto;
   flex-shrink: 0;
+}
+
+
+.navbar-mode-select {
+  flex-shrink: 0;
+  margin-left: -1px;
+}
+
+.navbar-theme-select [data-ods="select-control"] {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Never narrower than their labels: "Blue Jeans" stays on one line. */
+.navbar-theme-select {
+  flex-shrink: 0;
+}
+
+.navbar-theme-select [data-ods="select-control"],
+.navbar-mode-select [data-ods="select-control"] {
+  white-space: nowrap;
+}
+
+/* A navbar dropdown is as wide as its trigger, or as its longest option when that is wider,
+   so no option wraps. The positioner's width is an inline style, hence !important. */
+[data-part="positioner"]:has(> .navbar-select-content) {
+  width: max-content !important;
+  min-width: var(--reference-width);
+}
+
+.navbar-select-content {
+  white-space: nowrap;
+}
+
+/* The theme select shows Aluminium and Blue Jeans in their own colours, in the control and in the
+   dropdown: on their solid control colour (navy, blue, as their primary buttons). Fixed values,
+   since the --ods tokens only hold the active theme's colours. The control and the options are
+   drawn with the --ods tokens below, so these redefine them; hover lightens the theme's colour. */
+$theme-colors: (
+  aluminium: (background: #1a2d4b, text: #ffffff, border: #1a2d4b),
+  blue-jeans: (background: #0050d7, text: #ffffff, border: #0050d7),
+);
+
+@each $theme, $colors in $theme-colors {
+  $background: map.get($colors, background);
+  $text: map.get($colors, text);
+  $hover: color-mix(in srgb, #{$background} 85%, #{$text});
+
+  .navbar-theme-select--#{$theme} {
+    --ods-semantic-color-surface-control: #{$background};
+    --ods-semantic-color-content-text: #{$text};
+    // The caret, as the label: the page theme's icon colour can vanish on this background.
+    --ods-semantic-color-content-icon: #{$text};
+    --ods-semantic-color-border-control: #{map.get($colors, border)};
+    --ods-semantic-color-interaction-control-hover: #{map.get($colors, border)};
+    --ods-semantic-color-interaction-control-highlight: #{$hover};
+  }
+
+  .navbar-theme-content [role="option"][data-value="#{$theme}"] {
+    --ods-semantic-color-surface-control: #{$background};
+    --ods-semantic-color-content-text: #{$text};
+    --ods-semantic-color-surface-selected: #{$background};
+    --ods-semantic-color-content-on-selected: #{$text};
+    --ods-semantic-color-interaction-highlight: #{$hover};
+    --ods-semantic-color-interaction-selected-highlight: #{$hover};
+    --ods-semantic-color-focus: #{$text};
+  }
+}
+
+/* The options all share the theme colours' background, so the checked one stands out by its
+   weight. */
+.navbar-theme-content [role="option"][data-state="checked"] {
+  font-weight: 600;
+}
+
+/* In the mode dropdown, each option previews its mode: Light and Dark look like a dropdown
+   option of the current theme in that mode, whatever the page's mode, and Auto like the one
+   for the system's mode. The option is drawn with the tokens below, so these redefine them,
+   from each theme's light and dark builds. Fixed values, since the --ods tokens only hold
+   the active mode's colours. */
+@mixin mode-option-tokens($surface, $text, $selected, $on-selected, $highlight, $selected-highlight, $focus) {
+  --ods-semantic-color-surface-control: #{$surface};
+  --ods-semantic-color-content-text: #{$text};
+  --ods-semantic-color-surface-selected: #{$selected};
+  --ods-semantic-color-content-on-selected: #{$on-selected};
+  --ods-semantic-color-interaction-highlight: #{$highlight};
+  --ods-semantic-color-interaction-selected-highlight: #{$selected-highlight};
+  --ods-semantic-color-focus: #{$focus};
+}
+
+// Aluminium and Blue Jeans share their dark option colours.
+$mode-option-tokens: (
+  aluminium: (
+    light: (#ffffff, #374f76, #edf0f5, #1a2d4b, #f4f5f8, #d6deea, #002dbe),
+    dark: (#091222, #edf0f5, #1a2d4b, #f4f5f8, #283d61, #374f76, #ffffff),
+  ),
+  blue-jeans: (
+    light: (#ffffff, #4d5592, #e6faff, #4d5592, #f3fdff, #bef1ff, #000e9c),
+    dark: (#091222, #edf0f5, #1a2d4b, #f4f5f8, #283d61, #374f76, #ffffff),
+  ),
+);
+
+@each $theme, $modes in $mode-option-tokens {
+  .navbar-mode-content--#{$theme} {
+    @each $mode, $tokens in $modes {
+      [role="option"][data-value="#{$mode}"] {
+        @include mode-option-tokens($tokens...);
+      }
+
+      @media (prefers-color-scheme: #{$mode}) {
+        [role="option"][data-value="auto"] {
+          @include mode-option-tokens($tokens...);
+        }
+      }
+    }
+  }
+}
+
+/* An option has no background of its own, it shows the dropdown's: give these their own.
+   In ODS's own layer, and with :where(), so the option's hover, highlighted and checked
+   backgrounds still win. */
+@layer ods-molecules {
+  :where(.navbar-theme-content [role="option"], .navbar-mode-content [role="option"]) {
+    background-color: var(--ods-semantic-color-surface-control);
+  }
+}
+
+.navbar-mode-select [data-ods="select-control"] {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Bring the hovered or focused select above its neighbour, so its whole border shows. */
+.navbar-appearance > :hover,
+.navbar-appearance > :focus-within {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-version {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* Component Section */
@@ -183,7 +270,7 @@ body.theme-auto .navbar {
 
 .component-section > [data-ods="text"]:first-child {
   padding-bottom: 0.25rem;
-  border-bottom: 1px solid var(--ods-semantic-color-border-brand, #0050d7);
+  border-bottom: 1px solid var(--ods-semantic-color-border-brand);
   margin-bottom: 0.25rem;
 }
 
@@ -195,7 +282,7 @@ body.theme-auto .navbar {
 }
 
 .section-heading:hover {
-  color: var(--ods-semantic-color-content-brand, #0050d7) !important;
+  color: var(--ods-semantic-color-content-brand) !important;
 }
 
 .section-heading:active {
@@ -254,13 +341,13 @@ body.theme-auto .navbar {
   &:hover {
     border-color: var(--ods-semantic-color-border-brand);
     color: var(--ods-semantic-color-content-brand);
-    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 8%, transparent);
+    background-color: color-mix(in srgb, var(--ods-semantic-color-content-brand) 8%, transparent);
   }
 
   &.copied {
     border-color: var(--ods-semantic-color-border-success);
     color: var(--ods-semantic-color-content-success);
-    background-color: color-mix(in srgb, var(--ods-semantic-color-surface-success) 8%, transparent);
+    background-color: color-mix(in srgb, var(--ods-semantic-color-content-success) 8%, transparent);
   }
 }
 
@@ -295,7 +382,7 @@ body.theme-auto .navbar {
   font-weight: 600;
   color: var(--ods-semantic-color-content-heading);
   padding: 0.5rem 0;
-  border-bottom: 1px solid var(--ods-semantic-color-border-neutral-subtle);
+  border-bottom: 1px solid var(--ods-semantic-color-border-container);
 }
 
 .toc-list {
@@ -318,12 +405,12 @@ body.theme-auto .navbar {
 }
 
 .toc-link:hover {
-  background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 10%, transparent);
+  background-color: color-mix(in srgb, var(--ods-semantic-color-content-brand) 10%, transparent);
   color: var(--ods-semantic-color-content-brand);
 }
 
 .toc-link-active {
-  background-color: color-mix(in srgb, var(--ods-semantic-color-surface-brand) 15%, transparent);
+  background-color: color-mix(in srgb, var(--ods-semantic-color-content-brand) 15%, transparent);
   color: var(--ods-semantic-color-content-brand);
   font-weight: 500;
   border-right: 3px solid var(--ods-semantic-color-border-brand);
