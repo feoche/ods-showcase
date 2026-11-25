@@ -51,6 +51,8 @@ const themes = [
   'hackathon-dark',
   'black-friday',
   'black-friday-dark',
+  'summit',
+  'summit-dark',
 ] as const;
 
 for (const theme of themes) {

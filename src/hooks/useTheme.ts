@@ -19,8 +19,11 @@ import hackathonUrl from '../themes/hackathon/light.css?url';
 // its white offer tiles.
 import blackFridayDarkUrl from '../themes/black-friday/dark.css?url';
 import blackFridayUrl from '../themes/black-friday/light.css?url';
+// Summit is the OVHcloud AI Summit page's look, from its computed styles, with a light mode the page doesn't have.
+import summitDarkUrl from '../themes/summit/dark.css?url';
+import summitUrl from '../themes/summit/light.css?url';
 
-export type Theme = 'aluminium' | 'blue-jeans' | 'white-label' | 'terminal' | 'hackathon' | 'black-friday';
+export type Theme = 'aluminium' | 'blue-jeans' | 'white-label' | 'terminal' | 'hackathon' | 'black-friday' | 'summit';
 export type Mode = 'auto' | 'light' | 'dark';
 
 const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
@@ -30,6 +33,7 @@ const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
   terminal: { light: terminalUrl, dark: terminalDarkUrl },
   hackathon: { light: hackathonUrl, dark: hackathonDarkUrl },
   'black-friday': { light: blackFridayUrl, dark: blackFridayDarkUrl },
+  summit: { light: summitUrl, dark: summitDarkUrl },
 };
 
 const THEMES = Object.keys(THEME_URLS) as Theme[];

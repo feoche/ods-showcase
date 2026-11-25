@@ -31,6 +31,7 @@ const THEME_ITEMS = [
   { label: 'Blue Jeans', value: 'blue-jeans' },
   { label: 'Terminal', value: 'terminal' },
   { label: 'Hackathon', value: 'hackathon' },
+  { label: 'Summit', value: 'summit' },
   { label: 'Black Friday', value: 'black-friday' },
 ];
 
