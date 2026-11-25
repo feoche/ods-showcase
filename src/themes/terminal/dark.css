@@ -1,0 +1,445 @@
+/* Terminal, dark: Beacon's terminal theme (https://beacon.ovhcloud.tools/, data-theme="terminal") mapped
+   onto the ODS 20 tokens. This is Beacon's own mode; light.css is a light counterpart Beacon doesn't have.
+
+   Origin: built from the white label dark mapping, with Beacon's colours in place of the white label's.
+   The comments on the palette steps name the Beacon variable each value comes from.
+
+   Look: green phosphor on a near-black page. Two own scales: phosphor (Beacon's greens, 300 is its
+   #00ff41 primary, with near-black ink on it) and console (its dark green grays, from muted text at 50
+   down to the page at 900). Cards and the header are console-800, fields console-850, code a black
+   screen. Status colours are Beacon's terminal info, warning, destructive and severity ones.
+   Beacon's radius scale: 4.8px controls, 6px cards, 8.4px overlays; its small Tailwind shadows on fields,
+   cards and overlays, an overlay also drawn by its border line.
+
+   Fonts: Source Code Pro in all three family tokens, so headings, text and code are all monospace, as in
+   Beacon's terminal. Each family token is read by:
+   - heading: the Text component's heading presets (heading-1 to heading-6), in bold.
+   - body: everything else.
+     No ODS component reads it: components inherit the page font, so the app sets
+     font-family: var(--ods-semantic-font-family-body) on html (the showcase does, in src/index.scss).
+   - code: Code, Kbd and the Text code preset.
+   Loading: Source Code Pro is an ODS font, from @ovhcloud/ods-themes/default/fonts (the app imports it once).
+   It is a variable font covering weights 200 to 900, so the regular (400), semibold (600) and bold (700)
+   weight tokens all render as drawn.
+   Fallbacks, should it fail to load: the system monospace (ui-monospace, SF Mono, Menlo, Consolas).
+
+   Contract: like the published @ovhcloud/ods-themes builds, this file is ODS design tokens and nothing else.
+   It only declares --ods-* custom properties, on :root, in a prefers-reduced-motion :root, or on
+   :root [data-ods=<component>] in that component's @layer. It loads no font and sets no CSS property
+   (color-scheme included): the app loads the fonts it names and sets color-scheme from the mode.
+   tests/themes.test.ts holds it to that contract and checks that it defines every ODS token.
+
+   Structure, top to bottom:
+   1. Palette: the ODS palette (blue, gray, green, navy, orange, red, white, black, decorative,
+      opacity) and this theme's own scales, then brand and accent, the two ramps the roles point at.
+   2. Semantic tokens: surfaces, content, borders, charts, then sizes, radii, fonts, shadows, motion,
+      z-indexes and the brand colour. Every component token defaults to one of these.
+   3. Reduced motion: durations near zero when the user asks for less motion.
+   4. Component tokens, in each component's own ODS layer, where a semantic token can't say it. */
+:root {
+  --ods-palette-blue-50: #f3fdff;
+  --ods-palette-blue-100: #e6faff;
+  --ods-palette-blue-200: #bef1ff;
+  --ods-palette-blue-300: #85d9fd;
+  --ods-palette-blue-400: #4bb2f6;
+  --ods-palette-blue-500: #0050d7;
+  --ods-palette-blue-600: #002dbe;
+  --ods-palette-blue-700: #000e9c;
+  --ods-palette-blue-800: #00185e;
+  --ods-palette-blue-900: #000d1f;
+  --ods-palette-gray-50: #f9f9f9;
+  --ods-palette-gray-100: #f2f2f2;
+  --ods-palette-gray-200: #e6e6e6;
+  --ods-palette-gray-300: #cccccc;
+  --ods-palette-gray-400: #b3b3b3;
+  --ods-palette-gray-500: #757575;
+  --ods-palette-gray-600: #666666;
+  --ods-palette-gray-700: #4d4d4d;
+  --ods-palette-gray-800: #333333;
+  --ods-palette-gray-900: #1a1a1a;
+  /* Palette - the rest of the ODS palette. This theme's semantic tokens don't use these steps; they are
+     here so it defines every ODS palette token. Steps of a scale the theme has are blended from its own
+     steps, whole scales are the white label's. */
+  --ods-palette-green-50: #ecfdf5;
+  --ods-palette-green-100: #d1fae5;
+  --ods-palette-green-200: #a7f3d0;
+  --ods-palette-green-300: #6ee7b7;
+  --ods-palette-green-400: #34d399;
+  --ods-palette-green-500: #10b981;
+  --ods-palette-green-600: #09a171;
+  --ods-palette-green-700: #067958;
+  --ods-palette-green-800: #002d1f;
+  --ods-palette-green-900: #03140e;
+  --ods-palette-navy-50: #f4f5f8;
+  --ods-palette-navy-100: #edf0f5;
+  --ods-palette-navy-200: #d6deea;
+  --ods-palette-navy-300: #bbc7db;
+  --ods-palette-navy-400: #6c82a6;
+  --ods-palette-navy-500: #374f76;
+  --ods-palette-navy-600: #283d61;
+  --ods-palette-navy-700: #1a2d4b;
+  --ods-palette-navy-800: #101e35;
+  --ods-palette-navy-900: #091222;
+  --ods-palette-orange-50: #fffbeb;
+  --ods-palette-orange-100: #fef3c7;
+  --ods-palette-orange-200: #fde68a;
+  --ods-palette-orange-300: #fcd34d;
+  --ods-palette-orange-400: #fbbf24;
+  --ods-palette-orange-500: #f59e0b;
+  --ods-palette-orange-600: #e08125;
+  --ods-palette-orange-700: #a95723;
+  --ods-palette-orange-800: #401d0c;
+  --ods-palette-orange-900: #1b0b04;
+  --ods-palette-red-50: #ffd9e2;
+  --ods-palette-red-200: #ffadbc;
+  --ods-palette-red-400: #e84765;
+  --ods-palette-red-600: #97001d;
+  --ods-palette-red-900: #1e0006;
+  --ods-palette-white: #ffffff;
+  --ods-palette-black: #000000;
+  --ods-palette-decorative-alpha: #fbfe47;
+  --ods-palette-decorative-beta: #47fe78;
+  --ods-palette-decorative-new: #47fffa;
+  --ods-palette-decorative-promotion: #ccff66;
+  --ods-palette-opacity-15: 0.15;
+  --ods-palette-opacity-20: 0.2;
+  --ods-palette-opacity-25: 0.25;
+  --ods-palette-opacity-50: 0.5;
+  --ods-palette-opacity-75: 0.75;
+  /* Palette - phosphor: Beacon's greens, from its text (50) down to the ink on its primary (900).
+     300 is the primary, #00ff41. */
+  --ods-palette-phosphor-50: #c8ffd4; /* foreground */
+  --ods-palette-phosphor-100: #9dffb5; /* accent-foreground */
+  --ods-palette-phosphor-200: #7dffa0; /* primary-subtle-foreground */
+  --ods-palette-phosphor-300: #00ff41; /* primary, ring */
+  --ods-palette-phosphor-400: #00c832; /* primary-hover */
+  --ods-palette-phosphor-500: #00a83a; /* success */
+  --ods-palette-phosphor-600: #00521a;
+  --ods-palette-phosphor-700: #004416;
+  --ods-palette-phosphor-800: #003b12; /* primary-subtle */
+  --ods-palette-phosphor-900: #001a07; /* primary-foreground */
+  /* Palette - console: Beacon's dark green grays, from its muted text (50) down to its page (900). */
+  --ods-palette-console-50: #9ab8a2; /* sev-info-fg */
+  --ods-palette-console-100: #6fbf86; /* muted-foreground */
+  --ods-palette-console-200: #4d6b57; /* flow-left */
+  --ods-palette-console-300: #2f6b44; /* input (control border) */
+  --ods-palette-console-400: #1c3a26; /* neutral */
+  --ods-palette-console-500: #12301c; /* border */
+  --ods-palette-console-600: #0d2a17; /* accent */
+  --ods-palette-console-700: #0a1a10; /* popover, muted */
+  --ods-palette-console-800: #06100a; /* card */
+  --ods-palette-console-850: #04100a; /* input-background */
+  --ods-palette-console-900: #020604; /* background */
+  /* Palette - statuses, from Beacon's terminal info, warning, destructive and severity colours. */
+  --ods-palette-cyan-100: #5ff0f0; /* sev-low-fg */
+  --ods-palette-cyan-300: #3fd8e0; /* info */
+  --ods-palette-cyan-500: #1fb5b8; /* sev-low */
+  --ods-palette-cyan-800: #0e3030; /* info-subtle: info at 20% on the page */
+  --ods-palette-cyan-900: #00191a; /* info-foreground */
+  --ods-palette-amber-100: #ffe2b3; /* warning-subtle-foreground */
+  --ods-palette-amber-300: #ffc266; /* sev-medium-fg */
+  --ods-palette-amber-400: #ffb000; /* chart-5 */
+  --ods-palette-amber-500: #b25000; /* warning */
+  --ods-palette-amber-800: #8a3d00; /* warning-subtle */
+  --ods-palette-red-100: #ffccd9; /* destructive-subtle-foreground */
+  --ods-palette-red-300: #ff8ea0; /* sev-critical-fg */
+  --ods-palette-red-500: #d0002a; /* destructive */
+  --ods-palette-red-700: #5e0010; /* destructive-hover */
+  --ods-palette-red-800: #4a0010; /* destructive-subtle */
+  --ods-palette-brand-50: var(--ods-palette-phosphor-50);
+  --ods-palette-brand-100: var(--ods-palette-phosphor-100);
+  --ods-palette-brand-200: var(--ods-palette-phosphor-200);
+  --ods-palette-brand-300: var(--ods-palette-phosphor-300);
+  --ods-palette-brand-400: var(--ods-palette-phosphor-400);
+  --ods-palette-brand-500: var(--ods-palette-phosphor-500);
+  --ods-palette-brand-600: var(--ods-palette-phosphor-600);
+  --ods-palette-brand-700: var(--ods-palette-phosphor-700);
+  --ods-palette-brand-800: var(--ods-palette-phosphor-800);
+  --ods-palette-brand-900: var(--ods-palette-phosphor-900);
+  --ods-palette-accent-50: var(--ods-palette-console-50);
+  --ods-palette-accent-100: var(--ods-palette-console-100);
+  --ods-palette-accent-200: var(--ods-palette-console-200);
+  --ods-palette-accent-300: var(--ods-palette-console-300);
+  --ods-palette-accent-400: var(--ods-palette-console-400);
+  --ods-palette-accent-500: var(--ods-palette-console-500);
+  --ods-palette-accent-600: var(--ods-palette-console-600);
+  --ods-palette-accent-700: var(--ods-palette-console-700);
+  --ods-palette-accent-800: var(--ods-palette-console-800);
+  --ods-palette-accent-900: var(--ods-palette-console-900);
+  /* Surfaces - canvas and layers */
+  --ods-semantic-color-surface-page: var(--ods-palette-console-900);
+  --ods-semantic-color-surface-raised: var(--ods-palette-console-800);
+  --ods-semantic-color-surface-overlay: var(--ods-palette-console-700);
+  --ods-semantic-color-surface-header: var(--ods-palette-console-800);
+  --ods-semantic-color-surface-backdrop: var(--ods-palette-black);
+  --ods-semantic-color-surface-code: var(--ods-palette-black);
+  /* Surfaces - selection */
+  --ods-semantic-color-surface-selected-subtle: var(--ods-palette-console-700);
+  --ods-semantic-color-surface-selected: var(--ods-palette-phosphor-800);
+  --ods-semantic-color-surface-selected-solid: var(--ods-palette-phosphor-300);
+  /* Surfaces - structure */
+  --ods-semantic-color-surface-muted: var(--ods-palette-console-600);
+  /* Surfaces - statuses */
+  --ods-semantic-color-surface-neutral-subtle: var(--ods-palette-console-700);
+  --ods-semantic-color-surface-neutral: var(--ods-palette-console-400);
+  --ods-semantic-color-surface-brand: var(--ods-palette-phosphor-300);
+  --ods-semantic-color-surface-accent-subtle: var(--ods-palette-console-600);
+  --ods-semantic-color-surface-accent: var(--ods-palette-console-300);
+  --ods-semantic-color-surface-information-subtle: var(--ods-palette-cyan-800);
+  --ods-semantic-color-surface-information: var(--ods-palette-cyan-300);
+  --ods-semantic-color-surface-success-subtle: var(--ods-palette-phosphor-800);
+  --ods-semantic-color-surface-success: var(--ods-palette-phosphor-500);
+  --ods-semantic-color-surface-warning-subtle: var(--ods-palette-amber-800);
+  --ods-semantic-color-surface-warning: var(--ods-palette-amber-500);
+  --ods-semantic-color-surface-critical-subtle: var(--ods-palette-red-800);
+  --ods-semantic-color-surface-critical: var(--ods-palette-red-500);
+  /* Surfaces - form controls */
+  --ods-semantic-color-surface-control: var(--ods-palette-console-850);
+  --ods-semantic-color-surface-control-solid: var(--ods-palette-phosphor-300);
+  --ods-semantic-color-surface-thumb: var(--ods-palette-phosphor-50);
+  --ods-semantic-color-surface-track: var(--ods-palette-console-500);
+  --ods-semantic-color-surface-segmented: var(--ods-palette-console-700);
+  /* Surfaces - states */
+  --ods-semantic-color-surface-readonly: var(--ods-palette-console-700);
+  --ods-semantic-color-surface-pending: var(--ods-palette-console-600);
+  --ods-semantic-color-surface-drag-over: var(--ods-palette-phosphor-800);
+  /* Surfaces - decorative */
+  --ods-semantic-color-surface-decorative-alpha: var(--ods-palette-decorative-alpha);
+  --ods-semantic-color-surface-decorative-beta: var(--ods-palette-decorative-beta);
+  --ods-semantic-color-surface-decorative-new: var(--ods-palette-decorative-new);
+  --ods-semantic-color-surface-decorative-promotion: var(--ods-palette-decorative-promotion);
+  /* Content - text */
+  --ods-semantic-color-content-heading: var(--ods-palette-phosphor-50);
+  --ods-semantic-color-content-text: var(--ods-palette-phosphor-50);
+  --ods-semantic-color-content-icon: var(--ods-palette-phosphor-50);
+  --ods-semantic-color-content-group-label: var(--ods-palette-phosphor-100);
+  --ods-semantic-color-content-placeholder: var(--ods-palette-console-100);
+  /* Content - status inks on the page */
+  --ods-semantic-color-content-neutral: var(--ods-palette-console-100);
+  --ods-semantic-color-content-brand: var(--ods-palette-phosphor-300);
+  --ods-semantic-color-content-brand-minor: var(--ods-palette-phosphor-300);
+  --ods-semantic-color-content-accent: var(--ods-palette-phosphor-100);
+  --ods-semantic-color-content-information: var(--ods-palette-cyan-300);
+  --ods-semantic-color-content-success: var(--ods-palette-phosphor-200);
+  --ods-semantic-color-content-warning: var(--ods-palette-amber-300);
+  --ods-semantic-color-content-critical: var(--ods-palette-red-300);
+  /* Content - inks on a tinted surface */
+  --ods-semantic-color-content-on-selected: var(--ods-palette-phosphor-200);
+  --ods-semantic-color-content-on-neutral: var(--ods-palette-phosphor-50);
+  --ods-semantic-color-content-on-brand: var(--ods-palette-phosphor-200);
+  --ods-semantic-color-content-on-accent: var(--ods-palette-phosphor-100);
+  --ods-semantic-color-content-on-information: var(--ods-palette-cyan-300);
+  --ods-semantic-color-content-on-success: var(--ods-palette-phosphor-200);
+  --ods-semantic-color-content-on-warning: var(--ods-palette-amber-100);
+  --ods-semantic-color-content-on-critical: var(--ods-palette-red-100);
+  /* Content - inks on a solid surface */
+  --ods-semantic-color-content-on-solid: var(--ods-palette-white);
+  --ods-semantic-color-content-on-selected-solid: var(--ods-palette-phosphor-900);
+  --ods-semantic-color-content-on-control-solid: var(--ods-palette-phosphor-900);
+  --ods-semantic-color-content-on-neutral-solid: var(--ods-palette-phosphor-50);
+  --ods-semantic-color-content-on-brand-solid: var(--ods-palette-phosphor-900);
+  --ods-semantic-color-content-on-accent-solid: var(--ods-palette-white);
+  --ods-semantic-color-content-on-information-solid: var(--ods-palette-cyan-900);
+  --ods-semantic-color-content-on-success-solid: var(--ods-palette-phosphor-900);
+  --ods-semantic-color-content-on-warning-solid: var(--ods-palette-white);
+  --ods-semantic-color-content-on-critical-solid: var(--ods-palette-white);
+  /* Content - inks on a specific surface */
+  --ods-semantic-color-content-on-code: var(--ods-palette-phosphor-50);
+  --ods-semantic-color-content-on-vivid: var(--ods-palette-blue-900);
+  /* Borders - structure */
+  --ods-semantic-color-border-separator: var(--ods-palette-console-500);
+  --ods-semantic-color-border-track: var(--ods-palette-console-400);
+  --ods-semantic-color-border-container: var(--ods-palette-console-500);
+  /* Borders - neutral lines */
+  --ods-semantic-color-border-neutral-subtle: var(--ods-palette-console-400);
+  --ods-semantic-color-border-neutral: var(--ods-palette-console-300);
+  /* Borders - form controls: Beacon's input border, 3.2:1 on the page */
+  --ods-semantic-color-border-control: var(--ods-palette-console-300);
+  --ods-semantic-color-border-control-solid: var(--ods-semantic-color-surface-control-solid);
+  --ods-semantic-color-border-readonly: var(--ods-palette-console-400);
+  --ods-semantic-color-border-selected-solid: var(--ods-palette-phosphor-300);
+  /* Borders - statuses */
+  --ods-semantic-color-border-brand: var(--ods-palette-phosphor-300);
+  --ods-semantic-color-border-brand-minor: var(--ods-palette-phosphor-300);
+  --ods-semantic-color-border-accent-subtle: var(--ods-palette-console-300);
+  --ods-semantic-color-border-accent: var(--ods-palette-phosphor-200);
+  --ods-semantic-color-border-information-subtle: var(--ods-palette-cyan-500);
+  --ods-semantic-color-border-information: var(--ods-palette-cyan-300);
+  --ods-semantic-color-border-success-subtle: var(--ods-palette-phosphor-500);
+  --ods-semantic-color-border-success: var(--ods-palette-phosphor-300);
+  --ods-semantic-color-border-warning-subtle: var(--ods-palette-amber-800);
+  --ods-semantic-color-border-warning: var(--ods-palette-amber-500);
+  --ods-semantic-color-border-critical-subtle: var(--ods-palette-red-700);
+  --ods-semantic-color-border-critical: var(--ods-palette-red-500);
+  /* Borders - states */
+  --ods-semantic-color-border-drag-over: var(--ods-palette-phosphor-300);
+  /* Interaction - on a tinted / transparent surface */
+  --ods-semantic-color-interaction-neutral-subtle-hover: var(--ods-palette-console-600);
+  --ods-semantic-color-interaction-neutral-subtle-active: var(--ods-palette-console-600);
+  --ods-semantic-color-interaction-brand-subtle-hover: var(--ods-palette-phosphor-800);
+  --ods-semantic-color-interaction-brand-subtle-active: var(--ods-palette-phosphor-800);
+  --ods-semantic-color-interaction-accent-subtle-hover: var(--ods-palette-console-600);
+  --ods-semantic-color-interaction-accent-subtle-active: var(--ods-palette-console-600);
+  --ods-semantic-color-interaction-information-subtle-hover: var(--ods-palette-cyan-800);
+  --ods-semantic-color-interaction-information-subtle-active: var(--ods-palette-cyan-800);
+  --ods-semantic-color-interaction-success-subtle-hover: var(--ods-palette-phosphor-800);
+  --ods-semantic-color-interaction-success-subtle-active: var(--ods-palette-phosphor-800);
+  --ods-semantic-color-interaction-warning-subtle-hover: var(--ods-palette-amber-800);
+  --ods-semantic-color-interaction-warning-subtle-active: var(--ods-palette-amber-800);
+  --ods-semantic-color-interaction-critical-subtle-hover: var(--ods-palette-red-800);
+  --ods-semantic-color-interaction-critical-subtle-active: var(--ods-palette-red-800);
+  /* Interaction - on a solid surface */
+  --ods-semantic-color-interaction-neutral-hover: var(--ods-palette-console-300);
+  --ods-semantic-color-interaction-neutral-active: var(--ods-palette-console-300);
+  --ods-semantic-color-interaction-brand-hover: var(--ods-palette-phosphor-400);
+  --ods-semantic-color-interaction-brand-active: var(--ods-palette-phosphor-500);
+  --ods-semantic-color-interaction-brand-visited: var(--ods-palette-phosphor-200);
+  --ods-semantic-color-interaction-accent-hover: var(--ods-palette-console-200);
+  --ods-semantic-color-interaction-accent-active: var(--ods-palette-console-200);
+  --ods-semantic-color-interaction-information-hover: var(--ods-palette-cyan-500);
+  --ods-semantic-color-interaction-information-active: var(--ods-palette-cyan-500);
+  --ods-semantic-color-interaction-success-hover: var(--ods-palette-phosphor-400);
+  --ods-semantic-color-interaction-success-active: var(--ods-palette-phosphor-400);
+  --ods-semantic-color-interaction-warning-hover: var(--ods-palette-amber-800);
+  --ods-semantic-color-interaction-warning-active: var(--ods-palette-amber-800);
+  --ods-semantic-color-interaction-critical-hover: var(--ods-palette-red-700);
+  --ods-semantic-color-interaction-critical-active: var(--ods-palette-red-700);
+  /* Interaction - lists and selection */
+  --ods-semantic-color-interaction-highlight: var(--ods-palette-console-600);
+  --ods-semantic-color-interaction-selected-highlight: var(--ods-palette-phosphor-600);
+  /* Interaction - form controls */
+  --ods-semantic-color-interaction-control-hover: var(--ods-palette-phosphor-500);
+  --ods-semantic-color-interaction-control-highlight: var(--ods-semantic-color-surface-control);
+  --ods-semantic-color-interaction-control-solid-hover: var(--ods-palette-phosphor-400);
+  --ods-semantic-color-interaction-control-solid-active: var(--ods-palette-phosphor-500);
+  /* Interaction - structure */
+  --ods-semantic-color-interaction-track-hover: var(--ods-palette-console-200);
+  /* Charts: Beacon's five terminal chart colours, then its severity and flow inks, ordered so
+     neighbouring series differ in hue. */
+  --ods-semantic-color-chart-background: var(--ods-semantic-color-surface-page);
+  --ods-semantic-color-chart-axis: var(--ods-palette-console-300);
+  --ods-semantic-color-chart-grid: var(--ods-palette-console-500);
+  --ods-semantic-color-chart-tick: var(--ods-palette-console-100);
+  --ods-semantic-color-chart-legend: var(--ods-palette-console-100);
+  --ods-semantic-color-chart-reference-line: var(--ods-semantic-color-content-critical);
+  --ods-semantic-color-chart-series-01: #00ff41;
+  --ods-semantic-color-chart-series-02: #3fd8e0;
+  --ods-semantic-color-chart-series-03: #ffb000;
+  --ods-semantic-color-chart-series-04: #ff4fd8;
+  --ods-semantic-color-chart-series-05: #b3ff66;
+  --ods-semantic-color-chart-series-06: #ff8ea0;
+  --ods-semantic-color-chart-series-07: #00a83a;
+  --ods-semantic-color-chart-series-08: #5ff0f0;
+  --ods-semantic-color-chart-series-09: #ffc266;
+  --ods-semantic-color-chart-series-10: #9ab8a2;
+  /* Size - space */
+  --ods-semantic-size-space-inset-inline: 8px;
+  --ods-semantic-size-space-inset-block: 8px;
+  --ods-semantic-size-space-inset-block-compact: 2px;
+  --ods-semantic-size-space-gap-inline: 8px;
+  --ods-semantic-size-space-gap-block: 8px;
+  --ods-semantic-size-space-gap-group: 16px;
+  --ods-semantic-size-space-gap-section: 32px;
+  /* Size - radius: Beacon's --radius scale (.375rem): 4.8px controls (radius-md), 6px cards (radius-lg),
+     8.4px popovers (radius-xl), fully round badges. */
+  --ods-semantic-size-radius-none: 0;
+  --ods-semantic-size-radius-control: 4.8px;
+  --ods-semantic-size-radius-container: 6px;
+  --ods-semantic-size-radius-overlay: 8.4px;
+  --ods-semantic-size-radius-pill: calc(infinity * 1px);
+  --ods-semantic-size-radius-full: calc(infinity * 1px);
+  /* Size - block */
+  --ods-semantic-size-block-size-sm: 24px;
+  --ods-semantic-size-block-size-md: 32px;
+  --ods-semantic-size-block-size-lg: 40px;
+  /* Size - inline */
+  --ods-semantic-size-inline-size-field: 280px;
+  /* Border */
+  --ods-semantic-border-thickness: 1px;
+  --ods-semantic-border-thickness-strong: 2px;
+  /* Focus: Beacon's ring is the primary itself. */
+  --ods-semantic-color-focus: var(--ods-palette-phosphor-300);
+  --ods-semantic-border-focus-thickness: 2px;
+  --ods-semantic-border-focus-offset: 2px;
+  --ods-semantic-border-focus-style: solid;
+  /* Font: Source Code Pro everywhere, as Beacon's terminal. The Fonts section at the top says which
+     components read each family and where the font loads from. */
+  --ods-semantic-font-family-heading: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ods-semantic-font-family-body: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ods-semantic-font-family-code: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ods-semantic-font-weight-regular: 400;
+  --ods-semantic-font-weight-semibold: 600;
+  --ods-semantic-font-weight-bold: 700;
+  /* Opacity */
+  --ods-semantic-opacity-disabled: var(--ods-palette-opacity-50);
+  --ods-semantic-opacity-backdrop: var(--ods-palette-opacity-75);
+  /* Shadow: Beacon's: shadow-xs on fields and outline buttons, shadow-sm on cards, shadow-lg on popovers
+     (black at 5% and 10%), over the border line popovers have. */
+  --ods-semantic-color-shadow-control: var(--ods-palette-black);
+  --ods-semantic-color-shadow-raised: var(--ods-palette-black);
+  --ods-semantic-color-shadow-overlay: var(--ods-palette-black);
+  --ods-semantic-shadow-control: 0 1px 2px 0 color-mix(in srgb, var(--ods-semantic-color-shadow-control) 5%, transparent);
+  --ods-semantic-shadow-raised: 0 1px 3px 0 color-mix(in srgb, var(--ods-semantic-color-shadow-raised) 10%, transparent), 0 1px 2px -1px color-mix(in srgb, var(--ods-semantic-color-shadow-raised) 10%, transparent);
+  --ods-semantic-shadow-overlay: 0 0 0 var(--ods-semantic-border-thickness) var(--ods-semantic-color-border-container), 0 10px 15px -3px color-mix(in srgb, var(--ods-semantic-color-shadow-overlay) 10%, transparent), 0 4px 6px -4px color-mix(in srgb, var(--ods-semantic-color-shadow-overlay) 10%, transparent);
+  /* Motion */
+  --ods-semantic-motion-duration-instant: 0s;
+  --ods-semantic-motion-duration-fast: 150ms;
+  --ods-semantic-motion-duration-medium: 200ms;
+  --ods-semantic-motion-duration-slow: 300ms;
+  --ods-semantic-motion-easing: ease-in-out;
+  --ods-semantic-motion-easing-enter: ease-out;
+  --ods-semantic-motion-easing-exit: ease-in;
+  /* Z-index */
+  --ods-semantic-z-index-sticky: 100;
+  --ods-semantic-z-index-dropdown: 200;
+  --ods-semantic-z-index-drawer: 300;
+  --ods-semantic-z-index-modal: 400;
+  /* Brand */
+  --ods-semantic-color-brand: var(--ods-palette-phosphor-300);
+}
+
+@layer ods-quarks, ods-atoms, ods-molecules, ods-organisms;
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ods-semantic-motion-duration-fast: 0.01s;
+    --ods-semantic-motion-duration-medium: 0.01s;
+    --ods-semantic-motion-duration-slow: 0.01s;
+  }
+}
+
+/* Components: as the white label dark, low and medium badges and messages take the ink made for
+   their tinted surface. */
+@layer ods-atoms {
+  :root [data-ods=badge] {
+    --ods-badge-text-color-accent-medium: var(--ods-semantic-color-content-on-accent);
+    --ods-badge-text-color-accent-low: var(--ods-semantic-color-content-on-accent);
+    --ods-badge-text-color-critical-medium: var(--ods-semantic-color-content-on-critical);
+    --ods-badge-text-color-critical-low: var(--ods-semantic-color-content-on-critical);
+    --ods-badge-text-color-information-medium: var(--ods-semantic-color-content-on-information);
+    --ods-badge-text-color-information-low: var(--ods-semantic-color-content-on-information);
+    --ods-badge-text-color-neutral-medium: var(--ods-semantic-color-content-on-neutral);
+    --ods-badge-text-color-neutral-low: var(--ods-semantic-color-content-on-neutral);
+    --ods-badge-text-color-success-medium: var(--ods-semantic-color-content-on-success);
+    --ods-badge-text-color-success-low: var(--ods-semantic-color-content-on-success);
+    --ods-badge-text-color-warning-medium: var(--ods-semantic-color-content-on-warning);
+    --ods-badge-text-color-warning-low: var(--ods-semantic-color-content-on-warning);
+  }
+}
+
+@layer ods-molecules {
+  :root [data-ods=message] {
+    --ods-message-text-color-accent-medium: var(--ods-semantic-color-content-on-accent);
+    --ods-message-text-color-accent-low: var(--ods-semantic-color-content-on-accent);
+    --ods-message-text-color-critical-medium: var(--ods-semantic-color-content-on-critical);
+    --ods-message-text-color-critical-low: var(--ods-semantic-color-content-on-critical);
+    --ods-message-text-color-information-medium: var(--ods-semantic-color-content-on-information);
+    --ods-message-text-color-information-low: var(--ods-semantic-color-content-on-information);
+    --ods-message-text-color-neutral-medium: var(--ods-semantic-color-content-on-neutral);
+    --ods-message-text-color-neutral-low: var(--ods-semantic-color-content-on-neutral);
+    --ods-message-text-color-success-medium: var(--ods-semantic-color-content-on-success);
+    --ods-message-text-color-success-low: var(--ods-semantic-color-content-on-success);
+    --ods-message-text-color-warning-medium: var(--ods-semantic-color-content-on-warning);
+    --ods-message-text-color-warning-low: var(--ods-semantic-color-content-on-warning);
+  }
+}

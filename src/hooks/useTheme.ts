@@ -8,14 +8,19 @@ import * as React from 'react';
 // and 'white-label-dark/css?url' instead and delete src/themes/.
 import whiteLabelUrl from '../themes/white-label/light.css?url';
 import whiteLabelDarkUrl from '../themes/white-label/dark.css?url';
+// Terminal is Beacon's terminal theme (https://beacon.ovhcloud.tools/) mapped onto the ODS tokens, with a light mode
+// Beacon doesn't have.
+import terminalDarkUrl from '../themes/terminal/dark.css?url';
+import terminalUrl from '../themes/terminal/light.css?url';
 
-export type Theme = 'aluminium' | 'blue-jeans' | 'white-label';
+export type Theme = 'aluminium' | 'blue-jeans' | 'white-label' | 'terminal';
 export type Mode = 'auto' | 'light' | 'dark';
 
 const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
   aluminium: { light: aluminiumUrl, dark: aluminiumDarkUrl },
   'blue-jeans': { light: blueJeansUrl, dark: blueJeansDarkUrl },
   'white-label': { light: whiteLabelUrl, dark: whiteLabelDarkUrl },
+  terminal: { light: terminalUrl, dark: terminalDarkUrl },
 };
 
 const THEMES = Object.keys(THEME_URLS) as Theme[];

@@ -29,6 +29,7 @@ const THEME_ITEMS = [
   { label: 'White label', value: 'white-label' },
   { label: 'Aluminium', value: 'aluminium' },
   { label: 'Blue Jeans', value: 'blue-jeans' },
+  { label: 'Terminal', value: 'terminal' },
 ];
 
 const MODE_ITEMS = [

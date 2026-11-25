@@ -151,14 +151,15 @@ main {
   white-space: nowrap;
 }
 
-/* The theme select shows Aluminium and Blue Jeans in their own colours, in the control and in the
-   dropdown: on their solid control colour (navy, blue, as their primary buttons). White label keeps
-   the default select styling. Fixed values, since the --ods tokens only hold the active theme's
-   colours. The control and the options are drawn with the --ods tokens below, so these redefine
-   them; hover lightens the theme's colour. */
+/* The theme select shows Aluminium, Blue Jeans and Terminal in their own colours, in the control
+   and in the dropdown: on their solid control colour (navy, blue, as their primary buttons;
+   Terminal green on black, as its page). White label keeps the default select styling. Fixed
+   values, since the --ods tokens only hold the active theme's colours. The control and the options
+   are drawn with the --ods tokens below, so these redefine them; hover lightens the theme's colour. */
 $theme-colors: (
   aluminium: (background: #1a2d4b, text: #ffffff, border: #1a2d4b),
   blue-jeans: (background: #0050d7, text: #ffffff, border: #0050d7),
+  terminal: (background: #020604, text: #00ff41, border: #2f6b44),
 );
 
 @each $theme, $colors in $theme-colors {
@@ -221,6 +222,10 @@ $mode-option-tokens: (
   white-label: (
     light: (#ffffff, #475569, #e8edf3, #334155, #f1f4f8, #dde3eb, #002dbe),
     dark: (#0b1220, #e8edf3, #334155, #f1f4f8, #334155, #475569, #4bb2f6),
+  ),
+  terminal: (
+    light: (#ffffff, #0a2e17, #d6f5de, #004d19, #e9f5ec, #a8e8b8, #00802b),
+    dark: (#04100a, #c8ffd4, #003b12, #7dffa0, #0d2a17, #00521a, #00ff41),
   ),
 );
 
