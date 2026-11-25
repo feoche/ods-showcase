@@ -9,6 +9,16 @@ Showcases all ODS React components of the pinned ODS version (currently 20.0.0).
 
 The WCAG Design Tokens page (contrast combinations of the ODS palettes) moved to its own repository, `ods-wcag-tokens`.
 
+## Creating a theme from a page
+
+The showcase themes in `src/themes` (Terminal, Hackathon, Black Friday, Summit) map an existing page's look onto the ODS tokens. To gather a page's design without opening it yourself:
+
+1. Open the page and scroll to the bottom, so lazy sections render.
+2. Paste `scripts/extract-theme.js` into the DevTools console and press Enter.
+3. It copies a JSON to the clipboard and downloads it as `theme-<host>.json`: the page's surfaces by visible area with the text colours on each, its outline from top to bottom, its cards, its controls grouped by the surface they sit on, its type scale, radii, shadows, motion and the hover and focus rules it really uses. Cookie banners and full-screen overlays are left out.
+
+Send that JSON, with a screenshot or two for what it can't see (images, the overall feel). `tests/themes.test.ts` then holds the new theme to the ODS theme contract.
+
 ## Prerequisites
 
 - Node.js (v22 or later recommended)
