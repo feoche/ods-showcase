@@ -4,3 +4,7 @@ allowBuilds:
   '@parcel/watcher': false
   '@swc/core': true
   esbuild: true
+
+overrides:
+  '@types/react': ^19
+  '@types/react-dom': ^19
