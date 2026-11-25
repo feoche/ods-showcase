@@ -12,8 +12,11 @@ import whiteLabelDarkUrl from '../themes/white-label/dark.css?url';
 // Beacon doesn't have.
 import terminalDarkUrl from '../themes/terminal/dark.css?url';
 import terminalUrl from '../themes/terminal/light.css?url';
+// Hackathon is the OVHcloud hackathon page's look, from its computed styles, with a light mode the page doesn't have.
+import hackathonDarkUrl from '../themes/hackathon/dark.css?url';
+import hackathonUrl from '../themes/hackathon/light.css?url';
 
-export type Theme = 'aluminium' | 'blue-jeans' | 'white-label' | 'terminal';
+export type Theme = 'aluminium' | 'blue-jeans' | 'white-label' | 'terminal' | 'hackathon';
 export type Mode = 'auto' | 'light' | 'dark';
 
 const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
@@ -21,6 +24,7 @@ const THEME_URLS: Record<Theme, Record<Exclude<Mode, 'auto'>, string>> = {
   'blue-jeans': { light: blueJeansUrl, dark: blueJeansDarkUrl },
   'white-label': { light: whiteLabelUrl, dark: whiteLabelDarkUrl },
   terminal: { light: terminalUrl, dark: terminalDarkUrl },
+  hackathon: { light: hackathonUrl, dark: hackathonDarkUrl },
 };
 
 const THEMES = Object.keys(THEME_URLS) as Theme[];

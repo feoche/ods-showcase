@@ -86,6 +86,8 @@ const themes = [
   'white-label-dark',
   'terminal',
   'terminal-dark',
+  'hackathon',
+  'hackathon-dark',
 ] as const;
 
 for (const theme of themes) {

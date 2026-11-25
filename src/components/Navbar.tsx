@@ -30,6 +30,7 @@ const THEME_ITEMS = [
   { label: 'Aluminium', value: 'aluminium' },
   { label: 'Blue Jeans', value: 'blue-jeans' },
   { label: 'Terminal', value: 'terminal' },
+  { label: 'Hackathon', value: 'hackathon' },
 ];
 
 const MODE_ITEMS = [

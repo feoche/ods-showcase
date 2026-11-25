@@ -8,6 +8,10 @@
 
 @layer theme, base, components, utilities;
 
+// Each theme names its fonts in its --ods-semantic-font-family-* tokens and never loads them: the app does.
+// ODS fonts (above) bring Source Sans 3 and Source Code Pro; these are the Hackathon theme's other two.
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
 html {
   font-family: var(--ods-semantic-font-family-body);
 }
@@ -151,15 +155,17 @@ main {
   white-space: nowrap;
 }
 
-/* The theme select shows Aluminium, Blue Jeans and Terminal in their own colours, in the control
-   and in the dropdown: on their solid control colour (navy, blue, as their primary buttons;
-   Terminal green on black, as its page). White label keeps the default select styling. Fixed
-   values, since the --ods tokens only hold the active theme's colours. The control and the options
-   are drawn with the --ods tokens below, so these redefine them; hover lightens the theme's colour. */
+/* The theme select shows Aluminium, Blue Jeans, Terminal and Hackathon in their own colours, in the
+   control and in the dropdown: on their solid control colour (navy, blue, as their primary buttons;
+   Terminal green on black and Hackathon cyan on night navy, as their pages). White label keeps the
+   default select styling. Fixed values, since the --ods tokens only hold the active theme's
+   colours. The control and the options are drawn with the --ods tokens below, so these redefine
+   them; hover lightens the theme's colour. */
 $theme-colors: (
   aluminium: (background: #1a2d4b, text: #ffffff, border: #1a2d4b),
   blue-jeans: (background: #0050d7, text: #ffffff, border: #0050d7),
   terminal: (background: #020604, text: #00ff41, border: #2f6b44),
+  hackathon: (background: #0b1748, text: #22e3ff, border: #1b789e),
 );
 
 @each $theme, $colors in $theme-colors {
@@ -226,6 +232,10 @@ $mode-option-tokens: (
   terminal: (
     light: (#ffffff, #0a2e17, #d6f5de, #004d19, #e9f5ec, #a8e8b8, #00802b),
     dark: (#04100a, #c8ffd4, #003b12, #7dffa0, #0d2a17, #00521a, #00ff41),
+  ),
+  hackathon: (
+    light: (#ffffff, #0a0e2c, #e6fcff, #0a0e2c, #e8ecff, #b8f6ff, #007a99),
+    dark: (#0d1437, #e8ecff, #0e3663, #7aefff, #1e2956, #1b789e, #22e3ff),
   ),
 );
 
