@@ -153,6 +153,7 @@ import shikiTheme from '@shikijs/themes/nord';
 import * as React from 'react';
 import { ComponentCard } from '../components/ComponentCard';
 import { Navbar } from '../components/Navbar';
+import { TocAffix } from '../components/TocAffix';
 
 export const Home = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -236,26 +237,13 @@ export const Home = () => {
   return (
     <>
       <Navbar
-        drawerTitle="Components"
-        drawerContent={(closeDrawer) => sections.map((section) => (
-          <a
-            key={section.toLowerCase()}
-            href={`#${section.toLowerCase()}`}
-            className="toc-link"
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveSection(section.toLowerCase());
-              closeDrawer();
-            }}
-          >
-            {section}
-          </a>
-        ))}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
       />
+
+      <TocAffix sections={filteredSections} onSelect={setActiveSection} />
 
       <main>
         {isComponentVisible('Accordion') && (

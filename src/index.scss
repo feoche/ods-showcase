@@ -35,7 +35,8 @@ body {
 /* Layout */
 main {
   max-width: 1400px;
-  margin: 0 auto;
+  /* Centred, but never under the fixed component list (--toc-affix-space, set where it shows). */
+  margin: 0 auto 0 max(var(--toc-affix-space, 0px), calc((100vw - 1440px) / 2));
   padding: 1.25rem;
   padding-top: calc(80px + 1.25rem); /* Add padding for fixed navbar */
   display: flex;
@@ -63,28 +64,6 @@ main {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.navbar-hamburger {
-  background: transparent;
-  border: 1px solid var(--ods-semantic-color-border-control);
-  border-radius: 4px;
-  padding: 0.5rem;
-  cursor: pointer;
-  color: var(--ods-semantic-color-content-text);
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  min-width: var(--ods-semantic-size-block-size-md);
-  height: var(--ods-semantic-size-block-size-md);
-}
-
-.navbar-hamburger:hover {
-  background-color: color-mix(in srgb, var(--ods-semantic-color-content-brand) 10%, transparent);
-  border-color: var(--ods-semantic-color-border-brand);
-  color: var(--ods-semantic-color-content-brand);
 }
 
 .hamburger-icon {
@@ -337,9 +316,30 @@ main {
 
 /* Clickable section headings */
 .section-heading {
+  position: relative;
   cursor: pointer;
   transition: color 0.2s ease;
   user-select: none;
+}
+
+/* On hover, a "#" left of the heading says a click sets the page's anchor to its section. It sits in the
+   margin, so the heading never moves, and is small enough for main's narrowest side padding (1.25rem); the
+   empty alt text keeps screen readers from reading it. */
+.section-heading::before {
+  content: '#' / '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  padding-right: 0.25rem;
+  font-size: 0.75em;
+  color: var(--ods-semantic-color-content-brand);
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: opacity 0.15s ease;
+}
+
+.section-heading:hover::before {
+  opacity: 1;
 }
 
 .section-heading:hover {
@@ -436,51 +436,60 @@ main {
   align-items: center;
 }
 
-/* Table of Contents - Drawer Styles */
-.toc-title {
-  display: block;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  color: var(--ods-semantic-color-content-heading);
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--ods-semantic-color-border-container);
+/* The component list, fixed against the window's left edge from 1024px up: in the empty space beside the
+   centred content when it fits (from 1824px), the content moving right to make room for it below that.
+   Narrower windows have the search and the category filter only. */
+.toc-affix {
+  display: none;
 }
 
-.toc-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
+@media (min-width: 1024px) {
+  main {
+    --toc-affix-space: 12rem;
+  }
 
-.toc-link {
-  padding: 0.5rem 0.75rem;
-  color: var(--ods-semantic-color-content-text);
-  text-decoration: none;
-  font-size: 0.875rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  .toc-affix {
+    /* From right under the navbar (its height, set inline) to the window's bottom edge. */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 12rem;
+    box-sizing: border-box;
+    /* The navbar's surface and line, so the two read as one frame around the content. */
+    background: var(--ods-semantic-color-surface-raised);
+    border-right: 1px solid var(--ods-semantic-color-border-container);
+    /* A little room from the navbar and the window's bottom edge, kept while the list scrolls. */
+    padding-block: calc(var(--ods-semantic-size-space-gap-group) * 0.75);
+    display: flex;
+    flex-direction: column;
+  }
 
-.toc-link:hover {
-  background-color: color-mix(in srgb, var(--ods-semantic-color-content-brand) 10%, transparent);
-  color: var(--ods-semantic-color-content-brand);
-}
+  .toc-affix__list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-height: 0;
+    overflow-y: auto;
+  }
 
-.toc-link-active {
-  background-color: color-mix(in srgb, var(--ods-semantic-color-content-brand) 15%, transparent);
-  color: var(--ods-semantic-color-content-brand);
-  font-weight: 500;
-  border-right: 3px solid var(--ods-semantic-color-border-brand);
-  padding-right: calc(0.75rem - 3px);
-}
+  /* Small ghost buttons as wide as the list, their names left-aligned. They keep their height: the list
+     scrolls when it is taller than the screen. */
+  .toc-affix__item {
+    /* More side room than a small button's default (0.75 × inset): the names sit off the window's edge. */
+    --ods-button-padding-horizontal-sm: calc(var(--ods-semantic-size-space-inset-inline) * 2);
 
-/* Style the drawer content without conflicting with ODS Drawer positioning */
-.toc-container {
-  min-width: 250px;
+    flex-shrink: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* The section being read, in the theme's selection colours. */
+  .toc-affix__item[aria-current] {
+    background-color: var(--ods-semantic-color-surface-selected);
+    color: var(--ods-semantic-color-content-on-selected);
+  }
+
 }
 
 /* Responsive styles */
@@ -509,15 +518,6 @@ main {
 }
 
 @media (max-width: 480px) {
-  .toc-title {
-    font-size: 0.875rem;
-  }
-
-  .toc-link {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.6rem;
-  }
-
   .navbar-content {
     padding: 0.5rem 0.75rem;
     gap: 0.5rem;

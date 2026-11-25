@@ -19,6 +19,14 @@ async function disableAnimations(page: Page) {
         transition-duration: 0s !important;
         transition-delay: 0s !important;
       }
+      /* The fixed component list beside the content is page chrome, never part of a screenshot,
+         and the content keeps its place without it. */
+      .toc-affix {
+        display: none !important;
+      }
+      main {
+        --toc-affix-space: 0px !important;
+      }
       /* Hide the card header (label + copy button) — only the component itself should be in the screenshot */
       .component-card-header {
         display: none !important;

@@ -1,9 +1,4 @@
 import {
-  DRAWER_POSITION,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerTrigger,
   Icon,
   Input,
   Select,
@@ -11,7 +6,6 @@ import {
   SelectControl,
   Text,
 } from '@ovhcloud/ods-react';
-import * as React from 'react';
 import { useTheme } from '../hooks/useTheme';
 import { ThemePicker } from './ThemePicker';
 
@@ -82,9 +76,6 @@ const IconSelect = ({
 
 interface NavbarProps {
   title?: string;
-  /** Drawer TOC content – omit to hide the hamburger */
-  drawerTitle?: string;
-  drawerContent?: (closeDrawer: () => void) => React.ReactNode;
   /** Search bar – omit to hide */
   searchQuery?: string;
   onSearchChange?: (value: string) => void;
@@ -95,40 +86,17 @@ interface NavbarProps {
 
 export const Navbar = ({
   title,
-  drawerTitle,
-  drawerContent,
   searchQuery,
   onSearchChange,
   selectedCategory,
   onCategoryChange,
 }: NavbarProps) => {
-  const [isTocOpen, setIsTocOpen] = React.useState(false);
   // The theme lives here, not in the pages: a switch then re-renders the navbar alone, not every demo.
   const { theme, mode, resolvedMode, setTheme, setMode } = useTheme();
-  const hasDrawer = drawerContent !== undefined;
-  const closeDrawer = () => setIsTocOpen(false);
-
 
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        {/* Hamburger / Drawer */}
-        {hasDrawer && (
-          <Drawer open={isTocOpen} onOpenChange={(details) => setIsTocOpen(details.open)}>
-            <DrawerTrigger asChild>
-              <button className="navbar-hamburger" aria-label="Open menu">
-                <Icon name="hamburger-menu" />
-              </button>
-            </DrawerTrigger>
-            <DrawerContent className="toc-container" position={DRAWER_POSITION.left}>
-              <DrawerBody>
-                {drawerTitle && <Text preset="label" className="toc-title">{drawerTitle}</Text>}
-                <div className="toc-list">{drawerContent(closeDrawer)}</div>
-              </DrawerBody>
-            </DrawerContent>
-          </Drawer>
-        )}
-
         {/* Title */}
         {title && (
           <div className="navbar-title">
