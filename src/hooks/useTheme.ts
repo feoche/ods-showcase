@@ -252,5 +252,15 @@ export const useTheme = () => {
     }
   }, []);
 
-  return { theme: choice.theme, mode: choice.mode, setTheme, setMode };
+  // What auto resolves to, kept in step with the system: the theme picker shows it.
+  const [systemDark, setSystemDark] = React.useState(() => window.matchMedia(DARK_QUERY).matches);
+  React.useEffect(() => {
+    const media = window.matchMedia(DARK_QUERY);
+    const update = () => setSystemDark(media.matches);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+  const resolvedMode: Exclude<Mode, 'auto'> = choice.mode === 'auto' ? (systemDark ? 'dark' : 'light') : choice.mode;
+
+  return { theme: choice.theme, mode: choice.mode, resolvedMode, setTheme, setMode };
 };

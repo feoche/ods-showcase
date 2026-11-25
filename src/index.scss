@@ -3,7 +3,6 @@
 // ============================================
 
 // The ODS theme stylesheet itself is loaded through <link id="ods-theme">, swapped by useTheme.
-@use "sass:map";
 @use "@ovhcloud/ods-themes/default/fonts";
 
 @layer theme, base, components, utilities;
@@ -112,43 +111,12 @@ main {
   width: 100%;
 }
 
-.navbar-filter [data-ods="select"],
-.navbar-theme-select [data-ods="select"],
-.navbar-mode-select [data-ods="select"] {
+.navbar-filter [data-ods="select"] {
   width: 100%;
 }
 
 .navbar-filter {
   min-width: 180px;
-}
-
-/* ODS has no input group: the two selects are joined by squaring their inner corners
-   and overlapping their shared border. */
-.navbar-appearance {
-  display: flex;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-
-.navbar-mode-select {
-  flex-shrink: 0;
-  margin-left: -1px;
-}
-
-.navbar-theme-select [data-ods="select-control"] {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-/* Never narrower than their labels: "White label" stays on one line. */
-.navbar-theme-select {
-  flex-shrink: 0;
-}
-
-.navbar-theme-select [data-ods="select-control"],
-.navbar-mode-select [data-ods="select-control"] {
-  white-space: nowrap;
 }
 
 /* A navbar dropdown is as wide as its trigger, or as its longest option when that is wider,
@@ -162,135 +130,182 @@ main {
   white-space: nowrap;
 }
 
-/* The theme select shows Aluminium, Blue Jeans, Terminal, Hackathon, Black Friday and Summit in their own
-   colours, in the control and in the dropdown: on their solid control colour (navy, blue, as their primary
-   buttons; Terminal green on black, Hackathon cyan on night navy and Summit cyan on midnight, as their
-   pages; Black Friday white on royal blue, as its menu pill). White label keeps the default select styling. Fixed values, since the --ods tokens only hold the active
-   theme's colours. The control and the options are drawn with the --ods tokens below, so
-   these redefine them; hover lightens the theme's colour. */
-$theme-colors: (
-  aluminium: (background: #1a2d4b, text: #ffffff, border: #1a2d4b),
-  blue-jeans: (background: #0050d7, text: #ffffff, border: #0050d7),
-  terminal: (background: #020604, text: #00ff41, border: #2f6b44),
-  hackathon: (background: #0b1748, text: #22e3ff, border: #1b789e),
-  black-friday: (background: #03107f, text: #ffffff, border: #000e9c),
-  summit: (background: #050816, text: #46d3ff, border: #1c4f68),
-);
-
-@each $theme, $colors in $theme-colors {
-  $background: map.get($colors, background);
-  $text: map.get($colors, text);
-  $hover: color-mix(in srgb, #{$background} 85%, #{$text});
-
-  .navbar-theme-select--#{$theme} {
-    --ods-semantic-color-surface-control: #{$background};
-    --ods-semantic-color-content-text: #{$text};
-    // The caret, as the label: the page theme's icon colour can vanish on this background.
-    --ods-semantic-color-content-icon: #{$text};
-    --ods-semantic-color-border-control: #{map.get($colors, border)};
-    --ods-semantic-color-interaction-control-hover: #{map.get($colors, border)};
-    --ods-semantic-color-interaction-control-highlight: #{$hover};
-  }
-
-  .navbar-theme-content [role="option"][data-value="#{$theme}"] {
-    --ods-semantic-color-surface-control: #{$background};
-    --ods-semantic-color-content-text: #{$text};
-    --ods-semantic-color-surface-selected: #{$background};
-    --ods-semantic-color-content-on-selected: #{$text};
-    --ods-semantic-color-interaction-highlight: #{$hover};
-    --ods-semantic-color-interaction-selected-highlight: #{$hover};
-    --ods-semantic-color-focus: #{$text};
-  }
+/* Theme picker: an outline button naming the theme and the mode, opening a wide popover. Its width is
+   fixed, wide enough for the longest theme and mode in the widest theme font (Terminal's monospace), so
+   it never moves with a switch: the theme name takes the free space, the mode a fixed one. */
+.theme-picker-trigger {
+  width: 17rem;
+  margin-left: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
-/* The options all share the theme colours' background, so the checked one stands out by its
-   weight. */
-.navbar-theme-content [role="option"][data-state="checked"] {
-  font-weight: 600;
+.theme-picker-trigger__theme {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font-weight: var(--ods-semantic-font-weight-semibold);
 }
 
-/* In the mode dropdown, each option previews its mode: Light and Dark look like a dropdown
-   option of the current theme in that mode, whatever the page's mode, and Auto like the one
-   for the system's mode. The option is drawn with the tokens below, so these redefine them,
-   from each theme's light and dark builds. Fixed values, since the --ods tokens only hold
-   the active mode's colours. */
-@mixin mode-option-tokens($surface, $text, $selected, $on-selected, $highlight, $selected-highlight, $focus) {
-  --ods-semantic-color-surface-control: #{$surface};
-  --ods-semantic-color-content-text: #{$text};
-  --ods-semantic-color-surface-selected: #{$selected};
-  --ods-semantic-color-content-on-selected: #{$on-selected};
-  --ods-semantic-color-interaction-highlight: #{$highlight};
-  --ods-semantic-color-interaction-selected-highlight: #{$selected-highlight};
-  --ods-semantic-color-focus: #{$focus};
+.theme-picker-trigger__mode {
+  width: 5.5rem;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ods-semantic-size-space-gap-inline);
+  padding-left: var(--ods-semantic-size-space-gap-inline);
+  border-left: var(--ods-semantic-border-thickness) solid var(--ods-semantic-color-border-separator);
+  color: var(--ods-semantic-color-content-neutral);
+  font-weight: var(--ods-semantic-font-weight-regular);
 }
 
-// Aluminium and Blue Jeans share their dark option colours.
-$mode-option-tokens: (
-  aluminium: (
-    light: (#ffffff, #374f76, #edf0f5, #1a2d4b, #f4f5f8, #d6deea, #002dbe),
-    dark: (#091222, #edf0f5, #1a2d4b, #f4f5f8, #283d61, #374f76, #ffffff),
-  ),
-  blue-jeans: (
-    light: (#ffffff, #4d5592, #e6faff, #4d5592, #f3fdff, #bef1ff, #000e9c),
-    dark: (#091222, #edf0f5, #1a2d4b, #f4f5f8, #283d61, #374f76, #ffffff),
-  ),
-  white-label: (
-    light: (#ffffff, #475569, #e8edf3, #334155, #f1f4f8, #dde3eb, #002dbe),
-    dark: (#0b1220, #e8edf3, #334155, #f1f4f8, #334155, #475569, #4bb2f6),
-  ),
-  terminal: (
-    light: (#ffffff, #0a2e17, #d6f5de, #004d19, #e9f5ec, #a8e8b8, #00802b),
-    dark: (#04100a, #c8ffd4, #003b12, #7dffa0, #0d2a17, #00521a, #00ff41),
-  ),
-  hackathon: (
-    light: (#ffffff, #0a0e2c, #e6fcff, #0a0e2c, #e8ecff, #b8f6ff, #007a99),
-    dark: (#0d1437, #e8ecff, #0e3663, #7aefff, #1e2956, #1b789e, #22e3ff),
-  ),
-  black-friday: (
-    light: (#ffffff, #4d5592, #e6faff, #00185e, #f3fdff, #bef1ff, #000e9c),
-    dark: (#07162e, #e8ebff, #112072, #ffffff, #112072, #1c2a7c, #70e3ff),
-  ),
-  summit: (
-    light: (#ffffff, #0b1024, #e9faff, #050816, #eef4ff, #c8f2ff, #0036c9),
-    dark: (#0b1024, #e8eef8, #0f2b3d, #c8f2ff, #101832, #1c4f68, #46d3ff),
-  ),
-);
+.theme-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ods-semantic-size-space-gap-group);
+  width: min(740px, calc(100vw - 2rem));
+  max-height: min(80vh, 760px);
+  overflow-y: auto;
+}
 
-@each $theme, $modes in $mode-option-tokens {
-  .navbar-mode-content--#{$theme} {
-    @each $mode, $tokens in $modes {
-      [role="option"][data-value="#{$mode}"] {
-        @include mode-option-tokens($tokens...);
-      }
+.theme-picker__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ods-semantic-size-space-gap-block);
+}
 
-      @media (prefers-color-scheme: #{$mode}) {
-        [role="option"][data-value="auto"] {
-          @include mode-option-tokens($tokens...);
-        }
-      }
-    }
+.theme-picker__heading {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--ods-semantic-size-space-gap-block) / 2);
+}
+
+.theme-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ods-semantic-size-space-gap-block);
+}
+
+@media (max-width: 760px) {
+  .theme-picker__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* An option has no background of its own, it shows the dropdown's: give these their own.
-   In ODS's own layer, and with :where(), so the option's hover, highlighted and checked
-   backgrounds still win. */
-@layer ods-molecules {
-  :where(.navbar-theme-content [role="option"], .navbar-mode-content [role="option"]) {
-    background-color: var(--ods-semantic-color-surface-control);
+@media (max-width: 640px) {
+  .theme-picker__grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
-.navbar-mode-select [data-ods="select-control"] {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+.theme-picker__tile {
+  display: block;
+  height: 100%;
 }
 
-/* Bring the hovered or focused select above its neighbour, so its whole border shows. */
-.navbar-appearance > :hover,
-.navbar-appearance > :focus-within {
+/* ODS sizes a Radio to its content and centres it: the option fills its tile instead. */
+.theme-picker__option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  gap: calc(var(--ods-semantic-size-space-gap-block) * 0.75);
+  padding: calc(var(--ods-semantic-size-space-gap-group) * 0.75);
+  cursor: pointer;
+}
+
+.theme-picker__option-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ods-semantic-size-space-gap-inline);
+}
+
+.theme-picker__option-label {
+  font-weight: var(--ods-semantic-font-weight-semibold);
+}
+
+.theme-picker__option-description {
+  color: var(--ods-semantic-color-content-neutral);
+}
+
+/* A theme miniature: drawn with the theme's own colours, passed as --theme-preview-* custom properties,
+   since the --ods tokens only hold the active theme's. */
+.theme-miniature {
+  display: inline-flex;
+  box-sizing: border-box;
+  background: var(--theme-preview-page);
+  border: 1px solid color-mix(in srgb, var(--theme-preview-text) 25%, transparent);
+  border-radius: var(--ods-semantic-size-radius-control);
+}
+
+.theme-miniature--preview {
+  width: 100%;
+  margin-top: auto;
+  flex-direction: column;
+  gap: 6px;
+  height: 5rem;
+  padding: 8px;
+}
+
+.theme-miniature__heading {
+  width: 55%;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--theme-preview-heading);
+}
+
+.theme-miniature__text {
+  width: 80%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--theme-preview-text);
+  opacity: 0.7;
+}
+
+.theme-miniature__text--short {
+  width: 60%;
+}
+
+.theme-miniature__card {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 6px;
+  border: 1px solid var(--theme-preview-border);
+  border-radius: 3px;
+  background: var(--theme-preview-card);
+}
+
+/* The card holds its own text colour: Black Friday's white tiles keep their slate ink. */
+.theme-miniature--preview .theme-miniature__card .theme-miniature__text {
+  background: color-mix(in srgb, var(--theme-preview-brand) 60%, var(--theme-preview-card));
+}
+
+.theme-miniature__button {
+  background: var(--theme-preview-brand);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--theme-preview-on-brand) 30%, transparent);
+}
+
+.theme-miniature--preview .theme-miniature__button {
+  position: absolute;
+  width: 26px;
+  height: 9px;
+  border-radius: 3px;
+}
+
+.theme-miniature--preview {
   position: relative;
-  z-index: 1;
+
+  .theme-miniature__button {
+    right: 8px;
+    top: 8px;
+  }
 }
 
 .navbar-version {

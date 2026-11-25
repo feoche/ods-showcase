@@ -14,6 +14,7 @@ import {
 } from '@ovhcloud/ods-react';
 import * as React from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { ThemePicker } from './ThemePicker';
 
 const CATEGORY_ITEMS = [
   { label: 'All Components', value: 'all', customRendererData: { icon: 'grid' } },
@@ -22,23 +23,6 @@ const CATEGORY_ITEMS = [
   { label: 'Feedback', value: 'Feedback', customRendererData: { icon: 'bell' } },
   { label: 'Data Display', value: 'Data Display', customRendererData: { icon: 'columns' } },
   { label: 'Actions', value: 'Actions', customRendererData: { icon: 'lightning' } },
-];
-
-// White label first: it is the default theme.
-const THEME_ITEMS = [
-  { label: 'White label', value: 'white-label' },
-  { label: 'Aluminium', value: 'aluminium' },
-  { label: 'Blue Jeans', value: 'blue-jeans' },
-  { label: 'Terminal', value: 'terminal' },
-  { label: 'Hackathon', value: 'hackathon' },
-  { label: 'Summit', value: 'summit' },
-  { label: 'Black Friday', value: 'black-friday' },
-];
-
-const MODE_ITEMS = [
-  { label: 'Auto', value: 'auto', customRendererData: { icon: 'monitor' } },
-  { label: 'Light', value: 'light', customRendererData: { icon: 'sun' } },
-  { label: 'Dark', value: 'dark', customRendererData: { icon: 'moon' } },
 ];
 
 type IconSelectItem = {
@@ -62,15 +46,12 @@ const IconSelect = ({
   onValueChange,
   placeholder,
   ariaLabel,
-  contentClassName,
 }: {
   items: IconSelectItem[];
   value?: string;
   onValueChange: (value: string) => void;
   placeholder?: string;
   ariaLabel?: string;
-  /** Extra classes for the dropdown, which is portalled out of the navbar. */
-  contentClassName?: string;
 }) => (
   <Select
     items={items}
@@ -94,7 +75,7 @@ const IconSelect = ({
       )}
     />
     <SelectContent
-      className={contentClassName ? `navbar-select-content ${contentClassName}` : 'navbar-select-content'}
+      className="navbar-select-content"
       customOptionRenderer={({ customData, label }) => <ItemLabel label={label} data={customData} gap="0.5rem" />}
     />
   </Select>
@@ -124,7 +105,7 @@ export const Navbar = ({
 }: NavbarProps) => {
   const [isTocOpen, setIsTocOpen] = React.useState(false);
   // The theme lives here, not in the pages: a switch then re-renders the navbar alone, not every demo.
-  const { theme, mode, setTheme: onThemeChange, setMode: onModeChange } = useTheme();
+  const { theme, mode, resolvedMode, setTheme, setMode } = useTheme();
   const hasDrawer = drawerContent !== undefined;
   const closeDrawer = () => setIsTocOpen(false);
 
@@ -182,27 +163,14 @@ export const Navbar = ({
           </div>
         )}
 
-        {/* Theme and mode selects, joined into one control */}
-        <div className="navbar-appearance" role="group" aria-label="Theme and mode">
-          <div className={`navbar-theme-select navbar-theme-select--${theme}`}>
-            <IconSelect
-              items={THEME_ITEMS}
-              value={theme}
-              onValueChange={onThemeChange}
-              ariaLabel="Theme"
-              contentClassName="navbar-theme-content"
-            />
-          </div>
-          <div className="navbar-mode-select">
-            <IconSelect
-              items={MODE_ITEMS}
-              value={mode}
-              onValueChange={onModeChange}
-              ariaLabel="Mode"
-              contentClassName={`navbar-mode-content navbar-mode-content--${theme}`}
-            />
-          </div>
-        </div>
+        {/* Theme and mode */}
+        <ThemePicker
+          mode={mode}
+          onModeChange={setMode}
+          onThemeChange={setTheme}
+          resolvedMode={resolvedMode}
+          theme={theme}
+        />
 
         {/* ODS version */}
         <Badge className="navbar-version" status="neutral" size="sm">
