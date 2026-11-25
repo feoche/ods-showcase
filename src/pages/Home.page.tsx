@@ -28,6 +28,14 @@ import {
   ClipboardTrigger,
   Code,
   Combobox,
+  Command,
+  CommandContent,
+  CommandEmpty,
+  CommandFilter,
+  CommandGroup,
+  CommandList,
+  CommandOption,
+  CommandTrigger,
   ComboboxContent,
   ComboboxControl,
   DataTable,
@@ -145,33 +153,31 @@ import shikiTheme from '@shikijs/themes/nord';
 import * as React from 'react';
 import { ComponentCard } from '../components/ComponentCard';
 import { Navbar } from '../components/Navbar';
-import { useTheme } from '../hooks/useTheme';
 
 export const Home = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
   const [comboboxValue, setComboboxValue] = React.useState<string[]>(['item-1']);
-  const { theme, setTheme } = useTheme();
 
     const sections = [
     'Accordion', 'Avatar', 'Badge', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Cart', 'Checkbox', 'Clipboard', 'Code',
-    'Combobox', 'DataTable', 'Datepicker', 'Divider', 'Drawer', 'Editable', 'FileThumbnail', 'FileUpload', 'FormField', 'Icon', 'Input',
+    'Combobox', 'Command', 'DataTable', 'Datepicker', 'Divider', 'Drawer', 'Editable', 'FileThumbnail', 'FileUpload', 'FormField', 'Icon', 'Input',
     'Kbd', 'Link', 'Logo', 'Markdown', 'Medium', 'Menu', 'Message', 'MessageBubble', 'Meter', 'Modal', 'Pagination', 'Password',
     'PhoneNumber', 'Popover', 'ProgressBar', 'PromptInput', 'Quantity', 'QueryFilter', 'RadioGroup', 'Range', 'Select',
-    'Skeleton', 'Spinner', 'Switch', 'Table', 'Tabs', 'Tag', 'Text', 'Textarea', 'Tile', 'Timepicker', 'Toaster', 'Toggle', 'Tooltip', 'TreeView'
+    'Skeleton', 'Spinner', 'Table', 'Tabs', 'Tag', 'Text', 'Textarea', 'Tile', 'Timepicker', 'Toaster', 'Toggle', 'Tooltip', 'TreeView'
     ];
 
     // Component categories
     const componentCategories: Record<string, string[]> = {
     'all': sections,
     'Form Elements': ['Checkbox', 'Clipboard', 'Combobox', 'Datepicker', 'Editable', 'FileUpload', 'FormField', 'Input',
-      'Password', 'PhoneNumber', 'PromptInput', 'Quantity', 'QueryFilter', 'RadioGroup', 'Range', 'Select', 'Switch', 'Textarea',
+      'Password', 'PhoneNumber', 'PromptInput', 'Quantity', 'QueryFilter', 'RadioGroup', 'Range', 'Select', 'Textarea',
       'Timepicker', 'Toggle'],
     'Navigation': ['Breadcrumb', 'Drawer', 'Link', 'Menu', 'Pagination', 'Tabs'],
     'Feedback': ['Message', 'MessageBubble', 'Modal', 'Popover', 'Spinner', 'Toaster', 'Tooltip', 'ProgressBar', 'Skeleton'],
     'Data Display': ['Accordion', 'Avatar', 'Badge', 'Card', 'Cart', 'Code', 'DataTable', 'Divider', 'FileThumbnail', 'Icon', 'Kbd', 'Logo', 'Markdown', 'Medium',
       'Meter', 'Table', 'Tag', 'Text', 'Tile', 'TreeView'],
-    'Actions': ['Button', 'ButtonGroup']
+    'Actions': ['Button', 'ButtonGroup', 'Command']
     };
 
   // Filter sections based on search and category
@@ -215,8 +221,8 @@ export const Home = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({behavior: 'smooth'});
-      const currentHash = window.location.hash; // e.g., "#/" or "#/design-tokens"
-      const routePart = currentHash.split('#')[1] || '/'; // Get "/", "/design-tokens", etc.
+      const currentHash = window.location.hash; // e.g., "#/" or "#/sandbox"
+      const routePart = currentHash.split('#')[1] || '/'; // Get "/", "/sandbox", etc.
       window.location.hash = `${routePart}#${sectionId}`;
     }
   }
@@ -230,8 +236,6 @@ export const Home = () => {
   return (
     <>
       <Navbar
-        theme={theme}
-        onThemeChange={setTheme}
         drawerTitle="Components"
         drawerContent={(closeDrawer) => sections.map((section) => (
           <a
@@ -414,10 +418,10 @@ export const Home = () => {
                   <Badge size="lg">Large</Badge>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Colors">
+              <ComponentCard label="Statuses">
                 <div className="flex-row">
-                  <Badge status="accent">Primary</Badge>
-                  <Badge>Information</Badge>
+                  <Badge status="accent">Accent</Badge>
+                  <Badge status="information">Information</Badge>
                   <Badge status="neutral">Neutral</Badge>
                   <Badge status="success">Success</Badge>
                   <Badge status="warning">Warning</Badge>
@@ -426,6 +430,13 @@ export const Home = () => {
                   <Badge status="alpha">Alpha</Badge>
                   <Badge status="beta">Beta</Badge>
                   <Badge status="new">New</Badge>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Emphasis">
+                <div className="flex-row">
+                  <Badge emphasis="high">High</Badge>
+                  <Badge emphasis="medium">Medium</Badge>
+                  <Badge emphasis="low">Low</Badge>
                 </div>
               </ComponentCard>
               <ComponentCard label="With Icons">
@@ -505,7 +516,7 @@ export const Home = () => {
             <div className="component-grid">
               <ComponentCard label="Default">
                 <div className="flex-row">
-                  <Button>Primary</Button>
+                  <Button>Button</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="Sizes">
@@ -515,39 +526,39 @@ export const Home = () => {
                   <Button size="md">Medium</Button>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Solid Variant - Colors">
+              <ComponentCard label="High Emphasis - Statuses">
                 <div className="flex-row">
-                  <Button>Primary</Button>
-                  <Button status="neutral">Neutral</Button>
-                  <Button status="critical">Critical</Button>
+                  <Button emphasis="high" status="brand">Brand</Button>
+                  <Button emphasis="high" status="neutral">Neutral</Button>
+                  <Button emphasis="high" status="critical">Critical</Button>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Outline Variant - Colors">
+              <ComponentCard label="Medium Emphasis - Statuses">
                 <div className="flex-row">
-                  <Button>Primary</Button>
-                  <Button status="neutral">Neutral</Button>
-                  <Button status="critical">Critical</Button>
+                  <Button emphasis="medium" status="brand">Brand</Button>
+                  <Button emphasis="medium" status="neutral">Neutral</Button>
+                  <Button emphasis="medium" status="critical">Critical</Button>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Ghost Variant - Colors">
+              <ComponentCard label="Low Emphasis - Statuses">
                 <div className="flex-row">
-                  <Button emphasis="low">Primary</Button>
-                  <Button status="neutral" emphasis="low">Neutral</Button>
-                  <Button status="critical" emphasis="low">Critical</Button>
+                  <Button emphasis="low" status="brand">Brand</Button>
+                  <Button emphasis="low" status="neutral">Neutral</Button>
+                  <Button emphasis="low" status="critical">Critical</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="Disabled">
                 <div className="flex-row">
-                  <Button disabled>Disabled</Button>
-                  <Button disabled>Disabled Outline</Button>
-                  <Button emphasis="low" disabled>Disabled Ghost</Button>
+                  <Button emphasis="high" disabled>Disabled High</Button>
+                  <Button disabled>Disabled Medium</Button>
+                  <Button emphasis="low" disabled>Disabled Low</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="Loading">
                 <div className="flex-row">
-                  <Button loading>Loading</Button>
-                  <Button loading>Loading Outline</Button>
-                  <Button emphasis="low" loading>Loading Ghost</Button>
+                  <Button emphasis="high" loading>Loading High</Button>
+                  <Button loading>Loading Medium</Button>
+                  <Button emphasis="low" loading>Loading Low</Button>
                 </div>
               </ComponentCard>
               <ComponentCard label="With Icons">
@@ -641,11 +652,11 @@ export const Home = () => {
                   </Card>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Colors">
+              <ComponentCard label="Statuses">
                 <div className="flex-row">
-                  <Card status="accent">Primary</Card>
+                  <Card status="accent">Accent</Card>
                   <Card status="information">Information</Card>
-                  <Card>Neutral</Card>
+                  <Card status="neutral">Neutral</Card>
                   <Card status="success">Success</Card>
                   <Card status="warning">Warning</Card>
                   <Card status="critical">Critical</Card>
@@ -670,7 +681,7 @@ export const Home = () => {
                   </CartProductGroup>
                   <CartTotal label="Total" price="$18.98"/>
                   <CartAction>
-                    <Button>Checkout</Button>
+                    Checkout <Icon name="arrow-right"/>
                   </CartAction>
                 </Cart>
               </ComponentCard>
@@ -684,7 +695,7 @@ export const Home = () => {
                   </CartExtraContent>
                   <CartTotal label="Subtotal" price="$20/mo"/>
                   <CartAction>
-                    <Button>Order Now</Button>
+                    Order Now <Icon name="arrow-right"/>
                   </CartAction>
                 </Cart>
               </ComponentCard>
@@ -1048,6 +1059,82 @@ export const Home = () => {
                     <ComboboxControl placeholder="Combobox"/>
                     <ComboboxContent/>
                   </Combobox>
+                </div>
+              </ComponentCard>
+            </div>
+          </section>
+        )}
+
+        {/* Command Section */}
+        {isComponentVisible('Command') && (
+          <section className="component-section" id="command">
+            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('command')}>
+              Command
+            </Text>
+            <div className="component-grid">
+              <ComponentCard label="Default">
+                <div className="flex-row">
+                  <Command>
+                    <CommandTrigger asChild>
+                      <Button emphasis="high">Open command</Button>
+                    </CommandTrigger>
+                    <CommandContent>
+                      <CommandFilter/>
+                      <CommandList>
+                        <CommandGroup>
+                          <CommandOption>Item 1</CommandOption>
+                          <CommandOption>Item 2</CommandOption>
+                        </CommandGroup>
+                        <CommandEmpty>No results found.</CommandEmpty>
+                      </CommandList>
+                    </CommandContent>
+                  </Command>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Groups & Shortcuts">
+                <div className="flex-row">
+                  <Command>
+                    <CommandTrigger asChild>
+                      <Button>Open command</Button>
+                    </CommandTrigger>
+                    <CommandContent>
+                      <CommandFilter placeholder="Search..."/>
+                      <CommandList>
+                        <CommandGroup heading="File">
+                          <CommandOption>
+                            New file
+                            <kbd style={{ alignItems: 'center', display: 'flex', gap: '2px' }}>
+                              <Kbd>⌘</Kbd>+<Kbd>N</Kbd>
+                            </kbd>
+                          </CommandOption>
+                          <CommandOption>Open file</CommandOption>
+                          <CommandOption>Save file</CommandOption>
+                        </CommandGroup>
+                        <CommandGroup heading="Edit">
+                          <CommandOption>Undo</CommandOption>
+                          <CommandOption>Redo</CommandOption>
+                        </CommandGroup>
+                        <CommandEmpty>No results found.</CommandEmpty>
+                      </CommandList>
+                    </CommandContent>
+                  </Command>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Without Filter">
+                <div className="flex-row">
+                  <Command>
+                    <CommandTrigger asChild>
+                      <Button>Open command</Button>
+                    </CommandTrigger>
+                    <CommandContent>
+                      <CommandList aria-label="Actions">
+                        <CommandGroup heading="File">
+                          <CommandOption>New file</CommandOption>
+                          <CommandOption>Open file</CommandOption>
+                        </CommandGroup>
+                      </CommandList>
+                    </CommandContent>
+                  </Command>
                 </div>
               </ComponentCard>
             </div>
@@ -1714,80 +1801,120 @@ export const Home = () => {
                   </Message>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Solid variant - Colors">
+              <ComponentCard label="High emphasis - Statuses">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Message status="accent">
+                    <Message emphasis="high" status="accent">
                       <MessageIcon name="home"/>
-                      <MessageBody>Primary Message</MessageBody>
+                      <MessageBody>Accent Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message>
+                    <Message emphasis="high" status="information">
                       <MessageIcon name="circle-info"/>
                       <MessageBody>Information Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="neutral">
+                    <Message emphasis="high" status="neutral">
                       <MessageIcon name="email"/>
                       <MessageBody>Neutral Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="success">
+                    <Message emphasis="high" status="success">
                       <MessageIcon name="circle-check"/>
                       <MessageBody>Success Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="warning">
+                    <Message emphasis="high" status="warning">
                       <MessageIcon name="triangle-exclamation"/>
                       <MessageBody>Warning Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="critical">
+                    <Message emphasis="high" status="critical">
                       <MessageIcon name="hexagon-exclamation"/>
                       <MessageBody>Critical Message</MessageBody>
                     </Message>
                   </div>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Light variant - Colors">
+              <ComponentCard label="Medium emphasis - Statuses">
                 <div className="flex-column">
                   <div className="flex-row">
-                    <Message status="accent">
+                    <Message emphasis="medium" status="accent">
                       <MessageIcon name="home"/>
-                      <MessageBody>Primary Message</MessageBody>
+                      <MessageBody>Accent Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message>
+                    <Message emphasis="medium" status="information">
                       <MessageIcon name="circle-info"/>
                       <MessageBody>Information Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="neutral">
+                    <Message emphasis="medium" status="neutral">
                       <MessageIcon name="email"/>
                       <MessageBody>Neutral Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="success">
+                    <Message emphasis="medium" status="success">
                       <MessageIcon name="circle-check"/>
                       <MessageBody>Success Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="warning">
+                    <Message emphasis="medium" status="warning">
                       <MessageIcon name="triangle-exclamation"/>
                       <MessageBody>Warning Message</MessageBody>
                     </Message>
                   </div>
                   <div className="flex-row">
-                    <Message status="critical">
+                    <Message emphasis="medium" status="critical">
+                      <MessageIcon name="hexagon-exclamation"/>
+                      <MessageBody>Critical Message</MessageBody>
+                    </Message>
+                  </div>
+                </div>
+              </ComponentCard>
+              <ComponentCard label="Low emphasis - Statuses">
+                <div className="flex-column">
+                  <div className="flex-row">
+                    <Message emphasis="low" status="accent">
+                      <MessageIcon name="home"/>
+                      <MessageBody>Accent Message</MessageBody>
+                    </Message>
+                  </div>
+                  <div className="flex-row">
+                    <Message emphasis="low" status="information">
+                      <MessageIcon name="circle-info"/>
+                      <MessageBody>Information Message</MessageBody>
+                    </Message>
+                  </div>
+                  <div className="flex-row">
+                    <Message emphasis="low" status="neutral">
+                      <MessageIcon name="email"/>
+                      <MessageBody>Neutral Message</MessageBody>
+                    </Message>
+                  </div>
+                  <div className="flex-row">
+                    <Message emphasis="low" status="success">
+                      <MessageIcon name="circle-check"/>
+                      <MessageBody>Success Message</MessageBody>
+                    </Message>
+                  </div>
+                  <div className="flex-row">
+                    <Message emphasis="low" status="warning">
+                      <MessageIcon name="triangle-exclamation"/>
+                      <MessageBody>Warning Message</MessageBody>
+                    </Message>
+                  </div>
+                  <div className="flex-row">
+                    <Message emphasis="low" status="critical">
                       <MessageIcon name="hexagon-exclamation"/>
                       <MessageBody>Critical Message</MessageBody>
                     </Message>
@@ -1886,7 +2013,7 @@ export const Home = () => {
                   </Modal>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Colors">
+              <ComponentCard label="Roles">
                 <div className="flex-row">
                   <Modal>
                     <ModalTrigger asChild>
@@ -1905,9 +2032,9 @@ export const Home = () => {
                 <div className="flex-row">
                   <Modal>
                     <ModalTrigger asChild>
-                      <Button status="critical">Critical Modal</Button>
+                      <Button emphasis="high" status="critical">Critical Modal</Button>
                     </ModalTrigger>
-                    <ModalContent>
+                    <ModalContent role="alertdialog">
                       <ModalHeader>
                         Delete Item?
                       </ModalHeader>
@@ -2758,54 +2885,12 @@ export const Home = () => {
               <ComponentCard label="Default">
                 <Spinner/>
               </ComponentCard>
-              <ComponentCard label="Colors">
-                <div className="flex-row align-center">
-                  <Spinner/>
-                  <Spinner/>
-                </div>
-              </ComponentCard>
               <ComponentCard label="Sizes">
                 <div className="flex-row align-center">
                   <Spinner size="xs"/>
                   <Spinner size="sm"/>
                   <Spinner size="md"/>
                   <Spinner size="lg"/>
-                </div>
-              </ComponentCard>
-            </div>
-          </section>
-        )}
-
-        {/* Switch Section */}
-        {isComponentVisible('Switch') && (
-          <section className="component-section" id="switch">
-            <Text preset="heading-2" className="section-heading" onClick={() => setActiveSection('switch')}>
-              Switch
-            </Text>
-            <div className="component-grid">
-              <ComponentCard label="Default">
-                <Tabs defaultValue="option1" variant="switch">
-                  <TabList>
-                    <Tab value="option1">Option 1</Tab>
-                    <Tab value="option2">Option 2</Tab>
-                    <Tab value="option3">Option 3</Tab>
-                  </TabList>
-                </Tabs>
-              </ComponentCard>
-              <ComponentCard label="Sizes">
-                <div className="flex-column" style={{ gap: '16px' }}>
-                  <Tabs defaultValue="a" size="sm" variant="switch">
-                    <TabList>
-                      <Tab value="a">Small</Tab>
-                      <Tab value="b">Size</Tab>
-                    </TabList>
-                  </Tabs>
-                  <Tabs defaultValue="a" size="md" variant="switch">
-                    <TabList>
-                      <Tab value="a">Medium</Tab>
-                      <Tab value="b">Size</Tab>
-                    </TabList>
-                  </Tabs>
                 </div>
               </ComponentCard>
             </div>
@@ -3115,10 +3200,10 @@ export const Home = () => {
                   <Tag>Tag</Tag>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Colors">
+              <ComponentCard label="Statuses">
                 <div className="flex-row">
-                  <Tag status="accent">Primary</Tag>
-                  <Tag>Information</Tag>
+                  <Tag status="accent">Accent</Tag>
+                  <Tag status="information">Information</Tag>
                   <Tag status="neutral">Neutral</Tag>
                   <Tag status="success">Success</Tag>
                   <Tag status="warning">Warning</Tag>
@@ -3330,7 +3415,7 @@ export const Home = () => {
                   </Button>
                 </div>
               </ComponentCard>
-              <ComponentCard label="Colors">
+              <ComponentCard label="Statuses">
                 <Toaster id="colors"/>
                 <div className="flex-row">
                   <Button status="critical" onClick={() => toast.critical('Critical', {
@@ -3354,10 +3439,10 @@ export const Home = () => {
                   </Button>
                 </div>
                 <div className="flex-row">
-                  <Button onClick={() => toast.accent('Primary', {
+                  <Button onClick={() => toast.accent('Accent', {
                     toasterId: 'colors'
                   })}>
-                    Primary toast
+                    Accent toast
                   </Button>
                 </div>
                 <div className="flex-row">

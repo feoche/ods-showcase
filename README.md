@@ -1,22 +1,13 @@
 # ODS Sandbox
 
-A frontend project using Vite, TypeScript, React and npm, using all ODS React components (`@ovhcloud/ods-react` 19.7.3).
+A frontend project using Vite, TypeScript, React and npm, using all ODS React components (`@ovhcloud/ods-react` 20.0.0).
 
 ## Pages
 
 ### Home (`/`)
-Showcases all ODS React components of the pinned ODS version (currently 19.7.3).
+Showcases all ODS React components of the pinned ODS version (currently 20.0.0).
 
-### Design Tokens (`/design-tokens.html`)
-A dedicated page for testing design tokens, displaying all color combinations from each palette that meet WCAG AA contrast ratio standards (4.5:1 minimum).
-
-Each cell shows:
-- Background token name and hex value
-- Text token name and hex value
-- Contrast ratio
-- WCAG compliance badge (AAA, AA, or AA Large)
-
-This page is built as a standalone HTML file and can be accessed directly at `/design-tokens.html` in both development and production builds.
+The WCAG Design Tokens page (contrast combinations of the ODS palettes) moved to its own repository, `ods-wcag-tokens`.
 
 ## Prerequisites
 
