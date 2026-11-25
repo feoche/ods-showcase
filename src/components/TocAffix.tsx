@@ -15,20 +15,6 @@ interface TocAffixProps {
 export const TocAffix = ({ sections, onSelect }: TocAffixProps) => {
   const [activeId, setActiveId] = React.useState<string | null>(null);
   const listRef = React.useRef<HTMLDivElement>(null);
-  const [top, setTop] = React.useState(0);
-
-  // Start right under the fixed navbar, whose height varies with the theme: follow it as it changes.
-  React.useLayoutEffect(() => {
-    const navbar = document.querySelector<HTMLElement>('.navbar');
-    if (!navbar) {
-      return;
-    }
-    const update = () => setTop(navbar.getBoundingClientRect().height);
-    update();
-    const observer = new ResizeObserver(update);
-    observer.observe(navbar);
-    return () => observer.disconnect();
-  }, []);
 
   // The active section is the first one crossing the top part of the viewport, under the navbar.
   React.useEffect(() => {
@@ -78,7 +64,7 @@ export const TocAffix = ({ sections, onSelect }: TocAffixProps) => {
   }
 
   return (
-    <aside aria-label="Components" className="toc-affix" style={{ top }}>
+    <aside aria-label="Components" className="toc-affix">
       <div className="toc-affix__list" ref={listRef}>
         {sections.map((section) => {
           const id = section.toLowerCase();

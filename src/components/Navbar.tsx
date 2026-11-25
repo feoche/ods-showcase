@@ -6,6 +6,7 @@ import {
   SelectControl,
   Text,
 } from '@ovhcloud/ods-react';
+import * as React from 'react';
 import { useTheme } from '../hooks/useTheme';
 import { ThemePicker } from './ThemePicker';
 
@@ -94,8 +95,24 @@ export const Navbar = ({
   // The theme lives here, not in the pages: a switch then re-renders the navbar alone, not every demo.
   const { theme, mode, resolvedMode, setTheme, setMode } = useTheme();
 
+  // The navbar is fixed over the page and its height varies with the theme: publish it as --navbar-height,
+  // for what must clear it (the sections' scroll margin, the component list's top).
+  const navRef = React.useRef<HTMLElement>(null);
+  React.useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) {
+      return;
+    }
+    const root = document.documentElement;
+    const update = () => root.style.setProperty('--navbar-height', `${nav.getBoundingClientRect().height}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <nav className="navbar">
+    <nav className="navbar" ref={navRef}>
       <div className="navbar-content">
         {/* Title */}
         {title && (
